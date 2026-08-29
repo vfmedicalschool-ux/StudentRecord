@@ -360,6 +360,21 @@ footer{margin:22px 4px 0;font-size:11.5px;color:var(--ink3);line-height:1.6}
 .spin{display:inline-block;width:15px;height:15px;border:2px solid var(--line);
   border-top-color:var(--blue2);border-radius:99px;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
+/* 선생님 전용 미리보기 바 */
+.tpick{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  margin:12px 0 6px;padding:11px 14px;border-radius:13px;
+  background:var(--navy);color:#fff;box-shadow:0 6px 18px rgba(30,49,104,.22)}
+.tpick .tpl{font-size:10.5px;font-weight:800;letter-spacing:.08em;
+  background:rgba(255,255,255,.16);padding:4px 9px;border-radius:99px}
+.tpick button{font:inherit;font-size:12px;line-height:1;padding:7px 10px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.28);border-radius:9px;background:rgba(255,255,255,.10);color:#fff}
+.tpick button:hover{background:rgba(255,255,255,.22)}
+.tpick select{font:inherit;font-size:13.5px;font-weight:700;padding:7px 11px;min-width:120px;
+  border:1px solid rgba(255,255,255,.28);border-radius:9px;background:#fff;color:var(--navy);cursor:pointer}
+.tpick .tpn{font-size:11.5px;opacity:.82;font-variant-numeric:tabular-nums}
+.tpick .tpm{font-size:11.5px;opacity:.9;margin-left:auto}
+.tpick .tpm b{color:#fff}
+@media(max-width:640px){.tpick .tpm{margin-left:0;flex-basis:100%}}
 </style>
 </head>
 <body>
@@ -852,7 +867,7 @@ function unitcards(el, units, opt={}){
 }
 
 
-let D=null, ME=null, curStu=null, isTeacher=false;
+let D=null, ME=null, curStu=null, isTeacher=false, ALL=null;
 
 /* ══ 로그인 ══ */
 const lg=document.getElementById('login'), app=document.getElementById('app');
@@ -874,8 +889,24 @@ auth.onAuthStateChanged(async user=>{
   try{
     D = await (await fetch('data/cohort.json?v='+Date.now())).json();
     isTeacher = sameEmail(user.email, TEACHER_EMAIL);
-    const snap = await fsdb.collection('reports')
-      .where('email','==', normEmail(user.email)).limit(1).get();
+    // 1차: 이메일로 조회 (규칙이 본인 문서만 통과시킴)
+    let snap = null;
+    try{
+      snap = await fsdb.collection('reports')
+        .where('email','==', normEmail(user.email)).limit(1).get();
+    }catch(e){
+      // 2차: 쿼리가 규칙에 막히면 명단에서 이름을 찾아 문서를 직접 가져온다
+      try{
+        const rs = await fsdb.collection('config').doc('roster').get();
+        const info = rs.exists ? (rs.data().studentInfo||{}) : {};
+        const hit = Object.entries(info).find(([,v])=>
+          v && normEmail(v.email) === normEmail(user.email));
+        if(hit){
+          const d = await fsdb.collection('reports').doc(hit[0]).get();
+          snap = { empty: !d.exists, docs: d.exists ? [d] : [] };
+        }else{ snap = { empty:true, docs:[] }; }
+      }catch(e2){ throw e; }
+    }
     if(snap.empty && !isTeacher){
       lerr.innerHTML = '등록되지 않은 계정입니다.<br>'
         + '<span style="font-weight:400;color:#6E7B94">'+esc(user.email)+'</span><br>'
@@ -884,11 +915,25 @@ auth.onAuthStateChanged(async user=>{
     }
     ME = snap.empty ? null : snap.docs[0].data().report;
     curStu = snap.empty ? null : snap.docs[0].id;
+
+    /* 선생님이면 전원 리포트를 받아 학생 화면을 그대로 미리 볼 수 있게 한다.
+       규칙상 reports 전체 읽기는 선생님 계정에서만 통과한다. */
+    if(isTeacher){
+      try{
+        const all = await fsdb.collection('reports').get();
+        ALL = all.docs.map(d=>({name:d.id, rep:d.data().report}))
+                 .filter(o=>o.rep).sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+        if(ALL.length){ curStu = ALL[0].name; ME = ALL[0].rep; }
+      }catch(e){ ALL = null; }
+    }
+
     lg.style.display='none'; app.style.display='block';
-    document.getElementById('who').innerHTML =
-      `<span class="av">${esc((curStu||user.email)[0])}</span>
-       <span><b>${esc(curStu||'선생님')}</b></span>
-       <button onclick="logout()">로그아웃</button>`;
+    document.getElementById('who').innerHTML = isTeacher
+      ? `<span class="av">선</span><span><b>선생님</b></span>
+         <button onclick="logout()">로그아웃</button>`
+      : `<span class="av">${esc((curStu||user.email)[0])}</span>
+         <span><b>${esc(curStu||'')}</b></span>
+         <button onclick="logout()">로그아웃</button>`;
     bindTabs(); draw();
   }catch(e){
     lerr.textContent='데이터를 불러오지 못했습니다: '+e.message;
@@ -1007,9 +1052,37 @@ const SUBJ = [
   {label:'일반화학 타임어택 모의고사', keys:['일반화학']},
 ];
 
+/* 선생님 전용 — 학생 화면 미리보기 선택기 */
+function pickStudent(name){
+  const hit = (ALL||[]).find(o=>o.name===name);
+  if(!hit) return;
+  curStu = hit.name; ME = hit.rep;
+  drawInd(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function stepStudent(d){
+  if(!ALL||!ALL.length) return;
+  const i = ALL.findIndex(o=>o.name===curStu);
+  pickStudent(ALL[(i+d+ALL.length)%ALL.length].name);
+}
+function pickerHTML(){
+  if(!isTeacher || !ALL || !ALL.length) return '';
+  const i = ALL.findIndex(o=>o.name===curStu);
+  return `<div class="tpick">
+    <span class="tpl">선생님 미리보기</span>
+    <button onclick="stepStudent(-1)">◀</button>
+    <select id="tsel">${ALL.map(o=>
+      `<option value="${esc(o.name)}"${o.name===curStu?' selected':''}>${esc(o.name)}</option>`).join('')}</select>
+    <button onclick="stepStudent(1)">▶</button>
+    <span class="tpn">${i+1} / ${ALL.length}명</span>
+    <span class="tpm">아래는 <b>${esc(curStu)}</b> 학생이 로그인했을 때 보게 될 화면 그대로입니다.</span>
+  </div>`;
+}
+
 function drawInd(){
-  if(!ME){ $('#ind-body').innerHTML =
-    `<div class="note warn">선생님 계정으로 로그인하셨습니다. 개인 리포트는 학생 계정에서만 표시됩니다.</div>`;
+  if(!ME){ $('#ind-body').innerHTML = isTeacher
+    ? `<div class="note warn"><b>아직 올라간 개인 리포트가 없습니다.</b>
+        admin 페이지에서 <b>_업로드용_개인리포트.json</b>을 업로드하신 뒤 이 페이지를 새로고침하세요.</div>`
+    : `<div class="note warn">개인 리포트를 찾지 못했습니다. 홍쌤에게 문의해 주세요.</div>`;
     return; }
   const p=ME, s=p.summary, bl=p.baseline, dz=s['Δz'];
   const bio=p.radar, org=p.org;
@@ -1020,7 +1093,7 @@ function drawInd(){
     <div class="val">${v}</div><div class="foot">${f||''}</div></div>`;
   const MID = Math.ceil(s.전체인원/2);
 
-  $('#ind-body').innerHTML = `
+  $('#ind-body').innerHTML = pickerHTML() + `
   <div class="grid g4" style="margin:12px 0 4px">
     ${kpi('종합 등수',`${s.종합등수}<small>/${s.전체인원}</small>`,`평균 백분위 ${s.평균백분위}`)}
     ${kpi('평균 정답률',`${s.평균정답률}<small>%</small>`,`34개 중 ${s.응시}개 응시`)}
@@ -1122,6 +1195,9 @@ function drawInd(){
   <p class="lead">반 정답률 85% 이상인데 틀린 문항 ${p.easy_miss.length}개입니다.
     각 문항 옆에 <b>왜 틀렸는지</b>를 한 줄씩 적어보세요.</p>
   <div class="card pad0"><div class="scroll"><table id="i-miss"></table></div></div>`;
+
+  const tsel = document.getElementById('tsel');
+  if(tsel) tsel.onchange = e => pickStudent(e.target.value);
 
   rankguide($('#i-rankguide'), s.종합등수, s.전체인원, D.rr);
   ennprofile($('#i-ennp'), p.enneagram, D.ep);
