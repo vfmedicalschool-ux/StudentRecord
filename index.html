@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>27 VF 풀케어반 — 학습 리포트</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#EEF2F8; --card:#fff; --line:#E4E9F2; --line2:#F2F5FA; --soft:#F7FAFE;
+  --ink:#16181D; --ink2:#4E5666; --ink3:#6E7B94; --ink4:#9AA3B4;
+  --navy:#1E3168; --blue:#2B4795; --blue2:#3F63C4; --blue-bg:#EAF1FC; --blue-line:#DCE6FA;
+  --red:#C0442E; --red-d:#8E3221; --red-bg:#FDECE8; --red-line:#F3D9D2; --red-soft:#FFFBFA;
+  --amber:#8A6410; --amber-bg:#FFF2D6; --amber-line:#F0E2C4; --amber-soft:#FFFDF8;
+  --green:#0E7A5F; --green-d:#0B5544; --green-bg:#E4F3EC; --green-line:#CFE8DE;
+  --shadow:0 18px 48px rgba(30,49,104,.14);
+}
+body{word-break:keep-all;background:var(--bg);color:var(--ink);padding:26px 20px 70px;
+  font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased;font-size:14px;line-height:1.6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-variant-numeric:tabular-nums}
+.wrap{max-width:1242px;margin:0 auto}
+.tag{font-size:11.5px;font-weight:700;color:var(--ink3);margin:0 0 9px 4px}
+.shell{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 22px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:1px;font-weight:800;font-size:17px;color:var(--navy)}
+.brand span{text-transform:lowercase;color:var(--ink3)}
+.gnb{display:flex;gap:4px;margin-left:16px;flex-wrap:wrap}
+.gnb button{font:inherit;font-size:12.5px;color:var(--ink2);background:none;border:0;
+  padding:7px 13px;border-radius:9px;cursor:pointer}
+.gnb button:hover{background:var(--line2)}
+.gnb button[aria-selected=true]{background:var(--blue-bg);color:var(--navy);font-weight:700}
+.stamp{font-size:11.5px;color:var(--ink3);border:1px solid var(--line);border-radius:999px;
+  padding:5px 12px}
+.body{padding:20px 22px 26px}
+section{display:none} section.on{display:block}
+
+.tagline{font-size:10.5px;font-weight:800;color:var(--ink4);margin:22px 0 7px;letter-spacing:.02em}
+.tagline:first-child{margin-top:2px}
+h2{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 3px}
+.lead{font-size:12.5px;color:var(--ink3);margin:0 0 12px;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 14px}
+.card.pad0{padding:0;overflow:hidden}
+.card h3{font-size:13px;font-weight:800;color:var(--navy);margin:0 0 10px}
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(158px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.split{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:16px;align-items:center}
+@media(max-width:880px){.split{grid-template-columns:1fr}}
+
+.kpi{border:1px solid var(--line);border-radius:14px;padding:13px 15px;
+  background:linear-gradient(180deg,#fff,#FCFDFF)}
+.kpi .lab{font-size:11px;font-weight:700;color:var(--ink3)}
+.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.03em;margin-top:2px;color:var(--navy);
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .val small{font-size:14px;color:var(--ink4);font-weight:700}
+.kpi .foot{font-size:11px;color:var(--ink3);margin-top:1px}
+.kpi.up .val{color:var(--green)} .kpi.down .val{color:var(--red)}
+
+/* 약점 리스트 */
+.zrow{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;
+  border:1px solid var(--line2);margin-bottom:7px;background:#fff}
+.zrow.bad{border-color:var(--red-line);background:var(--red-soft)}
+.zrow.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.zrow.good{border-color:var(--green-line);background:#FAFEFC}
+.zrow .ic{width:22px;height:22px;flex:none;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:800}
+.zrow.bad .ic{background:var(--red-bg);color:var(--red-d)}
+.zrow.mid .ic{background:var(--amber-bg);color:var(--amber)}
+.zrow.good .ic{background:var(--green-bg);color:var(--green-d)}
+.zrow .tx{flex:1;min-width:0}
+.zrow .nm{font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.zrow .ef{font-size:10.5px;color:var(--ink3);margin-top:1px}
+.zrow .rt{flex:none;text-align:right;min-width:96px}
+.zrow .pc{font-size:14px;font-weight:800;color:var(--navy);
+  font-family:'IBM Plex Mono',ui-monospace,monospace}
+.zrow .bar2{width:84px;height:6px;border-radius:99px;background:#EFF2F7;overflow:hidden;margin-top:4px}
+.zrow .bar2 i{display:block;height:100%;border-radius:99px}
+.zrow.bad .bar2 i{background:var(--red)} .zrow.mid .bar2 i{background:#C9922B}
+.zrow.good .bar2 i{background:var(--green)}
+.blip{width:7px;height:7px;border-radius:99px;background:var(--red);display:inline-block;
+  margin-right:6px;vertical-align:middle}
+
+/* 위치 밴드 */
+.bandbox{padding:14px 16px;border-radius:12px;background:var(--soft);border:1px solid var(--blue-line)}
+.bandbar{position:relative;height:12px;border-radius:99px;margin:26px 0 30px;
+  background:linear-gradient(90deg,#F5D9D2 0%,#FCEBD3 35%,#DCEDE4 70%,#CFE8DE 100%)}
+.bandbar .iqr{position:absolute;top:0;height:12px;background:rgba(14,122,95,.28);border-radius:2px}
+.bandbar .med{position:absolute;top:-5px;width:2px;height:22px;background:var(--green-d);border-radius:2px}
+.bandbar .you{position:absolute;top:-9px;width:3px;height:30px;background:var(--navy);border-radius:2px}
+.bandbar .lab{position:absolute;font-size:10px;font-weight:800;white-space:nowrap}
+.bandbar .lab.you{top:-27px;color:var(--navy);background:none;width:auto;height:auto}
+.bandbar .lab.med{top:20px;color:var(--green-d);background:none;width:auto;height:auto}
+.bandends{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink3);margin-top:-22px}
+
+/* 표 */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line2);white-space:nowrap}
+th{color:var(--ink3);font-weight:700;font-size:11px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:#fff}
+th:first-child,td:first-child{text-align:left}
+td.num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--soft)}
+.pos{color:var(--green);font-weight:700} .neg{color:var(--red);font-weight:700}
+.mut{color:var(--ink4)}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:700;
+  border:1px solid var(--line);color:var(--ink2);background:#fff}
+.pill.g{color:var(--green-d);border-color:var(--green-line);background:var(--green-bg)}
+.pill.b{color:var(--red-d);border-color:var(--red-line);background:var(--red-bg)}
+.pill.w{color:var(--amber);border-color:var(--amber-line);background:var(--amber-bg)}
+.bar{height:7px;background:#EFF2F7;border-radius:99px;overflow:hidden;min-width:52px;display:inline-block;vertical-align:middle}
+.bar>i{display:block;height:100%;background:var(--blue2);border-radius:99px}
+svg{display:block;max-width:100%;height:auto}
+select{font:inherit;font-size:13.5px;font-weight:700;padding:8px 13px;border:1px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--navy);cursor:pointer}
+.note{border-left:3px solid var(--blue2);background:var(--soft);padding:12px 15px;
+  border-radius:0 11px 11px 0;margin:12px 0;font-size:12.5px;color:var(--ink2);line-height:1.55}
+.note.warn{border-left-color:#C9922B;background:var(--amber-soft)}
+.note.bad{border-left-color:var(--red);background:var(--red-soft)}
+.note b{color:var(--ink);font-weight:800}
+ul.tight{margin:7px 0 0;padding-left:17px} ul.tight li{margin:4px 0}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--ink3);flex-wrap:wrap;justify-content:center;margin-top:8px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.legend i.dot{width:8px;height:8px;border-radius:99px}
+footer{margin:22px 4px 0;font-size:11.5px;color:var(--ink3);line-height:1.6}
+
+/* 참여 히트맵 */
+.pmap{display:flex;flex-wrap:wrap;gap:5px}
+.pc2{width:52px;height:44px;border-radius:9px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1px;cursor:default;border:1px solid transparent}
+.pc2 b{font-size:10px;font-weight:700;opacity:.75;font-family:'IBM Plex Mono',monospace}
+.pc2 i{font-size:12px;font-style:normal;font-weight:800;font-family:'IBM Plex Mono',monospace}
+.pc2.g4{background:#DFF0E8;color:#0B5544;border-color:#CFE8DE}
+.pc2.g3{background:#E4EDFB;color:#1E3168;border-color:#DCE6FA}
+.pc2.g2{background:#FBF0DA;color:#8A6410;border-color:#F0E2C4}
+.pc2.g1{background:#FAE7E1;color:#8E3221;border-color:#F3D9D2}
+.pc2.x{background:#C0442E;color:#fff;border-color:#8E3221}
+.pc2:hover{outline:2px solid var(--blue2);outline-offset:1px}
+
+/* 단원 카드 인포그래픽 */
+.ucards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.ucard{border:1px solid var(--line);border-radius:13px;padding:13px 14px 11px;background:#fff}
+.ucard.bad{border-color:var(--red-line);background:var(--red-soft)}
+.ucard.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.ucard.good{border-color:var(--green-line);background:#FAFEFC}
+.ucard .uh{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.ucard .urank{width:19px;height:19px;border-radius:6px;background:var(--line2);color:var(--ink3);
+  font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.ucard.bad .urank{background:var(--red-bg);color:var(--red-d)}
+.ucard.mid .urank{background:var(--amber-bg);color:var(--amber)}
+.ucard.good .urank{background:var(--green-bg);color:var(--green-d)}
+.ucard .un{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.ucard .uv{font-size:27px;font-weight:800;color:var(--navy);letter-spacing:-.03em;
+  font-family:'IBM Plex Mono',monospace;line-height:1.15}
+.ucard .uv small{font-size:14px;color:var(--ink4)}
+.ucard .urange{position:relative;height:9px;border-radius:99px;background:#EFF2F7;margin:8px 0 6px}
+.ucard .rt2{position:absolute;top:3px;height:3px;background:var(--line);border-radius:99px}
+.ucard .rq{position:absolute;top:0;height:9px;background:rgba(63,99,196,.24);border-radius:3px}
+.ucard.bad .rq{background:rgba(192,68,46,.22)} .ucard.mid .rq{background:rgba(201,146,43,.24)}
+.ucard.good .rq{background:rgba(14,122,95,.20)}
+.ucard .rm{position:absolute;top:-3px;width:3px;height:15px;border-radius:2px;background:var(--navy)}
+.ucard .uf{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);gap:6px}
+
+/* 액션 카드 */
+.acts{display:grid;gap:10px}
+.act{border:1px solid var(--line);border-left-width:4px;border-radius:0 12px 12px 0;
+  padding:13px 16px;background:#fff}
+.act.high{border-left-color:var(--red);background:var(--red-soft)}
+.act.mid{border-left-color:#C9922B;background:var(--amber-soft)}
+.act.type{border-left-color:var(--blue2);background:var(--soft)}
+.act.good{border-left-color:var(--green);background:#FAFEFC}
+.act .ah{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.act .atag{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:99px;
+  background:var(--line2);color:var(--ink3)}
+.act.high .atag{background:var(--red-bg);color:var(--red-d)}
+.act.mid .atag{background:var(--amber-bg);color:var(--amber)}
+.act.type .atag{background:var(--blue-bg);color:var(--navy)}
+.act.good .atag{background:var(--green-bg);color:var(--green-d)}
+.act .at{font-size:14px;font-weight:800;color:var(--ink)}
+.act .ab{font-size:12.5px;color:var(--ink2);line-height:1.6}
+
+/* 가이드 */
+.steps{display:grid;gap:12px;counter-reset:st}
+.step{display:flex;gap:13px;padding:15px 17px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.step .sn{counter-increment:st;flex:none;width:27px;height:27px;border-radius:9px;background:var(--navy);
+  color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step .sn::before{content:counter(st)}
+.step h4{font-size:14px;font-weight:800;color:var(--navy);margin:2px 0 4px}
+.step p{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--line);
+  color:var(--ink2);background:var(--soft)}
+.chip.r{color:var(--red-d);border-color:var(--red-line);background:var(--red-bg)}
+.chip.a{color:var(--amber);border-color:var(--amber-line);background:var(--amber-bg)}
+.chip.g{color:var(--green-d);border-color:var(--green-line);background:var(--green-bg)}
+
+/* 필수문항 오답 */
+.mrow{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff;overflow:hidden}
+.mrow>summary{padding:11px 15px;cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap;font-size:13px}
+.mrow>summary::-webkit-details-marker{display:none}
+.mrow>summary::before{content:"▸";color:var(--ink4);font-size:11px}
+.mrow[open]>summary::before{content:"▾"}
+.mrow .ml{font-weight:800;color:var(--navy);min-width:88px}
+.mrow .md{font-size:11.5px;color:var(--ink4)}
+.mrow .mu{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;
+  background:var(--blue-bg);color:var(--navy)}
+.mrow .mc{margin-left:auto;font-size:11.5px;color:var(--ink3);font-family:'IBM Plex Mono',monospace}
+.mrow .mb{padding:0 15px 14px}
+.qgrid{display:flex;flex-wrap:wrap;gap:6px}
+.qq{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:56px;padding:6px 8px;
+  border-radius:9px;border:1px solid var(--line)}
+.qq b{font-size:12px;font-weight:800;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+.qq i{font-size:10px;font-style:normal;color:var(--ink3)}
+.qq.hot{border-color:var(--red-line);background:var(--red-bg)}
+.qq.hot b{color:var(--red-d)}
+.qq.warm{border-color:var(--amber-line);background:var(--amber-bg)}
+.qq.warm b{color:var(--amber)}
+
+/* 과목별 참여 그룹 */
+.pgrp{margin-bottom:14px}
+.pgrp:last-child{margin-bottom:0}
+.pgrp .ph{display:flex;align-items:baseline;gap:9px;margin-bottom:7px;font-size:12.5px}
+.pgrp .ph b{color:var(--navy);font-weight:800}
+.pgrp .ph .mut{font-size:11px}
+
+/* 필수문항 카드 격자 */
+.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+@media(max-width:900px){.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.mgrid{grid-template-columns:1fr}}
+.mcard{text-align:left;font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:14px;
+  padding:13px 15px 11px;background:#fff;display:flex;flex-direction:column;gap:2px;
+  transition:box-shadow .15s,transform .15s,border-color .15s}
+.mcard:hover{border-color:var(--blue2);box-shadow:0 6px 18px rgba(30,49,104,.10);transform:translateY(-1px)}
+.mcard.on{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(63,99,196,.16)}
+.mcard.bad{border-color:var(--red-line);background:var(--red-soft)}
+.mcard.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.mcard.good{border-color:var(--green-line);background:#FAFEFC}
+.mcard .mtop{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.mcard .mtop b{font-size:13px;font-weight:800;color:var(--navy)}
+.mcard .mdt{font-size:10.5px;color:var(--ink4);font-family:'IBM Plex Mono',monospace}
+.mcard .munit{font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .mnum{font-size:25px;font-weight:800;color:var(--navy);letter-spacing:-.03em;line-height:1.2;
+  font-family:'IBM Plex Mono',monospace;margin-top:3px}
+.mcard .mnum small{font-size:12px;color:var(--ink4)}
+.mcard.bad .mnum{color:var(--red-d)} .mcard.mid .mnum{color:var(--amber)}
+.mcard .msub{font-size:10.5px;color:var(--ink4)}
+.mcard .mdots{display:flex;flex-wrap:wrap;gap:3px;margin:8px 0 6px;align-items:center}
+.md2{width:9px;height:9px;border-radius:3px;background:#DDE3EC}
+.md2.w{background:#E6B44A} .md2.h{background:var(--red)}
+.mmore{font-size:9.5px;color:var(--ink4);margin-left:2px}
+.mcard .mopen{font-size:10.5px;font-weight:700;color:var(--blue2);margin-top:auto}
+.mdt2{margin-top:12px;border:1px solid var(--blue-line);border-radius:14px;padding:14px 16px;
+  background:var(--soft)}
+.mdh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13px}
+.mdh b{font-size:14px;font-weight:800;color:var(--navy)}
+.mdh .mu{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;
+  background:var(--blue-bg);color:var(--navy)}
+.mdh .mc{margin-left:auto;font-size:11.5px;color:var(--ink3);font-family:'IBM Plex Mono',monospace}
+
+/* 합격률 밴드 표 */
+.bandtab{display:grid;gap:7px}
+.btr{display:grid;grid-template-columns:120px 92px 1fr 116px;gap:10px;align-items:center;
+  padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:12.5px}
+.btr.me{border-color:var(--blue2);background:var(--blue-bg);box-shadow:0 0 0 2px rgba(63,99,196,.12)}
+.btr .bl{font-weight:800;color:var(--navy)}
+.btr .br{font-size:11px;color:var(--ink4);font-family:'IBM Plex Mono',monospace}
+.btr .bb{position:relative;height:20px;border-radius:6px;background:#EFF2F7;overflow:hidden}
+.btr .bb i{position:absolute;left:0;top:0;height:100%;background:var(--blue2);opacity:.75}
+.btr .bb u{position:absolute;top:0;height:100%;background:rgba(30,49,104,.14);border-radius:4px}
+.btr .bv{text-align:right;font-family:'IBM Plex Mono',monospace}
+.btr .bv b{font-size:15px;font-weight:800;color:var(--navy)}
+.btr .bv span{font-size:10.5px;color:var(--ink4);display:block}
+@media(max-width:700px){.btr{grid-template-columns:1fr 1fr;gap:6px}}
+
+/* 등수 안심 카드 */
+.rkcard{border:1px solid var(--blue-line);border-radius:16px;padding:18px 20px;
+  background:linear-gradient(180deg,#F7FAFE,#fff);margin-bottom:14px}
+.rkcard .rh{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:3px}
+.rkcard .rs{font-size:12.5px;color:var(--ink3);margin-bottom:14px;line-height:1.6}
+.rkme{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 15px;border-radius:12px;
+  background:var(--blue-bg);border:1px solid var(--blue-line);margin-bottom:14px}
+.rkme .big{font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-.03em;
+  font-family:'IBM Plex Mono',monospace;line-height:1.1}
+.rkme .big small{font-size:15px;color:var(--ink4)}
+.rkme .txt{flex:1;min-width:190px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.rkme .txt b{color:var(--navy);font-weight:800}
+/* 작년 등수 띠 */
+.rkstrip{margin:6px 0 4px}
+.rkstrip .sl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink4);
+  margin-bottom:5px;font-family:'IBM Plex Mono',monospace}
+.rkdots{display:flex;gap:3px;align-items:flex-end}
+.rkdot{flex:1;min-width:8px;height:26px;border-radius:4px;position:relative}
+.rkdot.p{background:#1D9E75}
+.rkdot.f{background:#E3B7AE}
+.rkdot .tp{position:absolute;inset:0}
+.rkleg{display:flex;gap:14px;font-size:11px;color:var(--ink3);margin-top:8px;flex-wrap:wrap}
+.rkleg i{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.rk3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.rk3 .b{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;text-align:center}
+.rk3 .b.on{border-color:var(--blue2);background:var(--blue-bg);box-shadow:0 0 0 2px rgba(63,99,196,.14)}
+.rk3 .b .n{font-size:11.5px;font-weight:800;color:var(--ink3)}
+.rk3 .b .v{font-size:22px;font-weight:800;color:var(--navy);font-family:'IBM Plex Mono',monospace;
+  letter-spacing:-.02em;line-height:1.25}
+.rk3 .b .s{font-size:10.5px;color:var(--ink4)}
+
+/* 유형별 합격생 프로파일 */
+.ennp{border:1px solid var(--green-line);border-radius:16px;background:linear-gradient(180deg,#FAFEFC,#fff);
+  padding:18px 20px;margin-bottom:14px}
+.ennp .eh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.ennp .ebadge{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:99px;
+  background:var(--green-bg);color:var(--green-d);border:1px solid var(--green-line)}
+.ennp .et{font-size:15px;font-weight:800;color:var(--navy)}
+.ennp .es{font-size:12px;color:var(--ink3);margin-bottom:14px}
+.ebox{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 15px;margin-bottom:9px}
+.ebox .bt{font-size:11.5px;font-weight:800;color:var(--ink3);margin-bottom:7px;letter-spacing:.02em}
+.ebox ul{margin:0;padding-left:17px}
+.ebox li{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:5px 0}
+.ebox li b{color:var(--ink);font-weight:800}
+.ebox.warn{border-color:var(--amber-line);background:var(--amber-soft)}
+.ebox.warn .bt{color:var(--amber)}
+.ebox.warn p{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:0}
+
+/* 균형·생활관리 2단 */
+.corepair{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px;margin-bottom:14px}
+.core{border:1px solid var(--line);border-radius:15px;padding:16px 18px;background:#fff}
+.core.bal{border-color:var(--blue-line);background:linear-gradient(180deg,#F7FAFE,#fff)}
+.core.life{border-color:#E8DCC8;background:linear-gradient(180deg,#FFFDF8,#fff)}
+.core .ch{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.core .cb{font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
+.core ul{margin:0;padding-left:17px}
+.core li{font-size:12.5px;color:var(--ink2);line-height:1.6;margin:6px 0}
+
+#login{min-height:82vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+#login .box{max-width:430px;width:100%;background:var(--card);border:1px solid var(--line);
+  border-radius:22px;padding:34px 30px;box-shadow:var(--shadow);text-align:center}
+#login .lg{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:5px}
+#login .sb{font-size:12.5px;color:var(--ink3);line-height:1.65;margin-bottom:22px}
+#login button{width:100%;font:inherit;font-size:14px;font-weight:700;padding:12px;
+  border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:9px}
+#login button:hover{background:var(--soft);border-color:var(--blue2)}
+#login .gi{width:18px;height:18px}
+#login .err{font-size:12.5px;color:var(--red);margin-top:12px;font-weight:700;min-height:18px}
+#login .hint{font-size:11.5px;color:var(--ink4);margin-top:16px;line-height:1.6}
+.who{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2)}
+.who .av{width:24px;height:24px;border-radius:99px;background:var(--blue-bg);color:var(--navy);
+  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.who button{font:inherit;font-size:11.5px;color:var(--ink3);background:none;border:1px solid var(--line);
+  border-radius:8px;padding:4px 10px;cursor:pointer}
+#app{display:none}
+.spin{display:inline-block;width:15px;height:15px;border:2px solid var(--line);
+  border-top-color:var(--blue2);border-radius:99px;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div id="login"><div class="box">
+  <div class="lg">27 VF 풀케어반 학습 리포트</div>
+  <div class="sb">본인 구글 계정으로 로그인하면<br><b>내 리포트만</b> 열립니다.</div>
+  <button id="gbtn">
+    <svg class="gi" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.8-6.8C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.2 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9.1h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.2 5.6c4.2-3.9 6.6-9.6 6.6-16.4z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.9-6.1C1 16.5 0 20.1 0 24s1 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.5-2 15.3-5.6l-7.2-5.6c-2 1.4-4.7 2.3-8.1 2.3-6.3 0-11.6-3.7-13.5-9.3l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+    구글 계정으로 로그인</button>
+  <div class="err" id="lerr"></div>
+  <div class="hint">등록된 학생 계정만 열람할 수 있습니다.<br>
+    로그인이 안 되면 홍쌤에게 등록된 이메일을 확인해 주세요.</div>
+</div></div>
+
+<div id="app">
+<div class="wrap">
+<div class="tag">27 VF 풀케어반 · 7–8월 학습 데이터 분석</div>
+<div class="shell">
+  <div class="top">
+    <div style="display:flex;align-items:center;flex-wrap:wrap">
+      <div class="brand">27 VF <span>풀케어반</span></div>
+      <div class="gnb" role="tablist">
+        <button role="tab" aria-selected="true" data-t="gui">보는 법</button>
+        <button role="tab" aria-selected="false" data-t="ind">내 리포트</button>
+        <button role="tab" aria-selected="false" data-t="cls">반 전체</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span class="stamp"><b>분석 시점 2026년 8월 30일</b></span>
+      <span class="who" id="who"></span>
+    </div>
+  </div>
+  <div class="body">
+  
+  <!-- 가이드 -->
+  <section id="gui" class="on">
+    <div class="tagline">START HERE</div>
+    <h2>이 리포트를 어떻게 봐야 하나요</h2>
+    <p class="lead">순서대로 5분이면 됩니다. 점수를 확인하는 게 목적이 아니라,
+      <b>9월에 무엇부터 할지</b>를 정하는 게 목적입니다.</p>
+    <div class="steps">
+      <div class="step"><span class="sn"></span><div>
+        <h4>먼저 '내 리포트'의 <b>지금 해야 할 것</b>을 읽으세요</h4>
+        <p>맨 위에 있습니다. 빨간 카드부터 보세요. 데이터에서 실제로 잡힌 것만 적혀 있고,
+          해당 없는 항목은 아예 나오지 않습니다. 빨간 것이 없으면 지금 방식이 맞다는 뜻입니다.</p>
+        <div class="chips"><span class="chip r">지금 손봐야 함</span>
+          <span class="chip a">확인 필요</span><span class="chip">유형별 주의</span>
+          <span class="chip g">잘 되고 있음</span></div></div></div>
+      <div class="step"><span class="sn"></span><div>
+        <h4>약점 레이더에서 <b>빨간 점</b>만 보세요</h4>
+        <p>6각형(생물)과 8각형(유기)에서 빨간 점은 <b>가장 약한 곳 최대 2개</b>만 찍힙니다.
+          전부 빨갛게 칠하면 무엇부터 할지 알 수 없기 때문입니다.
+          안쪽으로 들어간 축이 약한 단원이고, 오른쪽 목록이 약한 순서입니다.</p></div></div>
+      <div class="step"><span class="sn"></span><div>
+        <h4>점수 자체보다 <b>반평균과의 거리</b>를 보세요</h4>
+        <p>85%가 잘한 건지 못한 건지는 그 회차 난이도에 따라 다릅니다.
+          반평균이 86%면 85%는 평균 이하입니다. 그래서 모든 그래프에 <b>초록색 반평균 선</b>을 같이 그렸습니다.
+          내 선(파랑)이 초록 선 위에 있는지만 보면 됩니다.</p></div></div>
+      <div class="step"><span class="sn"></span><div>
+        <h4><b>놓치면 안 됐던 문항</b>을 열어 한 줄씩 이유를 적으세요</h4>
+        <p>반의 85% 이상이 맞힌 문항인데 내가 틀린 것들입니다. 대부분 실력이 아니라
+          문제를 급하게 읽었거나 답을 잘못 고른 경우입니다.
+          "왜 틀렸는지"를 한 줄로 적어보면 같은 이유가 반복되는 게 보입니다. 그게 진짜 약점입니다.</p></div></div>
+      <div class="step"><span class="sn"></span><div>
+        <h4>9월 계획을 <b>숫자로</b> 바꾸세요</h4>
+        <p>"유기 열심히"가 아니라 "매일 아침 8–10시 유기, 스미스 예제 15문항"처럼 적으세요.
+          작년 합격생과 불합격생을 가른 가장 뚜렷한 차이가 이것이었습니다.
+          9월은 중앙대·경희대 기출 12회차, 전범위 5지선다 본고사 형식으로 진행됩니다.</p></div></div>
+    </div>
+
+    <div class="tagline">WHAT THIS IS NOT</div>
+    <h2>이 리포트가 말해주지 않는 것</h2>
+    <div class="note warn"><b>합격 확률이 아닙니다.</b>
+      작년 풀케어반 30명의 실제 결과로 검증해보니, OX Test 성적으로는 합격/불합격을 가를 수 없었습니다.
+      성적 상위 3명이 전원 불합격했고, 7개 대학에 합격한 학생의 평균 성적은 반에서 하위권이었습니다.
+      <b>등수와 합격의 상관계수는 정확히 0.000이었습니다.</b><br><br>
+      이유는 단순합니다. 이 시험들은 <b>생물 한 과목</b>의, 그것도 7–8월 기본기 점검용입니다.
+      합격은 생물·일반화학·유기 세 과목과 9월 이후의 실전 문제풀이에서 갈립니다.
+      그러니 등수에 일희일비하지 말고 <b>약점 탐지기</b>로만 쓰세요.
+      홍쌤이 주간 피드백에서 계속 하시던 말씀이기도 합니다 —
+      "OX 테스트에서 순위권에 드는 게 중요한 것이 아닙니다. 나의 약점과 부족한 점을 발견 → 보완하기."</div>
+  </section>
+
+  <!-- 내 리포트 -->
+  <section id="ind"><div id="ind-body"><div style="padding:40px;text-align:center;color:#6E7B94">
+    <span class="spin"></span> 리포트를 불러오는 중…</div></div></section>
+
+  <!-- 반 전체 -->
+  <section id="cls">
+    <div class="tagline">SUMMARY</div>
+    <h2>반 전체는 어디쯤 와 있나</h2>
+    <div id="c-concl"></div>
+
+    <div class="tagline">COHORT</div>
+    <h2>올해 vs 작년 합격생, 회차별 정답률</h2>
+    <p class="lead">양 연도 정답키가 일치하는 840개 문항만 비교했습니다. 유기는 문항 구성이 달라 제외했습니다.</p>
+    <div class="card"><div id="c-cohort"></div>
+      <div class="legend">
+        <span><i style="background:#2B4795"></i>올해 (27 풀케어반)</span>
+        <span><i style="background:#0E7A5F"></i>작년 합격생</span>
+        <span><i style="background:#C0442E"></i>작년 불합격생</span>
+      </div></div>
+    <div id="c-cohort-note"></div>
+
+    <div class="tagline">RANK</div>
+    <h2>등수가 합격을 말해주나 — 작년 실제 결과</h2>
+    <p class="lead">작년 풀케어반 30명을 종합 등수로 5구간으로 나눠, 구간마다 실제로 몇 명이 합격했는지 셌습니다.</p>
+    <div id="c-rank"></div>
+
+    <div class="tagline">생물</div>
+    <h2>단원별 반평균 — 생물 6단원</h2>
+    <p class="lead">약한 순. 굵은 세로선이 반평균, 진한 구간이 반의 중간 50%입니다.</p>
+    <div id="c-bio"></div>
+    <div id="c-bio-note"></div>
+
+    <div class="tagline">유기화학</div>
+    <h2>단원별 반평균 — 유기 8단원</h2>
+    <p class="lead">주차별 진도 단원이라 단원당 1회 시험입니다.</p>
+    <div id="c-org"></div>
+    <div id="c-org-note"></div>
+
+    <div class="tagline">MUST-GET</div>
+    <h2>회차별 필수 문항 오답 현황</h2>
+    <p class="lead">반 정답률 <b>70% 이상</b>인 문항 중 틀린 사람이 있는 것만 모았습니다.
+      이런 문항을 틀리면 등수가 아니라 합격이 걸립니다. 카드를 눌러 문항 번호를 확인하세요.</p>
+    <div id="c-must"></div>
+    <div id="c-must-note"></div>
+  </section>
+
+  </div>
+</div>
+<footer>
+  원본 · 26 컨설팅 폴더 결과통계 66개 파일 · 등록 TEST 39명<br>
+  등록 TEST 범위 — 생물·일반화학 전범위 / 유기 앞 2단원(구조와 결합, 산과 염기)
+</footer>
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD047j9N7bHCJaRLcotssVa5Fd8Xy6Tb5I",
+  authDomain: "vf-wsf.firebaseapp.com",
+  projectId: "vf-wsf",
+  storageBucket: "vf-wsf.firebasestorage.app",
+  messagingSenderId: "214051145847",
+  appId: "1:214051145847:web:95f48d4a75e468269f9e72"
+};
+firebase.initializeApp(firebaseConfig);
+const fsdb = firebase.firestore();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+const TEACHER_EMAIL = 'vfmedicalschool@gmail.com';
+const normEmail = e => String(e||'').trim().toLowerCase();
+const sameEmail = (a,b) => normEmail(a)!=='' && normEmail(a)===normEmail(b);
+function isWebView(){
+  const u=navigator.userAgent||'';
+  return /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line\//i.test(u);
+}
+function guardLogin(){
+  if(location.protocol==='file:'){
+    alert('로컬 파일에서는 구글 로그인을 쓸 수 없습니다.\n\nGitHub Pages 주소로 접속해 주세요.');
+    return false;
+  }
+  if(isWebView()){
+    alert('카카오톡·인스타 등 앱 안의 브라우저에서는 구글 로그인이 막혀 있습니다.\n\n'
+      + '우측 상단 메뉴에서 "다른 브라우저로 열기"를 눌러 Chrome·Safari로 열어 주세요.');
+    return false;
+  }
+  return true;
+}
+
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nz = v => (v===null||v===undefined||Number.isNaN(v)) ? '—' : v;
+const sgn = v => v>0?'pos':v<0?'neg':'mut';
+const C = {navy:'#1E3168', blue:'#2B4795', blue2:'#3F63C4', red:'#C0442E', amber:'#C9922B',
+           green:'#0E7A5F', teal:'#1D9E75', line:'#E4E9F2', line2:'#F2F5FA',
+           ink3:'#6E7B94', ink4:'#9AA3B4', soft:'#F7FAFE'};
+const grade = z => z==null ? 'good' : (z<=-0.7 ? 'bad' : (z<0 ? 'mid' : 'good'));
+const gicon = g => g==='bad'?'!':(g==='mid'?'△':'✓');
+
+function table(el, cols, rows){
+  el.innerHTML = `<thead><tr>${cols.map(c=>`<th>${esc(c.h)}</th>`).join('')}</tr></thead>
+   <tbody>${rows.map(r=>'<tr>'+cols.map(c=>
+     `<td class="${c.n?'num':''} ${c.c?c.c(r):''}">${c.f?c.f(r):nz(r[c.k])}</td>`).join('')+'</tr>').join('')}</tbody>`;
+}
+
+/* ── 라인/영역 차트 ── */
+function lines(el, rows, series, opt={}){
+  const W=1080, H=opt.h||280, P={t:14,r:16,b:opt.b||54,l:44};
+  const all = series.flatMap(s=>rows.map(r=>r[s.k])).filter(v=>v!=null);
+  if(!all.length){ el.innerHTML=''; return; }
+  const lo = opt.lo ?? Math.max(0, Math.floor(Math.min(...all)/10)*10-5);
+  const hi = opt.hi ?? Math.min(100, Math.ceil(Math.max(...all)/10)*10+5);
+  const X = i => P.l + i*(W-P.l-P.r)/Math.max(1,rows.length-1);
+  const Y = v => P.t + (hi-v)*(H-P.t-P.b)/(hi-lo||1);
+  let g='';
+  for(let v=Math.ceil(lo/10)*10; v<=hi; v+=10){
+    g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${C.line2}"/>
+        <text x="${P.l-8}" y="${Y(v)+4}" fill="${C.ink4}" font-size="10.5" text-anchor="end"
+        font-family="IBM Plex Mono,monospace">${v}</text>`;
+  }
+  (opt.spans||[]).forEach(s=>{
+    const half=((W-P.l-P.r)/Math.max(1,rows.length-1))/2;
+    g+=`<rect x="${X(s.from)-half}" y="${P.t}" width="${X(s.to)-X(s.from)+half*2}"
+        height="${H-P.t-P.b}" fill="${s.c}" opacity=".6"/>
+        <text x="${(X(s.from)+X(s.to))/2}" y="${P.t+13}" fill="${C.ink4}" font-size="10"
+        font-weight="700" text-anchor="middle">${esc(s.label)}</text>`;
+  });
+  /* 기준선 (평균 등수 등) */
+  (opt.rules||[]).forEach(r=>{
+    g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(r.v)}" y2="${Y(r.v)}" stroke="${r.c||C.amber}"
+        stroke-width="1.6" stroke-dasharray="6 4"/>
+        <text x="${W-P.r-4}" y="${Y(r.v)-6}" fill="${r.c||C.amber}" font-size="10.5"
+        font-weight="800" text-anchor="end">${esc(r.label)}</text>`;
+  });
+  rows.forEach((r,i)=>{
+    if(rows.length>18 && i%2) return;
+    g+=`<text x="${X(i)}" y="${H-P.b+15}" fill="${C.ink4}" font-size="9.5"
+         text-anchor="end" transform="rotate(-44 ${X(i)} ${H-P.b+15})">${esc(r[opt.xk||'label'])}</text>`;
+  });
+  series.forEach(s=>{
+    const pts = rows.map((r,i)=>r[s.k]==null?null:[X(i),Y(r[s.k])]).filter(Boolean);
+    if(!pts.length) return;
+    if(s.area) g+=`<polygon points="${X(0)},${Y(lo)} ${pts.map(p=>p.join(',')).join(' ')} ${X(rows.length-1)},${Y(lo)}"
+       fill="${s.c}" opacity=".08"/>`;
+    g+=`<polyline fill="none" stroke="${s.c}" stroke-width="${s.w||2.2}" stroke-linejoin="round"
+        stroke-linecap="round" points="${pts.map(p=>p.join(',')).join(' ')}"/>`;
+    if(s.dot!==false) pts.forEach(p=>g+=`<circle cx="${p[0]}" cy="${p[1]}" r="${s.w>2?3.2:2.6}"
+        fill="#fff" stroke="${s.c}" stroke-width="1.8"/>`);
+  });
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+}
+
+/* ── 레이더 ── */
+function radar(el, rows, series, opt={}){
+  const S=opt.size||380, C0=S/2, R=S/2-(opt.pad||62), N=rows.length;
+  const ang=i=>-Math.PI/2 + i*2*Math.PI/N;
+  const lo=opt.lo??40, hi=100;
+  const rad=v=>R*Math.max(0,Math.min(1,(v-lo)/(hi-lo)));
+  const pt=(i,v)=>[C0+rad(v)*Math.cos(ang(i)), C0+rad(v)*Math.sin(ang(i))];
+  let g='';
+  for(let k=1;k<=3;k++){
+    const v=lo+(hi-lo)*k/3;
+    g+=`<polygon points="${rows.map((_,i)=>pt(i,v).join(',')).join(' ')}" fill="${k===3?C.soft:'none'}"
+        fill-opacity=".7" stroke="${C.line}"/>`;
+    g+=`<text x="${C0+4}" y="${C0-rad(v)-3}" fill="${C.ink4}" font-size="9.5"
+        font-family="IBM Plex Mono,monospace">${Math.round(v)}</text>`;
+  }
+  rows.forEach((_,i)=>{const[x,y]=pt(i,hi);
+    g+=`<line x1="${C0}" y1="${C0}" x2="${x}" y2="${y}" stroke="${C.line}"/>`;});
+  series.forEach(s=>{
+    if(rows.every(r=>r[s.k]==null)) return;
+    g+=`<polygon points="${rows.map((r,i)=>pt(i, r[s.k]==null?lo:r[s.k]).join(',')).join(' ')}"
+        fill="${s.c}" fill-opacity="${s.f??.13}" stroke="${s.c}" stroke-width="${s.w||2}"
+        stroke-linejoin="round"/>`;
+  });
+  /* 빨간 점은 '지금 가장 약한 곳' 신호 — 최대 2개만 */
+  const ranked = rows.map((r,i)=>({i, z:r.z})).filter(o=>o.z!=null).sort((a,b)=>a.z-b.z);
+  const RED = new Set(ranked.filter(o=>o.z<0).slice(0,2).map(o=>o.i));
+  rows.forEach((r,i)=>{
+    if(r[opt.vk]==null) return;
+    const [x,y]=pt(i,r[opt.vk]);
+    const isRed=RED.has(i), gr=grade(r.z);
+    const col = isRed ? C.red : (gr==='good' ? C.blue : C.amber);
+    g+=`<circle cx="${x}" cy="${y}" r="${isRed?5.4:4}" fill="${col}" stroke="#fff" stroke-width="1.8"/>`;
+    if(isRed) g+=`<circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${C.red}" stroke-width="1.4" opacity=".45"/>`;
+  });
+  rows.forEach((r,i)=>{
+    const [x,y]=pt(i,hi+(hi-lo)*0.16);
+    const a=ang(i), anc=Math.abs(Math.cos(a))<0.32?'middle':(Math.cos(a)>0?'start':'end');
+    const parts=String(r[opt.lk]).split('·');
+    const isRed=RED.has(i);
+    parts.forEach((t,j)=>{
+      g+=`<text x="${x}" y="${y+j*11.5+(Math.sin(a)>0.3?5:0)}" font-size="10.5"
+          font-weight="${isRed?800:600}" fill="${isRed?C.red:C.ink3}" text-anchor="${anc}">${esc(t)}</text>`;
+    });
+    if(r[opt.vk]!=null){
+      const [px,py]=pt(i,r[opt.vk]);
+      g+=`<text x="${px+(Math.cos(a)>0?9:-9)}" y="${py-7}" font-size="10.5" font-weight="800"
+          font-family="IBM Plex Mono,monospace" fill="${isRed?C.red:C.navy}"
+          text-anchor="${Math.cos(a)>0?'start':'end'}">${r[opt.vk]}</text>`;
+    }
+  });
+  el.innerHTML=`<svg viewBox="0 0 ${S} ${S}" style="max-width:${S}px;margin:0 auto" role="img">${g}</svg>`;
+}
+
+/* ── 약점 리스트 ── */
+function zlist(el, rows, opt={}){
+  el.innerHTML = rows.map(r=>{
+    const g=grade(r.z), d=r.z==null?null:(r.pct-r.반평균);
+    return `<div class="zrow ${g}">
+      <span class="ic">${gicon(g)}</span>
+      <span class="tx"><div class="nm">${esc(r[opt.lk])}</div>
+        <div class="ef">반평균 ${r.반평균==null?'—':r.반평균.toFixed(1)+'%'}
+          ${d==null?'':`· 반 대비 <b class="${sgn(d)}">${d>0?'+':''}${d.toFixed(1)}p</b>`}
+          ${r.시험수?` · ${r.시험수}회 ${r.문항수}문항`:(r.문항수?` · ${r.문항수}문항`:'')}</div></span>
+      <span class="rt"><div class="pc">${r.pct==null?'—':r.pct+'%'}</div>
+        <div class="bar2"><i style="width:${Math.max(2,Math.min(100,r.pct||0))}%"></i></div></span>
+    </div>`;
+  }).join('');
+}
+
+/* ── 참여 히트맵 (과목별 분리) ── */
+function partmapGrouped(el, rows, groups){
+  el.innerHTML = groups.map(g=>{
+    const sub = rows.filter(r=>g.keys.includes(r.series));
+    if(!sub.length) return '';
+    const done = sub.filter(r=>r.응시).length;
+    return `<div class="pgrp">
+      <div class="ph"><b>${esc(g.label)}</b>
+        <span class="mut">${done}/${sub.length}회 응시</span></div>
+      ${cells(sub)}</div>`;
+  }).join('');
+}
+function cells(rows){
+  return `<div class="pmap">${rows.map(r=>{
+    const cls = !r.응시 ? 'x' : (r.pctile>=75?'g4':r.pctile>=50?'g3':r.pctile>=25?'g2':'g1');
+    const tip = `${r.label}${r.date?` (${r.date})`:''}\n${r.scope||r.unit||''}\n`
+              + (r.응시 ? `내 점수 ${r.pct}% · ${r.rank}/${r.n_stu}위 (상위 ${Math.round(100-r.pctile)}%)`
+                        : '미응시');
+    return `<span class="pc2 ${cls}" title="${esc(tip)}"><b>${r.session}</b>
+      <i>${r.응시? Math.round(r.pct)+'%' : '✕'}</i></span>`;
+  }).join('')}</div>`;
+}
+function partmap(el, rows){ el.innerHTML = cells(rows); }
+
+/* ── 등수 안심 카드 ── */
+function rankguide(el, myRank, total, RR){
+  const seq=RR.등수순_합격여부, N=seq.length;
+  const myPct = 100*(myRank-0.5)/total;
+  const third = myPct<33.4 ? 0 : (myPct<66.7 ? 1 : 2);
+  const T = RR.삼분할[third];
+  const eq = Math.round((myPct/100)*N + 0.5);   // 작년 30명 기준 환산 등수
+  el.innerHTML = `
+  <div class="rkcard">
+    <div class="rh">내 등수를 어떻게 봐야 하나요</div>
+    <div class="rs">등수가 낮으면 불안해지는 게 당연합니다. 그래서 작년 실제 결과를 그대로 보여드립니다.</div>
+
+    <div class="rkme">
+      <div><div class="big">${myRank}<small>/${total}</small></div>
+        <div style="font-size:10.5px;color:#6E7B94;text-align:center">내 종합 등수</div></div>
+      <div class="txt">40명 중 ${myRank}등이면 <b>${esc(T.구간)}</b>(${esc(T.범위40)})입니다.
+        작년 같은 구간 학생 ${T.인원}명 중 <b>${T.합격}명이 합격</b>했습니다(${T.률}%).
+        전체 합격률은 ${Math.round(100*RR.합격수/RR.전체)}%였으니 <b>거의 차이가 없습니다.</b></div>
+    </div>
+
+    <div class="rkstrip">
+      <div class="sl"><span>작년 1등</span><span>작년 ${N}등</span></div>
+      <div class="rkdots">${seq.map((p,i)=>`<span class="rkdot ${p?'p':'f'}"
+        title="작년 ${i+1}등 — ${p?'합격':'불합격'}"></span>`).join('')}</div>
+      <div class="rkleg">
+        <span><i style="background:#1D9E75"></i>합격 ${RR.합격수}명</span>
+        <span><i style="background:#E3B7AE"></i>불합격 ${RR.전체-RR.합격수}명</span>
+        <span class="mut">칸 하나가 작년 학생 한 명입니다 (왼쪽이 1등)</span></div>
+    </div>
+
+    <div class="rk3">${RR.삼분할.map((b,i)=>`
+      <div class="b ${i===third?'on':''}">
+        <div class="n">${esc(b.구간)}</div>
+        <div class="v">${b.률}<small style="font-size:13px">%</small></div>
+        <div class="s">${b.합격}/${b.인원}명 · ${esc(b.범위40)}</div></div>`).join('')}</div>
+
+    <div class="note" style="margin-bottom:0"><b>작년 합격생 ${RR.합격수}명의 등수는
+      ${RR.합격생최고등수}등부터 ${RR.합격생최저등수}등까지 흩어져 있었습니다.</b>
+      40명으로 환산하면 <b>${RR.합격생최고40}등에서 ${RR.합격생최저40}등까지</b>입니다.
+      합격생 등수의 한가운데 값이 ${RR.합격생중앙등수}등, 즉 <b>딱 중위권</b>이었습니다.
+      반대로 <b>1·2·3등은 셋 다 불합격</b>했습니다.<br><br>
+      홍쌤이 작년에 "중위권만 유지해도 합격할 수 있다"고 하신 말씀은 느낌이 아니라
+      <b>실제로 일어난 일</b>입니다. 등수와 합격의 상관계수는 0.000으로, 통계적으로 완전한 무상관입니다.<br><br>
+      다만 오해는 마세요. <b>중위권이면 붙는다는 뜻이 아닙니다.</b> 세 구간 모두에서 떨어진 사람도 나왔습니다.
+      정확한 뜻은 이겁니다 — <b>등수는 합격을 결정하는 변수가 아니다.</b><br><br>
+      그럼 무엇이 결정했을까요. 작년 데이터가 가리키는 것은 <b>딱 두 가지</b>입니다.<br>
+      <b>① 세 과목의 균형.</b> 이 OX는 <b>생물 한 과목</b>만 잽니다.
+      실제로 작년 합격생과 불합격생의 생물 성적은 거의 같았고, 갈린 곳은 <b>유기</b>였습니다.
+      합격생은 예외 없이 유기를 하루 중 고정된 시간대에 못박았고,
+      떨어진 학생들의 기록에는 "이번 주는 화학 시험이라 유기를 미뤘다"가 반복됩니다.
+      선생님이 말씀하신 <b>생물 : 일반화학 : 유기 = 4 : 4 : 2~3</b>이 그래서 중요합니다.<br>
+      <b>② 생활관리.</b> 불합격생 기록에서 가장 흔한 패턴이
+      <b>취침 지연 → 다음날 늦게 시작 → 다시 늦게 자는 악순환</b>이었습니다.
+      한 학생은 수면이 8주에 걸쳐 7시간에서 5시간까지 줄었습니다.
+      반대로 합격생들은 흔들릴 때마다 정해둔 생활 루틴으로 돌아와 회복했습니다.
+      생활관리는 공부의 부속품이 아니라 <b>성적이 나오기 위한 조건</b>이었습니다.<br><br>
+      그러니 등수를 올리려 애쓰는 대신, 바로 아래 <b>세 과목 균형·생활관리</b>와
+      <b>내 유형 합격생이 실제로 한 것</b>을 보고, 그다음 <b>'지금 해야 할 것'</b>을 실행하세요.</div>
+  </div>`;
+}
+
+/* ── 유형별 합격생 프로파일 ── */
+function ennprofile(el, enn, EP){
+  const t=(enn||'?')[0], P=EP.types[t], K=EP.common;
+  el.innerHTML = `
+  <div class="corepair">
+    <div class="core bal"><div class="ch">${esc(K.balance.head)}</div>
+      <div class="cb">${K.balance.body}</div>
+      <ul>${K.balance.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+    <div class="core life"><div class="ch">${esc(K.life.head)}</div>
+      <div class="cb">${K.life.body}</div>
+      <ul>${K.life.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+  </div>
+  ${P?`<div class="ennp">
+    <div class="eh"><span class="ebadge">${esc(enn)} 유형</span>
+      <span class="et">${esc(P.head)}</span></div>
+    <div class="es">작년 풀케어반에 ${esc(enn)[0]}번 유형은 ${P.n}명이었고 ${P.pass_n}명이 합격했습니다.
+      아래는 그 학생들이 주간 셀프피드백에 실제로 남긴 기록입니다.</div>
+    <div class="ebox"><div class="bt">과목 — 이렇게 했습니다</div>
+      <ul>${P.subj.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="ebox"><div class="bt">생활관리 — 이렇게 했습니다</div>
+      <ul>${P.life.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="ebox warn"><div class="bt">${esc(enn)[0]}번 유형이 특히 조심할 것</div>
+      <p>${P.warn}</p></div>
+  </div>`:''}`;
+}
+
+/* ── 합격생 분포 속 위치 ── */
+function bandbar(el, b, band){
+  if(!b){ el.innerHTML=''; return; }
+  const lo=Math.min(band.작년합격생_최저,b.내점수)-4, hi=Math.max(band.작년합격생_최고,b.내점수)+4;
+  const P=v=>100*(v-lo)/(hi-lo);
+  el.innerHTML=`
+   <div class="bandbar">
+     <span class="iqr" style="left:${P(band.작년합격생_Q1)}%;width:${P(band.작년합격생_Q3)-P(band.작년합격생_Q1)}%"></span>
+     <span class="med" style="left:${P(band.작년합격생_중앙)}%"></span>
+     <span class="lab med" style="left:${P(band.작년합격생_중앙)}%;transform:translateX(-50%)">합격생 중앙 ${band.작년합격생_중앙}%</span>
+     <span class="you" style="left:${P(b.내점수)}%"></span>
+     <span class="lab you" style="left:${P(b.내점수)}%;transform:translateX(-50%)">나 ${b.내점수}%</span>
+   </div>
+   <div class="bandends"><span>${band.작년합격생_최저}%</span><span>${band.작년합격생_최고}%</span></div>`;
+}
+
+/* ── 회차별 필수문항 카드 (3열 격자 + 클릭 상세) ── */
+function mustcards(el, rows){
+  el.innerHTML = `<div class="mgrid">${rows.map((m,i)=>{
+    const hot=m.문항.filter(q=>q.틀린인원>=8).length;
+    const warm=m.문항.filter(q=>q.틀린인원>=4&&q.틀린인원<8).length;
+    const lvl = hot>=3?'bad':(hot>=1||warm>=4)?'mid':'good';
+    return `<button class="mcard ${lvl}" data-i="${i}">
+      <div class="mtop"><b>${esc(m.label)}</b><span class="mdt">${esc(m.date||'')}</span></div>
+      ${m.unit?`<div class="munit">${esc(m.unit)}</div>`:'<div class="munit">&nbsp;</div>'}
+      <div class="mnum">${m.누적오답}<small>건</small></div>
+      <div class="msub">필수 ${m.필수문항수}/${m.전체문항수}문항 · 누적 오답</div>
+      <div class="mdots">${m.문항.slice(0,12).map(q=>{
+        const c=q.틀린인원>=8?'h':q.틀린인원>=4?'w':'';
+        return `<span class="md2 ${c}"></span>`;}).join('')}${
+        m.문항.length>12?`<span class="mmore">+${m.문항.length-12}</span>`:''}</div>
+      <div class="mopen">자세히 보기 →</div>
+    </button>`;
+  }).join('')}</div><div id="mdetail"></div>`;
+  el.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>{
+    const m=rows[+b.dataset.i];
+    el.querySelectorAll('.mcard').forEach(x=>x.classList.toggle('on',x===b));
+    const d=document.getElementById('mdetail');
+    d.innerHTML=`<div class="mdt2">
+      <div class="mdh"><b>${esc(m.label)}</b> <span class="mut">${esc(m.date||'')}</span>
+        ${m.unit?`<span class="mu">${esc(m.unit)}</span>`:''}
+        <span class="mc">필수 ${m.필수문항수}/${m.전체문항수}문항 · 누적 오답 ${m.누적오답}건</span></div>
+      <div class="lead" style="margin:6px 0 10px">${esc(m.scope||'')}</div>
+      <div class="qgrid">${m.문항.map(q=>{
+        const cls=q.틀린인원>=8?'hot':q.틀린인원>=4?'warm':'';
+        return `<span class="qq ${cls}" title="반 정답률 ${q.정답률}% · ${q.응시}명 중 ${q.틀린인원}명 오답">
+          <b>${q.qno}번</b><i>${q.틀린인원}명</i></span>`;}).join('')}</div></div>`;
+    d.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+}
+
+/* ── 단원 인포그래픽 (막대 대신 카드 격자) ── */
+function unitcards(el, units, opt={}){
+  el.innerHTML = `<div class="ucards">${units.map((u,i)=>{
+    const lvl = u.반평균<70?'bad':u.반평균<80?'mid':'good';
+    const spread = u.최고-u.최저;
+    return `<div class="ucard ${lvl}">
+      <div class="uh"><span class="urank">${i+1}</span><span class="un">${esc(u.unit)}</span></div>
+      <div class="uv">${u.반평균.toFixed(1)}<small>%</small></div>
+      <div class="urange">
+        <span class="rt2" style="left:${u.최저}%;width:${Math.max(2,spread)}%"></span>
+        <span class="rq" style="left:${u.하위25}%;width:${Math.max(2,u.상위25-u.하위25)}%"></span>
+        <span class="rm" style="left:${u.반평균}%"></span>
+      </div>
+      <div class="uf"><span>최저 ${u.최저.toFixed(0)}%</span>
+        <span class="mut">${u.시험수?u.시험수+'회 ':''}${u.문항수}문항</span>
+        <span>최고 ${u.최고.toFixed(0)}%</span></div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+
+let D=null, ME=null, curStu=null, isTeacher=false;
+
+/* ══ 로그인 ══ */
+const lg=document.getElementById('login'), app=document.getElementById('app');
+const lerr=document.getElementById('lerr');
+document.getElementById('gbtn').onclick=()=>{
+  if(!guardLogin()) return;
+  lerr.textContent='';
+  auth.signInWithPopup(provider).catch(e=>{
+    lerr.textContent = e.code==='auth/popup-blocked'
+      ? '팝업이 차단됐습니다. 주소창의 팝업 허용을 켜주세요.'
+      : '로그인 실패: '+e.message;
+  });
+};
+function logout(){ auth.signOut().then(()=>location.reload()); }
+
+auth.onAuthStateChanged(async user=>{
+  if(!user){ lg.style.display='flex'; app.style.display='none'; return; }
+  lerr.textContent='';
+  try{
+    D = await (await fetch('data/cohort.json?v='+Date.now())).json();
+    isTeacher = sameEmail(user.email, TEACHER_EMAIL);
+    const snap = await fsdb.collection('reports')
+      .where('email','==', normEmail(user.email)).limit(1).get();
+    if(snap.empty && !isTeacher){
+      lerr.innerHTML = '등록되지 않은 계정입니다.<br>'
+        + '<span style="font-weight:400;color:#6E7B94">'+esc(user.email)+'</span><br>'
+        + '홍쌤에게 등록된 이메일을 확인해 주세요.';
+      await auth.signOut(); lg.style.display='flex'; app.style.display='none'; return;
+    }
+    ME = snap.empty ? null : snap.docs[0].data().report;
+    curStu = snap.empty ? null : snap.docs[0].id;
+    lg.style.display='none'; app.style.display='block';
+    document.getElementById('who').innerHTML =
+      `<span class="av">${esc((curStu||user.email)[0])}</span>
+       <span><b>${esc(curStu||'선생님')}</b></span>
+       <button onclick="logout()">로그아웃</button>`;
+    bindTabs(); draw();
+  }catch(e){
+    lerr.textContent='데이터를 불러오지 못했습니다: '+e.message;
+    lg.style.display='flex'; app.style.display='none';
+  }
+});
+
+function bindTabs(){
+  document.querySelectorAll('.gnb button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('.gnb button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.t));
+    draw(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+function draw(){
+  if(document.getElementById('cls').classList.contains('on')) drawClass();
+  if(document.getElementById('ind').classList.contains('on')) drawInd();
+}
+
+/* ══ 반 전체 ══ */
+function drawClass(){
+  const k=D.concl, R=D.rankband;
+  $('#c-concl').innerHTML = `
+   <div class="grid g4" style="margin-bottom:12px">
+     <div class="kpi"><div class="lab">작년 합격생 대비</div>
+       <div class="val">${k.평균격차>0?'+':''}${k.평균격차}<small>p</small></div>
+       <div class="foot">23개 회차 평균 격차</div></div>
+     <div class="kpi"><div class="lab">앞선 회차</div>
+       <div class="val">${k.올해우세}<small>/${k.회차수}</small></div>
+       <div class="foot">작년 합격생보다 높았던 회차</div></div>
+     <div class="kpi down"><div class="lab">가장 약한 생물 단원</div>
+       <div class="val" style="font-size:17px;padding-top:6px">${esc(k.최약생물)}</div>
+       <div class="foot">반평균 ${k.최약생물pct}%</div></div>
+     <div class="kpi down"><div class="lab">가장 약한 유기 단원</div>
+       <div class="val" style="font-size:17px;padding-top:6px">${esc(k.최약유기)}</div>
+       <div class="foot">반평균 ${k.최약유기pct}%</div></div>
+   </div>
+   <div class="note"><b>한 줄 요약 — 우리 반은 작년 합격생과 거의 같은 위치입니다.</b>
+     23개 회차 평균 격차가 ${k.평균격차}p로, 앞선 회차 ${k.올해우세}개 / 뒤진 회차 ${k.작년우세}개입니다.
+     즉 <b>지금 성적은 합격에 필요한 수준에 이미 도달해 있습니다.</b>
+     그래서 여기서 더 올려야 할 것은 평균 점수가 아니라 <b>과목 간 균형과 약한 단원</b>입니다.
+     작년에 떨어진 학생들도 생물 성적은 합격생과 같았습니다 — 갈린 곳은 유기와 일반화학이었습니다.</div>`;
+
+  lines($('#c-cohort'), D.cohort, [
+    {k:'올해', c:C.blue, w:2.8, area:true},
+    {k:'작년합격생', c:C.green, w:2.2},
+    {k:'작년불합격생', c:C.red, w:1.8, dot:false},
+  ], {h:300});
+
+  $('#c-cohort-note').innerHTML = `<div class="note"><b>이 그래프에서 볼 것.</b>
+    초록(작년 합격생)과 빨강(작년 불합격생) 두 선이 거의 겹쳐 있습니다.
+    <b>합격한 사람과 떨어진 사람의 생물 OX 성적이 같았다는 뜻</b>입니다.
+    그러니 파란 선(우리 반)이 초록 선 위에 있는지에 너무 매달리지 마세요.
+    더 중요한 건 <b>파란 선이 유난히 내려앉은 회차</b>입니다. 그 회차 단원이 우리 반 공통 약점입니다.</div>`;
+
+  const myPct = ME ? (100*(ME.summary.종합등수-0.5)/ME.summary.전체인원) : null;
+  $('#c-rank').innerHTML = `
+    <div class="card"><div class="bandtab">${R.bands.map(b=>{
+      const mine = myPct!=null && myPct>=b.lo && myPct<b.hi;
+      return `<div class="btr ${mine?'me':''}">
+        <div><div class="bl">${esc(b.band)}</div>
+          <div class="br">40명 기준 ${esc(b.등수범위_40명)}</div></div>
+        <div class="br">${b.k}/${b.n}명 합격</div>
+        <div class="bb"><u style="left:${b.ci_lo}%;width:${Math.max(1,b.ci_hi-b.ci_lo)}%"></u>
+          <i style="width:${b.rate}%"></i></div>
+        <div class="bv"><b>${b.rate}%</b><span>95% 구간 ${b.ci_lo}–${b.ci_hi}%</span></div>
+      </div>`;}).join('')}</div>
+      <div class="note bad" style="margin-bottom:0"><b>결론 — 등수로는 합격을 예측할 수 없습니다.</b>
+        구간별 합격률이 ${R.bands.map(b=>b.rate+'%').join(' → ')}로 오르내리기만 하고,
+        <b>등수와 합격의 상관계수는 ${R.rho.toFixed(3)}</b>(p=${R.rho_p.toFixed(3)})입니다. 완전한 무상관입니다.
+        구간별 차이를 검정해도 p=0.336으로 우연 범위입니다.<br><br>
+        선생님이 물으신 <b>"중위권 20등 전후면 합격 가능성 몇 %인가"</b>에 답하면,
+        작년 그 구간(${esc(R.mid.작년해당)}) 학생은 <b>${R.mid.k}/${R.mid.n}명 = ${R.mid.rate}%</b> 합격했습니다.
+        전체 평균은 ${R.overall}%였습니다. 그런데 <b>95% 신뢰구간이 ${R.mid.ci_lo}–${R.mid.ci_hi}%</b>로
+        전체 평균을 통째로 품고 있어, "중위권이라서 낮다"고 말할 근거가 없습니다.
+        해당 학생이 8명뿐이라 한 명만 결과가 달라져도 12%p씩 움직입니다.<br><br>
+        <b>그래서 이 숫자를 목표로 삼지 마세요.</b> 20등 안에 드는 것보다,
+        내 리포트의 빨간 단원을 없애고 유기 시간대를 고정하는 쪽이 실제로 결과를 바꿉니다.
+        <span class="mut">※ 작년 9월 이후 데이터가 아직 없어 7–8월 종합 등수로 계산했습니다.
+        9월 데이터가 들어오면 다시 계산합니다.</span></div></div>`;
+
+  unitcards($('#c-bio'), D.bio_units);
+  const b0=D.bio_units[0], b1=D.bio_units[D.bio_units.length-1];
+  $('#c-bio-note').innerHTML = `<div class="note"><b>생물은 6단원이 ${b0.반평균.toFixed(1)}~${b1.반평균.toFixed(1)}% 사이로 고르게 붙어 있습니다.</b>
+    특정 단원이 무너진 반이 아니라는 뜻이라 좋은 신호입니다.
+    다만 <b>${esc(b0.unit)}</b>이 가장 낮고(${b0.반평균.toFixed(1)}%), 반 안에서 ${b0.최저.toFixed(0)}%~${b0.최고.toFixed(0)}%로
+    편차가 큽니다. 개인차가 큰 단원이니, 본인 리포트에서 이 축이 안쪽이면 9월 전에 반드시 메우세요.
+    9월은 전범위 기출이라 한 단원이 비면 계속 걸립니다.</div>`;
+
+  unitcards($('#c-org'), D.org_units);
+  const o0=D.org_units[0], o1=D.org_units[1];
+  $('#c-org-note').innerHTML = `<div class="note bad"><b>유기가 우리 반의 진짜 약점입니다.</b>
+    생물은 6단원 모두 80%대인데, 유기는 <b>${esc(o0.unit)} ${o0.반평균.toFixed(1)}%</b>,
+    <b>${esc(o1.unit)} ${o1.반평균.toFixed(1)}%</b>로 20p 가까이 낮습니다.<br><br>
+    작년 데이터에서 합격생과 불합격생을 가장 잘 가른 행동 신호가 <b>'유기 학습 공백 주차 수'</b>였습니다.
+    합격생은 예외 없이 유기를 <b>하루 중 고정된 시간대</b>(아침 3시간, 저녁 회독 등)에 못박았고,
+    떨어진 학생들은 "이번 주는 화학 시험이라 유기를 미뤘다"가 반복됐습니다.
+    분량을 늘리는 것보다 <b>시간대를 먼저 고정</b>하세요. 9월 진도는 방향족 반응 → 알데하이드·케톤 →
+    카복실산으로, 앞 단원이 비면 따라갈 수 없는 구간입니다.</div>`;
+
+  mustcards($('#c-must'), D.must);
+  $('#c-must-note').innerHTML = `<div class="note"><b>이 카드를 쓰는 법.</b>
+    총 ${D.concl.필수문항_총문항}개 필수 문항에서 누적 오답이 ${D.concl.필수문항_총오답}건,
+    1인당 평균 ${D.concl.인당평균오답}건입니다.
+    카드의 점은 문항 하나이고 <span style="color:#C0442E;font-weight:700">빨간 점</span>은 8명 이상,
+    <span style="color:#8A6410;font-weight:700">노란 점</span>은 4~7명이 틀린 문항입니다.
+    빨간 점이 많은 회차는 <b>반 전체가 같은 오개념을 갖고 있다는 신호</b>입니다.
+    해설지를 다시 펴서 그 문항의 근거를 문장으로 정리해두세요.</div>`;
+}
+
+/* ══ 내 리포트 ══ */
+const SUBJ = [
+  {label:'생물 · 7월 기본기 OX', keys:['생물 7월']},
+  {label:'생물 · 8월 메디컬 심화 OX', keys:['생물 8월']},
+  {label:'유기화학 기본기 점검', keys:['유기']},
+  {label:'일반화학 타임어택 모의고사', keys:['일반화학']},
+];
+
+function drawInd(){
+  if(!ME){ $('#ind-body').innerHTML =
+    `<div class="note warn">선생님 계정으로 로그인하셨습니다. 개인 리포트는 학생 계정에서만 표시됩니다.</div>`;
+    return; }
+  const p=ME, s=p.summary, bl=p.baseline, dz=s['Δz'];
+  const bio=p.radar, org=p.org;
+  const bioSorted=[...bio].sort((a,b)=>(a.z??9)-(b.z??9));
+  const orgSorted=[...org].sort((a,b)=>(a.z??9)-(b.z??9));
+  const miss=p.timeline.filter(t=>!t.응시);
+  const kpi=(l,v,f,cl)=>`<div class="kpi ${cl||''}"><div class="lab">${l}</div>
+    <div class="val">${v}</div><div class="foot">${f||''}</div></div>`;
+  const MID = Math.ceil(s.전체인원/2);
+
+  $('#ind-body').innerHTML = `
+  <div class="grid g4" style="margin:12px 0 4px">
+    ${kpi('종합 등수',`${s.종합등수}<small>/${s.전체인원}</small>`,`평균 백분위 ${s.평균백분위}`)}
+    ${kpi('평균 정답률',`${s.평균정답률}<small>%</small>`,`34개 중 ${s.응시}개 응시`)}
+    ${kpi('7월 → 8월', dz==null?'—':`${dz>0?'+':''}${dz}`,'생물 상대위치 변화', dz>0?'up':(dz<0?'down':''))}
+    ${kpi('성적 기복',s.변동성,'낮을수록 안정적')}
+  </div>
+
+  <div class="tagline">RANK</div>
+  <div id="i-rankguide"></div>
+
+  <div class="tagline">합격을 만든 것</div>
+  <h2>세 과목 균형과 생활관리, 그리고 내 유형</h2>
+  <p class="lead">작년 풀케어반 30명의 주간 셀프피드백 239건을 전부 정독해서 뽑은 것입니다.
+    지어낸 조언이 아니라 <b>합격생이 실제로 기록에 남긴 행동</b>입니다.</p>
+  <div id="i-ennp"></div>
+
+  <div class="tagline"><span class="blip"></span>지금 해야 할 것</div>
+  <h2>${esc(curStu)} 학생, 9월에 이것부터 하세요</h2>
+  <p class="lead">데이터에서 실제로 잡힌 것만 적었습니다. 위에서부터 순서대로 하시면 됩니다.</p>
+  <div class="acts">${p.actions.map(a=>`
+    <div class="act ${a.pri}"><div class="ah"><span class="atag">${esc(a.tag)}</span>
+      <span class="at">${esc(a.head)}</span></div>
+      <div class="ab">${esc(a.body)}</div></div>`).join('')}</div>
+
+  <div class="tagline">내 약점 분석</div>
+  <h2>어느 단원이 약한지 보고, 바로 보강하세요</h2>
+  <p class="lead">${bioSorted[0]&&bioSorted[0].z!=null&&bioSorted[0].z<0
+    ? '레이더에서 <b style="color:#C0442E">빨간 점</b>이 지금 가장 부족한 단원입니다. 오른쪽은 약한 순서입니다.'
+    : '생물 6단원이 모두 반평균 이상입니다. 오른쪽은 그래도 상대적으로 약한 순서입니다.'}</p>
+  <div class="card"><div class="split">
+      <div><div id="i-radar"></div>
+        <div class="legend"><span><i style="background:#2B4795"></i>나</span>
+          <span><i style="background:#0E7A5F"></i>반평균</span>
+          <span><i style="background:#1D9E75"></i>작년 합격생</span>
+          <span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
+      <div><div class="tagline" style="margin-top:0">생물 6단원 · 약한 순</div>
+        <div id="i-bio"></div></div>
+  </div></div>
+
+  <div class="tagline">유기화학</div>
+  <h2>단원별 강약</h2>
+  <div class="card"><div class="scroll" style="margin-bottom:12px"><table id="i-oscope"></table></div>
+    <div class="split">
+      <div><div id="i-oradar"></div>
+        <div class="legend"><span><i style="background:#2B4795"></i>나</span>
+          <span><i style="background:#0E7A5F"></i>반평균</span>
+          <span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
+      <div><div class="tagline" style="margin-top:0">유기 8단원 · 약한 순</div>
+        <div id="i-org"></div></div>
+  </div></div>
+
+  <div class="tagline">POSITION</div>
+  <h2>작년 합격생 성적 분포 안에서 내 위치</h2>
+  <p class="lead">작년 합격생 ${D.band.작년합격생_n}명의 생물 정답률 분포(동일 문항 기준)입니다.
+    <b>합격 확률이 아니라 참고 좌표</b>입니다.</p>
+  <div class="card"><div class="bandbox"><div id="i-band"></div>
+    <div style="font-size:11.5px;color:#6E7B94;margin-top:2px">
+      진한 초록 구간이 합격생 중간 50%(${D.band.작년합격생_Q1}–${D.band.작년합격생_Q3}%)입니다.
+      올해 반평균은 ${D.band.올해반평균}%입니다.</div></div></div>
+
+  ${bl?`<div class="tagline">START</div>
+  <h2>출발점 — 등록 TEST 대비</h2>
+  <p class="lead">7월 시작 시점과 지금을 비교합니다. 작년 합격생 등록TEST 생물 평균은 ${bl.작년합격생_생물평균pct}%였습니다.</p>
+  <div class="card pad0"><div class="scroll"><table id="i-base"></table></div></div>
+  <div class="note warn"><b>변화폭을 그대로 읽지 마세요.</b>
+    등록 TEST 범위는 생물·일반화학이 전범위, <b>유기는 앞 2단원까지</b>라 유기는 7–8월 1·2회차만 대응시켰습니다.
+    그래도 난이도가 달라 반 전체가 생물 ${D.shift.생물>0?'+':''}${D.shift.생물}p ·
+    일반화학 ${D.shift.화학>0?'+':''}${D.shift.화학}p · 유기 ${D.shift.유기>0?'+':''}${D.shift.유기}p 이동했습니다.
+    <b>'반 대비'</b> 열이 그 이동분을 뺀 순수 상대 변화입니다.</div>`
+  :`<div class="note warn">등록 TEST 결과가 기재되어 있지 않아 출발점 비교를 넣지 못했습니다.</div>`}
+
+  <div class="tagline">RECORD</div>
+  <h2>내 기록 보기</h2>
+  <p class="lead">과목마다 시험 형식과 난이도가 달라 <b>따로</b> 그렸습니다. 초록선이 반평균입니다.</p>
+  <div id="i-charts"></div>
+
+  <div class="card"><h3>등수 추이 <span class="mut" style="font-weight:400;font-size:11.5px">— 전 과목 통합</span></h3>
+    <p class="lead" style="margin-bottom:6px">40명 중 등수입니다. 위로 갈수록 상위이고,
+      주황 점선이 <b>반 중간(${MID}등)</b>입니다.
+      선이 아래로 내려가도 불안해하지 마세요 — 위의 <b>내 등수를 어떻게 봐야 하나요</b>에서
+      작년 합격생 등수가 어떻게 흩어져 있었는지 확인하실 수 있습니다.</p>
+    <div id="i-rank"></div></div>
+
+  <div class="card"><h3>참여 현황</h3>
+    <p class="lead" style="margin-bottom:10px">숫자는 회차, 아래는 내 정답률입니다.
+      칸에 마우스를 올리면 응시일·출제 범위·등수가 나옵니다.
+      ${miss.length?`<b style="color:#C0442E">미응시 ${miss.length}회</b> — ${miss.map(t=>esc(t.label)).join(', ')}`
+        :'<b style="color:#0E7A5F">전 회차 응시</b>'}</p>
+    <div id="i-part"></div>
+    <div class="legend" style="justify-content:flex-start;margin-top:10px">
+      <span><i class="dot" style="background:#0B5544"></i>상위 25%</span>
+      <span><i class="dot" style="background:#1E3168"></i>상위 50%</span>
+      <span><i class="dot" style="background:#8A6410"></i>하위 50%</span>
+      <span><i class="dot" style="background:#8E3221"></i>하위 25%</span>
+      <span><i class="dot" style="background:#C0442E"></i>미응시</span></div></div>
+
+  <div class="tagline">CHECK</div>
+  <h2>놓치면 안 됐던 문항</h2>
+  <p class="lead">반 정답률 85% 이상인데 틀린 문항 ${p.easy_miss.length}개입니다.
+    각 문항 옆에 <b>왜 틀렸는지</b>를 한 줄씩 적어보세요.</p>
+  <div class="card pad0"><div class="scroll"><table id="i-miss"></table></div></div>`;
+
+  rankguide($('#i-rankguide'), s.종합등수, s.전체인원, D.rr);
+  ennprofile($('#i-ennp'), p.enneagram, D.ep);
+
+  radar($('#i-radar'), bio, [
+    {k:'반평균', c:C.green, w:1.8, f:.05},
+    {k:'작년합격생', c:C.teal, w:1.5, f:.04},
+    {k:'pct', c:C.blue, w:2.4, f:.15},
+  ], {lk:'unit', vk:'pct', size:380, pad:66});
+  zlist($('#i-bio'), bioSorted, {lk:'unit'});
+  radar($('#i-oradar'), org, [
+    {k:'반평균', c:C.green, w:1.8, f:.05},
+    {k:'pct', c:C.blue, w:2.4, f:.15},
+  ], {lk:'unit', vk:'pct', size:400, pad:84});
+  zlist($('#i-org'), orgSorted, {lk:'unit'});
+  bandbar($('#i-band'), p.band, D.band);
+
+  const ot=p.timeline.filter(t=>t.series==='유기');
+  table($('#i-oscope'), [
+    {h:'회차', f:r=>`${r.session}회`},
+    {h:'응시일', f:r=>`<span class="mut">${esc(r.date||'')}</span>`},
+    {h:'단원 · 교재 범위', f:r=>esc(r.scope||'')},
+    {h:'내 정답률', n:1, f:r=>r.pct==null?'<span class="mut">미응시</span>':`<b>${r.pct}%</b>`},
+    {h:'반평균', n:1, f:r=>r.반평균+'%'},
+  ], ot);
+
+  if(bl) table($('#i-base'), [
+    {h:'과목', f:r=>r.과목},
+    {h:'등록 TEST', n:1, f:r=>r.만점==null?'<span class="mut">—</span>':`<b>${r.정답}/${r.만점}</b> <span class="mut">${r.pct}%</span>`},
+    {h:'7–8월 평균', n:1, f:r=>r.now==null?'—':(r.note?`<span class="mut">${r.now}%</span>`:`<b>${r.now}%</b>`)},
+    {h:'단순 변화', n:1, f:r=>(r.now==null||r.pct==null)?'—':`<span class="mut">${(r.now-r.pct)>0?'+':''}${(r.now-r.pct).toFixed(1)}p</span>`},
+    {h:'반 이동분', n:1, f:r=>r.sh==null?'—':`<span class="mut">${r.sh>0?'+':''}${r.sh}p</span>`},
+    {h:'반 대비', n:1, f:r=>(r.now==null||r.pct==null||r.sh==null)?'—':`<b class="${sgn(r.now-r.pct-r.sh)}">${(r.now-r.pct-r.sh)>0?'+':''}${(r.now-r.pct-r.sh).toFixed(1)}p</b>`},
+    {h:'작년 합격생 출발점', n:1, f:r=>r.ref==null?'—':r.ref+'%'},
+  ], [
+    {과목:'생물', 정답:bl.생물_정답, 만점:bl.생물_만점, pct:bl.생물_pct, now:p.now.생물, sh:D.shift.생물, ref:bl.작년합격생_생물평균pct},
+    {과목:'일반화학', 정답:bl.화학_정답, 만점:bl.화학_만점, pct:bl.화학_pct, now:p.now.화학, sh:D.shift.화학, ref:null},
+    {과목:'유기화학 <span class="mut" style="font-weight:400">앞 2단원</span>', 정답:bl.유기_정답, 만점:bl.유기_만점, pct:bl.유기_pct, now:p.now.유기, sh:D.shift.유기, ref:null},
+    {과목:'<span class="mut">└ 참고 · 유기 8단원 전체</span>', 정답:'—', 만점:null, pct:null, now:p.now.유기전체, sh:null, ref:null, note:true},
+  ]);
+
+  /* 과목별 정답률 그래프 — 시험 형식이 달라 이어 그리지 않는다 */
+  $('#i-charts').innerHTML = SUBJ.map((g,i)=>{
+    const sub=p.timeline.filter(t=>g.keys.includes(t.series));
+    if(!sub.length) return '';
+    const done=sub.filter(t=>t.응시);
+    const my=done.length? (done.reduce((a,b)=>a+b.pct,0)/done.length) : null;
+    const cl=sub.reduce((a,b)=>a+b.반평균,0)/sub.length;
+    return `<div class="card"><h3>${esc(g.label)}
+      <span class="mut" style="font-weight:400;font-size:11.5px">— ${sub.length}회
+      ${my!=null?` · 내 평균 ${my.toFixed(1)}% vs 반평균 ${cl.toFixed(1)}%`:''}</span></h3>
+      <div id="ic${i}"></div></div>`;
+  }).join('');
+  SUBJ.forEach((g,i)=>{
+    const sub=p.timeline.filter(t=>g.keys.includes(t.series));
+    if(!sub.length) return;
+    lines($(`#ic${i}`), sub, [
+      {k:'pct', c:C.blue, w:2.6, area:true},
+      {k:'반평균', c:C.green, w:2.0, dot:false},
+    ], {h: sub.length<=2?200:260, xk:'label'});
+  });
+
+  const rk=p.timeline.filter(t=>t.응시).map(t=>({...t, 등수:t.rank}));
+  lines($('#i-rank'), rk, [{k:'등수', c:C.blue2, w:2.6}],
+    {h:260, lo:0, hi:s.전체인원+1, rules:[{v:MID, label:`반 중간 ${MID}등`, c:C.amber}]});
+  partmapGrouped($('#i-part'), p.timeline, SUBJ);
+
+  table($('#i-miss'), [
+    {h:'TEST', k:'test'},
+    {h:'단원', f:r=>`<span class="mut">${esc(r.unit||'')}</span>`},
+    {h:'문항', n:1, f:r=>r.qno+'번'},
+    {h:'반 정답률', n:1, f:r=>`${r.반정답률}%`},
+    {h:'내 답 → 정답', f:r=>`<span class="mut">${esc(r.내답)}</span> → <b>${esc(r.정답)}</b>`},
+  ], p.easy_miss);
+}
+</script>
+</body>
+</html>

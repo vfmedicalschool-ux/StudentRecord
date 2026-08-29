@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>리포트 업로드 — 선생님 전용</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#EEF2F8; --card:#fff; --line:#E4E9F2; --line2:#F2F5FA; --soft:#F7FAFE;
+  --ink:#16181D; --ink2:#4E5666; --ink3:#6E7B94; --ink4:#9AA3B4;
+  --navy:#1E3168; --blue:#2B4795; --blue2:#3F63C4; --blue-bg:#EAF1FC; --blue-line:#DCE6FA;
+  --red:#C0442E; --red-d:#8E3221; --red-bg:#FDECE8; --red-line:#F3D9D2; --red-soft:#FFFBFA;
+  --amber:#8A6410; --amber-bg:#FFF2D6; --amber-line:#F0E2C4; --amber-soft:#FFFDF8;
+  --green:#0E7A5F; --green-d:#0B5544; --green-bg:#E4F3EC; --green-line:#CFE8DE;
+  --shadow:0 18px 48px rgba(30,49,104,.14);
+}
+body{word-break:keep-all;background:var(--bg);color:var(--ink);padding:26px 20px 70px;
+  font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased;font-size:14px;line-height:1.6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-variant-numeric:tabular-nums}
+.wrap{max-width:1242px;margin:0 auto}
+.tag{font-size:11.5px;font-weight:700;color:var(--ink3);margin:0 0 9px 4px}
+.shell{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 22px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:1px;font-weight:800;font-size:17px;color:var(--navy)}
+.brand span{text-transform:lowercase;color:var(--ink3)}
+.gnb{display:flex;gap:4px;margin-left:16px;flex-wrap:wrap}
+.gnb button{font:inherit;font-size:12.5px;color:var(--ink2);background:none;border:0;
+  padding:7px 13px;border-radius:9px;cursor:pointer}
+.gnb button:hover{background:var(--line2)}
+.gnb button[aria-selected=true]{background:var(--blue-bg);color:var(--navy);font-weight:700}
+.stamp{font-size:11.5px;color:var(--ink3);border:1px solid var(--line);border-radius:999px;
+  padding:5px 12px}
+.body{padding:20px 22px 26px}
+section{display:none} section.on{display:block}
+
+.tagline{font-size:10.5px;font-weight:800;color:var(--ink4);margin:22px 0 7px;letter-spacing:.02em}
+.tagline:first-child{margin-top:2px}
+h2{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 3px}
+.lead{font-size:12.5px;color:var(--ink3);margin:0 0 12px;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 14px}
+.card.pad0{padding:0;overflow:hidden}
+.card h3{font-size:13px;font-weight:800;color:var(--navy);margin:0 0 10px}
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(158px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.split{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:16px;align-items:center}
+@media(max-width:880px){.split{grid-template-columns:1fr}}
+
+.kpi{border:1px solid var(--line);border-radius:14px;padding:13px 15px;
+  background:linear-gradient(180deg,#fff,#FCFDFF)}
+.kpi .lab{font-size:11px;font-weight:700;color:var(--ink3)}
+.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.03em;margin-top:2px;color:var(--navy);
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .val small{font-size:14px;color:var(--ink4);font-weight:700}
+.kpi .foot{font-size:11px;color:var(--ink3);margin-top:1px}
+.kpi.up .val{color:var(--green)} .kpi.down .val{color:var(--red)}
+
+/* 약점 리스트 */
+.zrow{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;
+  border:1px solid var(--line2);margin-bottom:7px;background:#fff}
+.zrow.bad{border-color:var(--red-line);background:var(--red-soft)}
+.zrow.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.zrow.good{border-color:var(--green-line);background:#FAFEFC}
+.zrow .ic{width:22px;height:22px;flex:none;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:800}
+.zrow.bad .ic{background:var(--red-bg);color:var(--red-d)}
+.zrow.mid .ic{background:var(--amber-bg);color:var(--amber)}
+.zrow.good .ic{background:var(--green-bg);color:var(--green-d)}
+.zrow .tx{flex:1;min-width:0}
+.zrow .nm{font-size:12.5px;font-weight:700;color:var(--ink);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.zrow .ef{font-size:10.5px;color:var(--ink3);margin-top:1px}
+.zrow .rt{flex:none;text-align:right;min-width:96px}
+.zrow .pc{font-size:14px;font-weight:800;color:var(--navy);
+  font-family:'IBM Plex Mono',ui-monospace,monospace}
+.zrow .bar2{width:84px;height:6px;border-radius:99px;background:#EFF2F7;overflow:hidden;margin-top:4px}
+.zrow .bar2 i{display:block;height:100%;border-radius:99px}
+.zrow.bad .bar2 i{background:var(--red)} .zrow.mid .bar2 i{background:#C9922B}
+.zrow.good .bar2 i{background:var(--green)}
+.blip{width:7px;height:7px;border-radius:99px;background:var(--red);display:inline-block;
+  margin-right:6px;vertical-align:middle}
+
+/* 위치 밴드 */
+.bandbox{padding:14px 16px;border-radius:12px;background:var(--soft);border:1px solid var(--blue-line)}
+.bandbar{position:relative;height:12px;border-radius:99px;margin:26px 0 30px;
+  background:linear-gradient(90deg,#F5D9D2 0%,#FCEBD3 35%,#DCEDE4 70%,#CFE8DE 100%)}
+.bandbar .iqr{position:absolute;top:0;height:12px;background:rgba(14,122,95,.28);border-radius:2px}
+.bandbar .med{position:absolute;top:-5px;width:2px;height:22px;background:var(--green-d);border-radius:2px}
+.bandbar .you{position:absolute;top:-9px;width:3px;height:30px;background:var(--navy);border-radius:2px}
+.bandbar .lab{position:absolute;font-size:10px;font-weight:800;white-space:nowrap}
+.bandbar .lab.you{top:-27px;color:var(--navy);background:none;width:auto;height:auto}
+.bandbar .lab.med{top:20px;color:var(--green-d);background:none;width:auto;height:auto}
+.bandends{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink3);margin-top:-22px}
+
+/* 표 */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--line2);white-space:nowrap}
+th{color:var(--ink3);font-weight:700;font-size:11px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:#fff}
+th:first-child,td:first-child{text-align:left}
+td.num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--soft)}
+.pos{color:var(--green);font-weight:700} .neg{color:var(--red);font-weight:700}
+.mut{color:var(--ink4)}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:700;
+  border:1px solid var(--line);color:var(--ink2);background:#fff}
+.pill.g{color:var(--green-d);border-color:var(--green-line);background:var(--green-bg)}
+.pill.b{color:var(--red-d);border-color:var(--red-line);background:var(--red-bg)}
+.pill.w{color:var(--amber);border-color:var(--amber-line);background:var(--amber-bg)}
+.bar{height:7px;background:#EFF2F7;border-radius:99px;overflow:hidden;min-width:52px;display:inline-block;vertical-align:middle}
+.bar>i{display:block;height:100%;background:var(--blue2);border-radius:99px}
+svg{display:block;max-width:100%;height:auto}
+select{font:inherit;font-size:13.5px;font-weight:700;padding:8px 13px;border:1px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--navy);cursor:pointer}
+.note{border-left:3px solid var(--blue2);background:var(--soft);padding:12px 15px;
+  border-radius:0 11px 11px 0;margin:12px 0;font-size:12.5px;color:var(--ink2);line-height:1.55}
+.note.warn{border-left-color:#C9922B;background:var(--amber-soft)}
+.note.bad{border-left-color:var(--red);background:var(--red-soft)}
+.note b{color:var(--ink);font-weight:800}
+ul.tight{margin:7px 0 0;padding-left:17px} ul.tight li{margin:4px 0}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--ink3);flex-wrap:wrap;justify-content:center;margin-top:8px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.legend i.dot{width:8px;height:8px;border-radius:99px}
+footer{margin:22px 4px 0;font-size:11.5px;color:var(--ink3);line-height:1.6}
+
+/* 참여 히트맵 */
+.pmap{display:flex;flex-wrap:wrap;gap:5px}
+.pc2{width:52px;height:44px;border-radius:9px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1px;cursor:default;border:1px solid transparent}
+.pc2 b{font-size:10px;font-weight:700;opacity:.75;font-family:'IBM Plex Mono',monospace}
+.pc2 i{font-size:12px;font-style:normal;font-weight:800;font-family:'IBM Plex Mono',monospace}
+.pc2.g4{background:#DFF0E8;color:#0B5544;border-color:#CFE8DE}
+.pc2.g3{background:#E4EDFB;color:#1E3168;border-color:#DCE6FA}
+.pc2.g2{background:#FBF0DA;color:#8A6410;border-color:#F0E2C4}
+.pc2.g1{background:#FAE7E1;color:#8E3221;border-color:#F3D9D2}
+.pc2.x{background:#C0442E;color:#fff;border-color:#8E3221}
+.pc2:hover{outline:2px solid var(--blue2);outline-offset:1px}
+
+/* 단원 카드 인포그래픽 */
+.ucards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+.ucard{border:1px solid var(--line);border-radius:13px;padding:13px 14px 11px;background:#fff}
+.ucard.bad{border-color:var(--red-line);background:var(--red-soft)}
+.ucard.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.ucard.good{border-color:var(--green-line);background:#FAFEFC}
+.ucard .uh{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.ucard .urank{width:19px;height:19px;border-radius:6px;background:var(--line2);color:var(--ink3);
+  font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.ucard.bad .urank{background:var(--red-bg);color:var(--red-d)}
+.ucard.mid .urank{background:var(--amber-bg);color:var(--amber)}
+.ucard.good .urank{background:var(--green-bg);color:var(--green-d)}
+.ucard .un{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.ucard .uv{font-size:27px;font-weight:800;color:var(--navy);letter-spacing:-.03em;
+  font-family:'IBM Plex Mono',monospace;line-height:1.15}
+.ucard .uv small{font-size:14px;color:var(--ink4)}
+.ucard .urange{position:relative;height:9px;border-radius:99px;background:#EFF2F7;margin:8px 0 6px}
+.ucard .rt2{position:absolute;top:3px;height:3px;background:var(--line);border-radius:99px}
+.ucard .rq{position:absolute;top:0;height:9px;background:rgba(63,99,196,.24);border-radius:3px}
+.ucard.bad .rq{background:rgba(192,68,46,.22)} .ucard.mid .rq{background:rgba(201,146,43,.24)}
+.ucard.good .rq{background:rgba(14,122,95,.20)}
+.ucard .rm{position:absolute;top:-3px;width:3px;height:15px;border-radius:2px;background:var(--navy)}
+.ucard .uf{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);gap:6px}
+
+/* 액션 카드 */
+.acts{display:grid;gap:10px}
+.act{border:1px solid var(--line);border-left-width:4px;border-radius:0 12px 12px 0;
+  padding:13px 16px;background:#fff}
+.act.high{border-left-color:var(--red);background:var(--red-soft)}
+.act.mid{border-left-color:#C9922B;background:var(--amber-soft)}
+.act.type{border-left-color:var(--blue2);background:var(--soft)}
+.act.good{border-left-color:var(--green);background:#FAFEFC}
+.act .ah{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.act .atag{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:99px;
+  background:var(--line2);color:var(--ink3)}
+.act.high .atag{background:var(--red-bg);color:var(--red-d)}
+.act.mid .atag{background:var(--amber-bg);color:var(--amber)}
+.act.type .atag{background:var(--blue-bg);color:var(--navy)}
+.act.good .atag{background:var(--green-bg);color:var(--green-d)}
+.act .at{font-size:14px;font-weight:800;color:var(--ink)}
+.act .ab{font-size:12.5px;color:var(--ink2);line-height:1.6}
+
+/* 가이드 */
+.steps{display:grid;gap:12px;counter-reset:st}
+.step{display:flex;gap:13px;padding:15px 17px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.step .sn{counter-increment:st;flex:none;width:27px;height:27px;border-radius:9px;background:var(--navy);
+  color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step .sn::before{content:counter(st)}
+.step h4{font-size:14px;font-weight:800;color:var(--navy);margin:2px 0 4px}
+.step p{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--line);
+  color:var(--ink2);background:var(--soft)}
+.chip.r{color:var(--red-d);border-color:var(--red-line);background:var(--red-bg)}
+.chip.a{color:var(--amber);border-color:var(--amber-line);background:var(--amber-bg)}
+.chip.g{color:var(--green-d);border-color:var(--green-line);background:var(--green-bg)}
+
+/* 필수문항 오답 */
+.mrow{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fff;overflow:hidden}
+.mrow>summary{padding:11px 15px;cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap;font-size:13px}
+.mrow>summary::-webkit-details-marker{display:none}
+.mrow>summary::before{content:"▸";color:var(--ink4);font-size:11px}
+.mrow[open]>summary::before{content:"▾"}
+.mrow .ml{font-weight:800;color:var(--navy);min-width:88px}
+.mrow .md{font-size:11.5px;color:var(--ink4)}
+.mrow .mu{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;
+  background:var(--blue-bg);color:var(--navy)}
+.mrow .mc{margin-left:auto;font-size:11.5px;color:var(--ink3);font-family:'IBM Plex Mono',monospace}
+.mrow .mb{padding:0 15px 14px}
+.qgrid{display:flex;flex-wrap:wrap;gap:6px}
+.qq{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:56px;padding:6px 8px;
+  border-radius:9px;border:1px solid var(--line)}
+.qq b{font-size:12px;font-weight:800;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+.qq i{font-size:10px;font-style:normal;color:var(--ink3)}
+.qq.hot{border-color:var(--red-line);background:var(--red-bg)}
+.qq.hot b{color:var(--red-d)}
+.qq.warm{border-color:var(--amber-line);background:var(--amber-bg)}
+.qq.warm b{color:var(--amber)}
+
+/* 과목별 참여 그룹 */
+.pgrp{margin-bottom:14px}
+.pgrp:last-child{margin-bottom:0}
+.pgrp .ph{display:flex;align-items:baseline;gap:9px;margin-bottom:7px;font-size:12.5px}
+.pgrp .ph b{color:var(--navy);font-weight:800}
+.pgrp .ph .mut{font-size:11px}
+
+/* 필수문항 카드 격자 */
+.mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+@media(max-width:900px){.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.mgrid{grid-template-columns:1fr}}
+.mcard{text-align:left;font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:14px;
+  padding:13px 15px 11px;background:#fff;display:flex;flex-direction:column;gap:2px;
+  transition:box-shadow .15s,transform .15s,border-color .15s}
+.mcard:hover{border-color:var(--blue2);box-shadow:0 6px 18px rgba(30,49,104,.10);transform:translateY(-1px)}
+.mcard.on{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(63,99,196,.16)}
+.mcard.bad{border-color:var(--red-line);background:var(--red-soft)}
+.mcard.mid{border-color:var(--amber-line);background:var(--amber-soft)}
+.mcard.good{border-color:var(--green-line);background:#FAFEFC}
+.mcard .mtop{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.mcard .mtop b{font-size:13px;font-weight:800;color:var(--navy)}
+.mcard .mdt{font-size:10.5px;color:var(--ink4);font-family:'IBM Plex Mono',monospace}
+.mcard .munit{font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcard .mnum{font-size:25px;font-weight:800;color:var(--navy);letter-spacing:-.03em;line-height:1.2;
+  font-family:'IBM Plex Mono',monospace;margin-top:3px}
+.mcard .mnum small{font-size:12px;color:var(--ink4)}
+.mcard.bad .mnum{color:var(--red-d)} .mcard.mid .mnum{color:var(--amber)}
+.mcard .msub{font-size:10.5px;color:var(--ink4)}
+.mcard .mdots{display:flex;flex-wrap:wrap;gap:3px;margin:8px 0 6px;align-items:center}
+.md2{width:9px;height:9px;border-radius:3px;background:#DDE3EC}
+.md2.w{background:#E6B44A} .md2.h{background:var(--red)}
+.mmore{font-size:9.5px;color:var(--ink4);margin-left:2px}
+.mcard .mopen{font-size:10.5px;font-weight:700;color:var(--blue2);margin-top:auto}
+.mdt2{margin-top:12px;border:1px solid var(--blue-line);border-radius:14px;padding:14px 16px;
+  background:var(--soft)}
+.mdh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13px}
+.mdh b{font-size:14px;font-weight:800;color:var(--navy)}
+.mdh .mu{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;
+  background:var(--blue-bg);color:var(--navy)}
+.mdh .mc{margin-left:auto;font-size:11.5px;color:var(--ink3);font-family:'IBM Plex Mono',monospace}
+
+/* 합격률 밴드 표 */
+.bandtab{display:grid;gap:7px}
+.btr{display:grid;grid-template-columns:120px 92px 1fr 116px;gap:10px;align-items:center;
+  padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:12.5px}
+.btr.me{border-color:var(--blue2);background:var(--blue-bg);box-shadow:0 0 0 2px rgba(63,99,196,.12)}
+.btr .bl{font-weight:800;color:var(--navy)}
+.btr .br{font-size:11px;color:var(--ink4);font-family:'IBM Plex Mono',monospace}
+.btr .bb{position:relative;height:20px;border-radius:6px;background:#EFF2F7;overflow:hidden}
+.btr .bb i{position:absolute;left:0;top:0;height:100%;background:var(--blue2);opacity:.75}
+.btr .bb u{position:absolute;top:0;height:100%;background:rgba(30,49,104,.14);border-radius:4px}
+.btr .bv{text-align:right;font-family:'IBM Plex Mono',monospace}
+.btr .bv b{font-size:15px;font-weight:800;color:var(--navy)}
+.btr .bv span{font-size:10.5px;color:var(--ink4);display:block}
+@media(max-width:700px){.btr{grid-template-columns:1fr 1fr;gap:6px}}
+
+/* 등수 안심 카드 */
+.rkcard{border:1px solid var(--blue-line);border-radius:16px;padding:18px 20px;
+  background:linear-gradient(180deg,#F7FAFE,#fff);margin-bottom:14px}
+.rkcard .rh{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:3px}
+.rkcard .rs{font-size:12.5px;color:var(--ink3);margin-bottom:14px;line-height:1.6}
+.rkme{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 15px;border-radius:12px;
+  background:var(--blue-bg);border:1px solid var(--blue-line);margin-bottom:14px}
+.rkme .big{font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-.03em;
+  font-family:'IBM Plex Mono',monospace;line-height:1.1}
+.rkme .big small{font-size:15px;color:var(--ink4)}
+.rkme .txt{flex:1;min-width:190px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.rkme .txt b{color:var(--navy);font-weight:800}
+/* 작년 등수 띠 */
+.rkstrip{margin:6px 0 4px}
+.rkstrip .sl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink4);
+  margin-bottom:5px;font-family:'IBM Plex Mono',monospace}
+.rkdots{display:flex;gap:3px;align-items:flex-end}
+.rkdot{flex:1;min-width:8px;height:26px;border-radius:4px;position:relative}
+.rkdot.p{background:#1D9E75}
+.rkdot.f{background:#E3B7AE}
+.rkdot .tp{position:absolute;inset:0}
+.rkleg{display:flex;gap:14px;font-size:11px;color:var(--ink3);margin-top:8px;flex-wrap:wrap}
+.rkleg i{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.rk3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.rk3 .b{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;text-align:center}
+.rk3 .b.on{border-color:var(--blue2);background:var(--blue-bg);box-shadow:0 0 0 2px rgba(63,99,196,.14)}
+.rk3 .b .n{font-size:11.5px;font-weight:800;color:var(--ink3)}
+.rk3 .b .v{font-size:22px;font-weight:800;color:var(--navy);font-family:'IBM Plex Mono',monospace;
+  letter-spacing:-.02em;line-height:1.25}
+.rk3 .b .s{font-size:10.5px;color:var(--ink4)}
+
+/* 유형별 합격생 프로파일 */
+.ennp{border:1px solid var(--green-line);border-radius:16px;background:linear-gradient(180deg,#FAFEFC,#fff);
+  padding:18px 20px;margin-bottom:14px}
+.ennp .eh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.ennp .ebadge{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:99px;
+  background:var(--green-bg);color:var(--green-d);border:1px solid var(--green-line)}
+.ennp .et{font-size:15px;font-weight:800;color:var(--navy)}
+.ennp .es{font-size:12px;color:var(--ink3);margin-bottom:14px}
+.ebox{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 15px;margin-bottom:9px}
+.ebox .bt{font-size:11.5px;font-weight:800;color:var(--ink3);margin-bottom:7px;letter-spacing:.02em}
+.ebox ul{margin:0;padding-left:17px}
+.ebox li{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:5px 0}
+.ebox li b{color:var(--ink);font-weight:800}
+.ebox.warn{border-color:var(--amber-line);background:var(--amber-soft)}
+.ebox.warn .bt{color:var(--amber)}
+.ebox.warn p{font-size:12.5px;color:var(--ink2);line-height:1.65;margin:0}
+
+/* 균형·생활관리 2단 */
+.corepair{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px;margin-bottom:14px}
+.core{border:1px solid var(--line);border-radius:15px;padding:16px 18px;background:#fff}
+.core.bal{border-color:var(--blue-line);background:linear-gradient(180deg,#F7FAFE,#fff)}
+.core.life{border-color:#E8DCC8;background:linear-gradient(180deg,#FFFDF8,#fff)}
+.core .ch{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.core .cb{font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:10px}
+.core ul{margin:0;padding-left:17px}
+.core li{font-size:12.5px;color:var(--ink2);line-height:1.6;margin:6px 0}
+
+.up{max-width:820px;margin:0 auto}
+.drop{border:2px dashed var(--line);border-radius:16px;padding:34px;text-align:center;background:#fff}
+.drop.on{border-color:var(--blue2);background:var(--blue-bg)}
+.log{font-family:'IBM Plex Mono',monospace;font-size:12px;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:14px;max-height:340px;overflow:auto;white-space:pre-wrap;margin-top:12px}
+button.pri{font:inherit;font-size:14px;font-weight:700;padding:11px 20px;border:0;border-radius:11px;
+  background:var(--navy);color:#fff;cursor:pointer}
+button.pri:disabled{opacity:.5;cursor:default}
+</style></head><body>
+<div class="wrap up">
+<div class="tag">27 VF 풀케어반 · 리포트 업로드 (선생님 전용)</div>
+<div class="shell"><div class="body">
+  <h2>개인 리포트를 Firestore에 올립니다</h2>
+  <p class="lead">저장소(GitHub)에는 개인 데이터를 올리지 않습니다. 여기서 올린 것만 학생이 볼 수 있습니다.</p>
+  <div id="au"></div>
+  <div id="work" style="display:none">
+    <div class="note"><b>순서</b> ① 명단(config/roster)에서 이름↔이메일을 읽습니다 →
+      ② <code>_업로드용_개인리포트.json</code>을 고릅니다 → ③ 학생별로 <code>reports/{이름}</code> 문서를 씁니다.</div>
+    <div class="drop" id="drop">
+      <p style="font-size:13px;color:var(--ink3);margin-bottom:12px">
+        <b>_업로드용_개인리포트.json</b> 파일을 여기에 끌어놓거나 선택하세요</p>
+      <input type="file" id="file" accept="application/json">
+    </div>
+    <div style="margin:14px 0"><button class="pri" id="go" disabled>Firestore에 업로드</button></div>
+    <div class="log" id="log">대기 중…</div>
+  </div>
+</div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD047j9N7bHCJaRLcotssVa5Fd8Xy6Tb5I",
+  authDomain: "vf-wsf.firebaseapp.com",
+  projectId: "vf-wsf",
+  storageBucket: "vf-wsf.firebasestorage.app",
+  messagingSenderId: "214051145847",
+  appId: "1:214051145847:web:95f48d4a75e468269f9e72"
+};
+firebase.initializeApp(firebaseConfig);
+const fsdb = firebase.firestore();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+const TEACHER_EMAIL = 'vfmedicalschool@gmail.com';
+const normEmail = e => String(e||'').trim().toLowerCase();
+const sameEmail = (a,b) => normEmail(a)!=='' && normEmail(a)===normEmail(b);
+function isWebView(){
+  const u=navigator.userAgent||'';
+  return /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line\//i.test(u);
+}
+function guardLogin(){
+  if(location.protocol==='file:'){
+    alert('로컬 파일에서는 구글 로그인을 쓸 수 없습니다.\n\nGitHub Pages 주소로 접속해 주세요.');
+    return false;
+  }
+  if(isWebView()){
+    alert('카카오톡·인스타 등 앱 안의 브라우저에서는 구글 로그인이 막혀 있습니다.\n\n'
+      + '우측 상단 메뉴에서 "다른 브라우저로 열기"를 눌러 Chrome·Safari로 열어 주세요.');
+    return false;
+  }
+  return true;
+}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const log=m=>{ $('#log').textContent += '\n'+m; $('#log').scrollTop=1e9; };
+let REPORTS=null, ROSTER=null;
+
+auth.onAuthStateChanged(async u=>{
+  if(!u){ $('#au').innerHTML =
+    `<button class="pri" onclick="if(guardLogin())auth.signInWithPopup(provider)">구글 로그인</button>`;
+    $('#work').style.display='none'; return; }
+  if(!sameEmail(u.email, TEACHER_EMAIL)){
+    $('#au').innerHTML = `<div class="note bad">선생님 계정만 접근할 수 있습니다. (${esc(u.email)})
+      <button class="pri" style="margin-left:10px" onclick="auth.signOut()">로그아웃</button></div>`;
+    $('#work').style.display='none'; return; }
+  $('#au').innerHTML = `<div class="note"><b>${esc(u.email)}</b>로 로그인됨
+    <button class="pri" style="margin-left:10px" onclick="auth.signOut()">로그아웃</button></div>`;
+  $('#work').style.display='block';
+  const d = await fsdb.collection('config').doc('roster').get();
+  ROSTER = d.exists ? (d.data().studentInfo||{}) : {};
+  const withMail = Object.entries(ROSTER).filter(([,v])=>v&&v.email).length;
+  log(`명단 로드: ${Object.keys(ROSTER).length}명 (이메일 등록 ${withMail}명)`);
+});
+
+$('#file').onchange = e => {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{ REPORTS = JSON.parse(r.result);
+      log(`파일 로드: ${Object.keys(REPORTS).length}명`);
+      $('#go').disabled=false;
+    }catch(err){ log('JSON 파싱 실패: '+err.message); }
+  };
+  r.readAsText(f);
+};
+
+$('#go').onclick = async () => {
+  $('#go').disabled=true;
+  const names=Object.keys(REPORTS); let ok=0, skip=[];
+  for(const n of names){
+    const info = ROSTER[n];
+    const email = info && info.email ? String(info.email).trim().toLowerCase() : '';
+    if(!email){ skip.push(n); continue; }
+    try{
+      await fsdb.collection('reports').doc(n).set({
+        name:n, email, updatedAt: new Date().toISOString(), report: REPORTS[n]
+      });
+      ok++; if(ok%5===0) log(`  ${ok}/${names.length} 업로드…`);
+    }catch(e){ log(`  ✖ ${n}: ${e.message}`); }
+  }
+  log(`\n완료 — ${ok}명 업로드`);
+  if(skip.length) log(`이메일 미등록으로 건너뜀 (${skip.length}명): ${skip.join(', ')}\n`
+    + `→ 명단 관리 페이지에서 이메일을 넣은 뒤 다시 올리세요.`);
+  $('#go').disabled=false;
+};
+</script></body></html>
