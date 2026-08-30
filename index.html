@@ -683,6 +683,7 @@ const fsdb = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 const TEACHER_EMAIL = 'vfmedicalschool@gmail.com';
+const NEED_SCHEMA = 2;
 const normEmail = e => String(e||'').trim().toLowerCase();
 const sameEmail = (a,b) => normEmail(a)!=='' && normEmail(a)===normEmail(b);
 function isWebView(){
@@ -925,7 +926,18 @@ function rankguide(el, myRank, total, RR){
 
 /* ── 유형별 합격생 프로파일 ── */
 function ennprofile(el, enn, EP){
-  const t=(enn||'?')[0], P=EP.types[t], K=EP.common, K2=EP.feedback;
+  const t=(enn||'?')[0], K2=(EP&&EP.feedback)||null;
+  /* 구버전 data/cohort.json 으로도 최소한은 그려지도록 형식을 맞춰준다.
+     (예전 형식: balance.body/rules · types[t].subj/life — 합격/불합격 구분이 없었다) */
+  const KC=(EP&&EP.common)||{}, B0=KC.balance||{}, L0=KC.life||{};
+  const norm = o => ({head:o.head||'', lead:o.lead||o.body||'',
+                      passl:o.passl||[], faill:o.faill||[], rules:o.rules||[]});
+  const K = {balance:norm(B0), life:norm(L0)};
+  const P0=(EP&&EP.types)?EP.types[t]:null;
+  const P = !P0 ? null : Object.assign({}, P0, {
+    pass_subj: P0.pass_subj || P0.subj || [],
+    pass_life: P0.pass_life || P0.life || [],
+    fail:      P0.fail      || []});
   const rate = P ? Math.round(100*P.pass_n/P.n) : null;
   const fail_n = P ? P.n - P.pass_n : 0;
 
@@ -1141,6 +1153,32 @@ function unitcards(el, units, opt={}){
 
 let D=null, ME=null, curStu=null, isTeacher=false, ALL=null;
 
+/* 화면이 통째로 비는 사고를 막는다.
+   예전에 data/cohort.json 만 옛 버전이어서 drawInd 가 예외로 죽고
+   레이더·등수·참여현황이 전부 안 보인 적이 있다. 그때 원인을 알 방법이 없었다.
+   이제는 무엇이 잘못됐는지 화면에 적는다. */
+function stale(){
+  const s = D && D.schema;
+  return (s === undefined || s < NEED_SCHEMA);
+}
+function oops(el, e){
+  if(!el) return;
+  el.innerHTML = `<div class="note bad"><b>이 부분을 그리지 못했습니다.</b>
+    ${stale()?`데이터 파일(<code>data/cohort.json</code>)이 화면 코드보다 오래됐습니다.
+       저장소의 <code>data/cohort.json</code>을 새 파일로 덮어쓰면 해결됩니다.
+       <span class="mut">(파일 ${D&&D.schema!==undefined?'v'+D.schema:'버전 없음'} · 필요 v${NEED_SCHEMA})</span>`
+      :`잠시 후 새로고침해 보시고, 계속 같으면 홍쌤에게 알려주세요.`}
+    <span class="mut" style="display:block;margin-top:6px">${esc(String(e&&e.message||e))}</span></div>`;
+}
+function draw(){
+  if(document.getElementById('cls').classList.contains('on')){
+    try{ drawClass(); }catch(e){ console.error(e); oops($('#c-concl'), e); }
+  }
+  if(document.getElementById('ind').classList.contains('on')){
+    try{ drawInd(); }catch(e){ console.error(e); oops($('#ind-body'), e); }
+  }
+}
+
 /* ══ 로그인 ══ */
 const lg=document.getElementById('login'), app=document.getElementById('app');
 const lerr=document.getElementById('lerr');
@@ -1206,6 +1244,17 @@ auth.onAuthStateChanged(async user=>{
       : `<span class="av">${esc((curStu||user.email)[0])}</span>
          <span><b>${esc(curStu||'')}</b></span>
          <button onclick="logout()">로그아웃</button>`;
+    // 데이터 파일이 화면 코드보다 오래되면 맨 위에 먼저 알린다
+    try{
+      if(stale()){
+        const host = document.querySelector('.body');
+        if(host && host.insertAdjacentHTML) host.insertAdjacentHTML('afterbegin',
+          `<div class="note bad" style="margin:0 0 12px"><b>데이터 파일이 오래됐습니다.</b>
+           저장소의 <code>data/cohort.json</code>을 새 파일로 덮어써 주세요.
+           그전까지 일부 내용이 비어 보일 수 있습니다.
+           <span class="mut">(파일 ${D.schema!==undefined?'v'+D.schema:'버전 없음'} · 필요 v${NEED_SCHEMA})</span></div>`);
+      }
+    }catch(e){}
     bindTabs(); draw();
   }catch(e){
     lerr.textContent='데이터를 불러오지 못했습니다: '+e.message;
@@ -1219,10 +1268,6 @@ function bindTabs(){
     document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.t));
     draw(); window.scrollTo({top:0,behavior:'smooth'});
   });
-}
-function draw(){
-  if(document.getElementById('cls').classList.contains('on')) drawClass();
-  if(document.getElementById('ind').classList.contains('on')) drawInd();
 }
 
 /* ══ 반 전체 ══ */
