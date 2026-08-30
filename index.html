@@ -432,6 +432,63 @@ ol.enum li:before{content:counter(e);position:absolute;left:0;top:1px;width:18px
   font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;
   font-family:'IBM Plex Mono',monospace}
 
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0}
+@media(max-width:720px){.vs{grid-template-columns:1fr}}
+.vsc{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
+.vsc.pass{border-color:var(--green-line);background:linear-gradient(180deg,#F6FCF9,#fff)}
+.vsc.fail{border-color:var(--red-line);background:linear-gradient(180deg,#FDF7F5,#fff)}
+.vh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.vb{font-size:10.5px;font-weight:800;letter-spacing:.02em;padding:4px 9px;border-radius:99px;
+  white-space:nowrap}
+.vsc.pass .vb{background:var(--green);color:#fff}
+.vsc.fail .vb{background:var(--red);color:#fff}
+.vh .vt{font-size:12.5px;font-weight:800;color:var(--navy)}
+.vsub{font-size:10.5px;font-weight:800;letter-spacing:.03em;color:var(--ink4);
+  margin:12px 0 5px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.vsub:first-of-type{margin-top:0}
+ul.vl{margin:0;padding:0;list-style:none}
+ul.vl li{position:relative;padding-left:21px;font-size:12.5px;color:var(--ink2);
+  line-height:1.62;margin:7px 0}
+ul.vl li:before{position:absolute;left:0;top:0;font-size:12px;font-weight:800}
+.vsc.pass ul.vl li:before{content:'○';color:var(--green)}
+.vsc.fail ul.vl li:before{content:'✕';color:var(--red)}
+.vnone{font-size:12.5px;color:var(--ink3);line-height:1.6;padding:10px 12px;border-radius:10px;
+  background:var(--soft);border:1px dashed var(--line)}
+.vlead{font-size:12.5px;color:var(--ink2);line-height:1.68;margin-bottom:2px}
+.vrule{border:1px solid var(--blue-line);border-radius:13px;background:var(--blue-bg);
+  padding:13px 15px;margin-top:2px}
+.vrule .vrh{font-size:11.5px;font-weight:800;color:var(--navy);margin-bottom:7px;letter-spacing:.02em}
+
+.fbcard{border:1px solid var(--line);border-radius:15px;padding:16px 18px;background:#fff;
+  margin-top:12px}
+.fbrow{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.6fr) 58px;
+  gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line2)}
+.fbrow:first-of-type{border-top:none}
+.fbk{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.45}
+.fbk span{display:block;font-size:11px;font-weight:400;color:var(--ink4);margin-top:3px;line-height:1.5}
+.fbb{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fbl{display:grid;grid-template-columns:44px 1fr 34px;gap:7px;align-items:center}
+.fbl i{font-style:normal;font-size:10px;font-weight:800;color:var(--ink4);text-align:right}
+.fbl u{display:block;height:10px;border-radius:99px;background:#EDF0F6;text-decoration:none;
+  overflow:hidden}
+.fbl u>b{display:block;height:100%;border-radius:99px}
+.fbl.p u>b{background:var(--green)} .fbl.f u>b{background:var(--red)}
+.fbl em{font-style:normal;font-size:11px;font-weight:800;font-family:'IBM Plex Mono',monospace}
+.fbl.p em{color:var(--green-d)} .fbl.f em{color:var(--red-d)}
+.fbp{font-size:10.5px;font-weight:800;text-align:center;font-family:'IBM Plex Mono',monospace;
+  color:var(--ink4);border:1px solid var(--line);border-radius:8px;padding:4px 2px}
+.fbp.sig{color:var(--red-d);border-color:var(--red-line);background:var(--red-bg)}
+.fbkeys{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:640px){.fbkeys{grid-template-columns:1fr}
+  .fbrow{grid-template-columns:1fr;gap:6px}.fbp{justify-self:start;padding:4px 10px}}
+.fbkey{border:1px solid var(--blue-line);border-radius:12px;background:var(--blue-bg);padding:12px 14px}
+.fbkey .kt{font-size:11.5px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.45}
+.fbkey .kv{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.fbkey .kv span{font-size:11px;color:var(--ink3)}
+.fbkey .kv b{font-size:17px;font-weight:800;font-family:'IBM Plex Mono',monospace}
+.fbkey .kv .kp b{color:var(--green-d)} .fbkey .kv .kf b{color:var(--red-d)}
+.fbkey .ks{font-size:10.5px;color:var(--ink4);margin-top:6px;line-height:1.5}
+
 #login{min-height:82vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
 #login .box{max-width:430px;width:100%;background:var(--card);border:1px solid var(--line);
   border-radius:22px;padding:34px 30px;box-shadow:var(--shadow);text-align:center}
@@ -868,27 +925,79 @@ function rankguide(el, myRank, total, RR){
 
 /* ── 유형별 합격생 프로파일 ── */
 function ennprofile(el, enn, EP){
-  const t=(enn||'?')[0], P=EP.types[t], K=EP.common;
+  const t=(enn||'?')[0], P=EP.types[t], K=EP.common, K2=EP.feedback;
   const rate = P ? Math.round(100*P.pass_n/P.n) : null;
-  el.innerHTML = `
-  <div class="corepair">
-    <div class="core bal">
-      <div class="chh"><span class="cic">⚖</span><div class="ch">${esc(K.balance.head)}</div></div>
-      <div class="ratio">
-        <span class="rs bio" style="flex:4"><b>생물</b><i>4</i></span>
-        <span class="rs che" style="flex:4"><b>일반화학</b><i>4</i></span>
-        <span class="rs org" style="flex:2.5"><b>유기</b><i>2~3</i></span>
+  const fail_n = P ? P.n - P.pass_n : 0;
+
+  /* 합격생 / 불합격생 좌우 대비 블록 */
+  const vs = (pass, fail, plab, flab, sub) => `
+    <div class="vs">
+      <div class="vsc pass"><div class="vh"><span class="vb">${plab}</span>
+        <span class="vt">이렇게 했습니다</span></div>
+        ${sub&&sub.length
+          ? sub.map(g=>g.items.length?`<div class="vsub">${esc(g.label)}</div>
+              <ul class="vl">${g.items.map(x=>`<li>${x}</li>`).join('')}</ul>`:'').join('')
+          : (pass.length?`<ul class="vl">${pass.map(x=>`<li>${x}</li>`).join('')}</ul>`
+              : `<div class="vnone">이 유형은 작년에 합격한 학생이 없었습니다.
+                   아래 '조심할 것'을 특히 눈여겨보세요.</div>`)}
       </div>
-      <div class="rcap">작년 합격생이 실제로 지킨 시간 배분 —
-        <b>유기를 2~3만큼은 반드시 남겨두는 것</b>이 핵심입니다.</div>
-      <div class="cb">${K.balance.body}</div>
+      <div class="vsc fail"><div class="vh"><span class="vb">${flab}</span>
+        <span class="vt">이런 기록이 남았습니다</span></div>
+        ${fail.length?`<ul class="vl">${fail.map(x=>`<li>${x}</li>`).join('')}</ul>`
+          : `<div class="vnone">이 유형은 작년에 불합격한 학생이 없었습니다.
+               왼쪽 습관을 그대로 따라 하시면 됩니다.</div>`}
+      </div>
+    </div>`;
+
+  el.innerHTML = `
+  <div class="core bal">
+    <div class="chh"><span class="cic">⚖</span><div class="ch">${esc(K.balance.head)}</div></div>
+    <div class="ratio">
+      <span class="rs bio" style="flex:4"><b>생물</b><i>4</i></span>
+      <span class="rs che" style="flex:4"><b>일반화학</b><i>4</i></span>
+      <span class="rs org" style="flex:2.5"><b>유기</b><i>2~3</i></span>
+    </div>
+    <div class="rcap">작년 합격생이 실제로 지킨 시간 배분 —
+      <b>유기를 2~3만큼은 반드시 남겨두는 것</b>이 핵심입니다.</div>
+    <div class="vlead">${K.balance.lead}</div>
+    ${vs(K.balance.passl, K.balance.faill, '합격생 16명', '불합격생 14명')}
+    <div class="vrule"><div class="vrh">그래서 이렇게 하세요</div>
       <ul class="chk">${K.balance.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
-    <div class="core life">
-      <div class="chh"><span class="cic">◷</span><div class="ch">${esc(K.life.head)}</div></div>
-      <div class="cb">${K.life.body}</div>
+  </div>
+
+  <div class="core life" style="margin-top:12px">
+    <div class="chh"><span class="cic">◷</span><div class="ch">${esc(K.life.head)}</div></div>
+    <div class="vlead">${K.life.lead}</div>
+    ${vs(K.life.passl, K.life.faill, '합격생 16명', '불합격생 14명')}
+    <div class="vrule"><div class="vrh">그래서 이렇게 하세요</div>
       <ul class="chk">${K.life.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
   </div>
-  ${P?`<div class="ennp">
+
+  ${K2?`<div class="fbcard">
+    <div class="chh"><span class="cic" style="background:var(--blue-bg);color:var(--navy)">✎</span>
+      <div class="ch">${esc(K2.head)}</div></div>
+    <div class="vlead" style="margin-bottom:8px">${K2.lead}</div>
+    ${K2.rows.map(r=>{
+      const mx = Math.max(r.a, r.b, 10);
+      const bar = (v,cl,lab) => `<div class="fbl ${cl}"><i>${lab}</i>
+        <u><b style="width:${Math.max(2,100*v/mx)}%"></b></u><em>${v}%</em></div>`;
+      return `<div class="fbrow">
+        <div class="fbk">${esc(r.k)}<span>${esc(r.note)}</span></div>
+        <div class="fbb">${bar(r.a,'p','합격생')}${bar(r.b,'f','불합격생')}</div>
+        <div class="fbp ${r.p<0.05?'sig':''}">p<br>${r.p.toFixed(3)}</div>
+      </div>`;}).join('')}
+    <div class="fbkeys">${K2.keys.map(k=>`<div class="fbkey">
+      <div class="kt">${esc(k.t)}</div>
+      <div class="kv"><span class="kp">합격생 <b>${esc(k.a)}</b></span>
+        <span class="kf">불합격생 <b>${esc(k.b)}</b></span></div>
+      <div class="ks">${esc(k.s)}</div></div>`).join('')}</div>
+    <div class="vrule" style="margin-top:12px"><div class="vrh">그래서 이렇게 하세요</div>
+      <ul class="chk"><li>${K2.close}</li></ul></div>
+    <div class="enote" style="margin:10px 0 0">※ ${K2.caveat}
+      각 숫자는 <b>8주 중 그 내용이 피드백에 등장한 주의 비율</b>입니다.</div>
+  </div>`:''}
+
+  ${P?`<div class="ennp" style="margin-top:14px">
     <div class="ehead">
       <span class="edisc"><b>${esc(enn)[0]}</b><i>유형</i></span>
       <span class="etx"><span class="ebadge">${esc(enn)}</span>
@@ -897,18 +1006,15 @@ function ennprofile(el, enn, EP){
     <div class="estat">
       <span>작년 이 유형 <b>${P.n}</b>명</span>
       <span>합격 <b>${P.pass_n}</b>명</span>
+      <span>불합격 <b>${fail_n}</b>명</span>
       ${rate!=null?`<span>합격률 <b>${rate}</b>%</span>`:''}
-      <span>근거 <b>239</b>건의 주간 셀프피드백</span>
     </div>
-    <div class="enote">※ <b>7월부터 함께한 30명만 센 숫자입니다.</b>
-      9월에 합류해 합격한 학생 5명은 7–8월 주간 셀프피드백 기록이 없어 이 집계에서 빠져 있습니다.
+    <div class="enote">주간 셀프피드백 239건을 유형별로 전수 정독해 <b>실제 기록만</b> 옮긴 것입니다.
+      ※ <b>7월부터 함께한 30명만 센 숫자입니다.</b>
+      9월에 합류해 합격한 학생 5명은 7–8월 기록이 없어 이 집계에서 빠져 있습니다.
       그래서 실제 유형별 합격 인원은 여기 적힌 것보다 많습니다.</div>
-    <div class="ebox"><div class="bth"><span class="bic">과</span>
-      <div class="bt">과목 — 이렇게 했습니다</div></div>
-      <ol class="enum">${P.subj.map(x=>`<li>${x}</li>`).join('')}</ol></div>
-    <div class="ebox"><div class="bth"><span class="bic">생</span>
-      <div class="bt">생활관리 — 이렇게 했습니다</div></div>
-      <ol class="enum">${P.life.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+    ${vs([], P.fail, `합격 ${P.pass_n}명`, `불합격 ${fail_n}명`,
+        [{label:'과목', items:P.pass_subj}, {label:'생활관리', items:P.pass_life}])}
     <div class="ebox warn"><div class="bth"><span class="bic">!</span>
       <div class="bt">${esc(enn)[0]}번 유형이 특히 조심할 것</div></div>
       <p>${P.warn}</p></div>
