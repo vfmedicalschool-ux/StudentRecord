@@ -1568,15 +1568,18 @@ const html = `
 </section>
 
 <section class="sec org" id="org">
-  ${sechead('org','유기','ORGANIC · 단원별 12회 + 전과목 5문항','유기화학',
-    p.no_org? `${esc(p.no_org)}` : orgWeak.length? `12단원 중 가장 약한 곳은 <b>${esc(orgWeak[0].unit.split(',')[0])}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)${org9.length?` · 9월 4단원 평균 z <b>${fz(org9.reduce((a,b)=>a+b.z,0)/org9.length)}</b>`:''}.
+  ${sechead('org','유기', p.org_scope?`ORGANIC · 1~${p.org_scope}단원 한정`:'ORGANIC · 단원별 12회 + 전과목 5문항','유기화학',
+    p.no_org? `${esc(p.no_org)}` : p.org_scope? `<b>${esc(p.org_scope_note||'')}</b>. ${orgWeak.length?`범위 안에서 가장 약한 곳은 <b>${esc(orgWeak[0].unit)}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)입니다.`:'아직 응시한 유기 TEST가 없어 단원별 수치는 없습니다. 아래 카드는 홍쌤 피드백 기준입니다.'}` : orgWeak.length? `12단원 중 가장 약한 곳은 <b>${esc(orgWeak[0].unit.split(',')[0])}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)${org9.length?` · 9월 4단원 평균 z <b>${fz(org9.reduce((a,b)=>a+b.z,0)/org9.length)}</b>`:''}.
       ${s.유기공백율!=null&&s.유기공백율>=0.4?`셀프피드백에서 <b>유기 공백 주차가 ${Math.round(s.유기공백율*100)}%</b> — 작년 합격·불합격을 가장 잘 가른 지표입니다.`:''}`:'유기 자료가 없습니다.')}
   ${p.no_org?'':`<div class="blk"><div class="main">
-    <div class="card tight"><h3>12단원 강약 <span class="mut">— 7–9월, 빨간 점 = 먼저 잡을 단원</span></h3>
+    <div class="card tight"><h3>${p.org_scope?`1~${p.org_scope}단원 강약`:'12단원 강약'} <span class="mut">— ${p.org_scope?'홍쌤과 정한 범위만':'7–9월'}, 빨간 점 = 먼저 잡을 단원</span></h3>
       <div class="split"><div><div id="i-oradar"></div></div><div><div id="i-org"></div></div></div></div>
-    <div class="card tight"><h3>회차별 정답률 <span class="mut">— 9~12회가 9월 단원</span></h3><div id="o-line"></div></div>
+    <div class="card tight"><h3>회차별 정답률 <span class="mut">— ${p.org_scope?`1~${p.org_scope}회만 해당`:'9~12회가 9월 단원'}</span></h3><div id="o-line"></div></div>
   </div><div class="aside">
-    ${how([`유기는 <b>앞 단원이 비면 뒤가 전부 흔들립니다.</b> 빨간 점이 앞 단원(1~5)이면 9월 단원보다 그걸 먼저.`,
+    ${how(p.org_scope?[`범위는 <b>1~${p.org_scope}단원</b>입니다. 9월 단원(9~12회) TEST는 이 리포트에서 뺐으니 '미응시'로 세지 않습니다.`,
+           `생물·화학에 밀리는 주에도 <b>표시해 둔 문제를 짧게라도</b> 다시 보는 것이 목표입니다. 분량보다 '끊기지 않기'가 먼저입니다.`,
+           `범위를 넓히고 싶어지면 먼저 홍쌤과 상의하세요. 지금은 1~${p.org_scope}장 안에서 <b>답 있는 예제를 혼자 푸는 정확도</b>가 기준입니다.`]
+         :[`유기는 <b>앞 단원이 비면 뒤가 전부 흔들립니다.</b> 빨간 점이 앞 단원(1~5)이면 9월 단원보다 그걸 먼저.`,
            `9~12회(9월 단원) 정답률이 1~8회보다 내려가면 <b>반응 메커니즘 암기</b>가 아니라 <b>손으로 그리는 연습</b>이 부족한 것입니다.`,
            `작년 합격생은 예외 없이 유기를 <b>하루 중 고정 시간대</b>에 했습니다. 분량보다 시간대를 먼저 정하세요.`])}
     ${ctaCard(byTag(ORG_T),{ok:'유기는 지금 루틴을 유지하세요.'})}
@@ -1634,10 +1637,12 @@ if(!p.joined_sep){
   table($('#c-miss'), [{h:'시험',k:'test'},{h:'문항',n:1,f:r=>r.qno+'번'},{h:'단원',f:r=>`<span class="mut">${esc(r.unit)}</span>`},{h:'주제',f:r=>`<b>${esc(r.topic||'')}</b>`},{h:'반 정답률',n:1,f:r=>`${r.반정답률}%`}], (p.chem_miss||[]).slice(0,25));
 }
 if(!p.no_org){
-  radar($('#i-oradar'), p.org, [{k:'반평균',c:C.green,w:1.8,f:.05},{k:'pct',c:C.blue,w:2.4,f:.15}],{lk:'unit',vk:'pct',size:420,pad:96});
+  if(p.org.some(x=>x.pct!=null)) radar($('#i-oradar'), p.org, [{k:'반평균',c:C.green,w:1.8,f:.05},{k:'pct',c:C.blue,w:2.4,f:.15}],{lk:'unit',vk:'pct',size:420,pad:96});
+  else if($('#i-oradar')) $('#i-oradar').innerHTML='<div class="mut" style="padding:30px 10px;text-align:center;font-size:12px">응시한 유기 TEST가 없어 레이더를 그리지 않습니다.</div>';
   if(orgWeak.length) zlist($('#i-org'), orgWeak, {lk:'unit'});
   else if($('#i-org')) $('#i-org').innerHTML='<div class="note" style="margin:0">아직 응시한 유기 TEST가 없어 단원별 강약을 그릴 수 없습니다. 다음 회차부터 채워집니다.</div>';
-  lines($('#o-line'), orgT, [{k:'pct',c:C.blue,w:2.6,area:true},{k:'반평균',c:C.green,w:2,dot:false}],{h:220,xk:'label',xcol:r=>r.session>=9?'#B8641A':null});
+  if(orgT.some(t=>t.응시)) lines($('#o-line'), orgT, [{k:'pct',c:C.blue,w:2.6,area:true},{k:'반평균',c:C.green,w:2,dot:false}],{h:220,xk:'label',xcol:r=>r.session>=9?'#B8641A':null});
+  else if($('#o-line')) $('#o-line').innerHTML=`<div class="note" style="margin:0">${p.org_scope?`1~${p.org_scope}회 TEST는 7월에 치러져 9월 합류 전이었습니다. 10월에 범위 안 TEST를 다시 보면 여기에 채워집니다.`:'응시한 유기 TEST가 없습니다.'}</div>`;
 }
 /* 생활 신호 막대 */
 const LB=[['미룬 단원 기록','회피',true],['유기 공백','유기공백',true],['유기 고정 시간대','유기루틴',false],['약점 스스로 찾음','약점탐지',false],['진도 마일스톤','마일스톤',false]];
@@ -1976,7 +1981,7 @@ function pickerHTML(){
   return `<div class="tpick">
     <span class="tpl">선생님 미리보기</span>
     <button onclick="stepStudent(-1)">◀</button>
-    <select id="tsel">${ALL.map(o=>
+    <select id="tsel" onchange="pickStudent(this.value)">${ALL.map(o=>
       `<option value="${esc(o.name)}"${o.name===curStu?' selected':''}>${esc(o.name)}</option>`).join('')}</select>
     <button onclick="stepStudent(1)">▶</button>
     <span class="tpn">${i+1} / ${ALL.length}명</span>

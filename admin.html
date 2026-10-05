@@ -486,6 +486,7 @@ ul.vl li:before{position:absolute;left:0;top:0;font-size:12px;font-weight:800}
 .fbkey .kv .kp b{color:var(--green-d)} .fbkey .kv .kf b{color:var(--red-d)}
 .fbkey .ks{font-size:10.5px;color:var(--ink4);margin-top:6px;line-height:1.5}
 
+__RCSS__
 .up{max-width:820px;margin:0 auto}
 .drop{border:2px dashed var(--line);border-radius:16px;padding:34px;text-align:center;background:#fff}
 .drop.on{border-color:var(--blue2);background:var(--blue-bg)}
@@ -550,7 +551,7 @@ const fsdb = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 const TEACHER_EMAIL = 'vfmedicalschool@gmail.com';
-const NEED_SCHEMA = 3;
+const NEED_SCHEMA = 4;
 const normEmail = e => String(e||'').trim().toLowerCase();
 const sameEmail = (a,b) => normEmail(a)!=='' && normEmail(a)===normEmail(b);
 function isWebView(){
@@ -693,7 +694,7 @@ $('#go').onclick = async () => {
     }catch(e){ log('되읽기 확인 실패: '+e.message); }
   }
   if(skip.length) log(`이메일 미등록으로 건너뜀 (${skip.length}명): ${skip.join(', ')}\n`
-    + `→ 명단 관리 페이지에서 이메일을 넣은 뒤 다시 올리세요.`);
+    + `→ 이 화면 아래 "명단에 이메일 등록" 칸에서 이메일을 넣은 뒤 [Firestore에 업로드]를 한 번 더 누르세요.`);
   $('#go').disabled=false;
 };
 </script></body></html>
