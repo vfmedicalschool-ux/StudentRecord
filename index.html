@@ -489,6 +489,82 @@ ul.vl li:before{position:absolute;left:0;top:0;font-size:12px;font-weight:800}
 .fbkey .kv .kp b{color:var(--green-d)} .fbkey .kv .kf b{color:var(--red-d)}
 .fbkey .ks{font-size:10.5px;color:var(--ink4);margin-top:6px;line-height:1.5}
 
+
+/* ── 카테고리 구조 ── */
+.catnav{position:sticky;top:0;z-index:40;display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;
+  margin:0 0 6px;background:var(--bg);border-bottom:1px solid var(--line)}
+.catnav a{font-size:12.5px;font-weight:700;color:var(--ink3);text-decoration:none;padding:7px 13px;
+  border-radius:99px;border:1px solid transparent}
+.catnav a:hover{background:var(--card);border-color:var(--line);color:var(--ink)}
+.catnav a .d{display:inline-block;width:8px;height:8px;border-radius:99px;margin-right:7px;vertical-align:1px}
+.sec{display:block;margin:26px 0 0;scroll-margin-top:62px}
+.sechead{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+  padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.sechead .sico{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;letter-spacing:.02em}
+.sechead .st{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--ink4)}
+.sechead h2{margin:2px 0 4px;font-size:18px}
+.sechead .verdict{font-size:13px;color:var(--ink2);line-height:1.6}
+.sechead .verdict b{color:var(--ink)}
+.sec.bio .sico{background:#0E7A5F} .sec.che .sico{background:#2B4795}
+.sec.org .sico{background:#B8641A} .sec.life .sico{background:#6B4FA0} .sec.sum .sico{background:#1E3168}
+.sec.ref .sico{background:#6E7B94}
+.catnav .bio{background:#0E7A5F}.catnav .che{background:#2B4795}.catnav .org{background:#B8641A}
+.catnav .life{background:#6B4FA0}.catnav .sum{background:#1E3168}.catnav .ref{background:#6E7B94}
+.blk{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;margin-top:12px;align-items:start}
+@media(max-width:820px){.blk{grid-template-columns:1fr}}
+.blk .main{min-width:0}
+.aside{display:grid;gap:10px;position:sticky;top:62px}
+.how{border:1px solid var(--line);border-radius:13px;background:var(--card);padding:13px 15px}
+.how .ht{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink4);margin-bottom:8px}
+.how ol{margin:0;padding-left:18px}
+.how li{font-size:12.5px;color:var(--ink2);line-height:1.6;margin:5px 0}
+.how li b{color:var(--ink)}
+.cta{border-radius:13px;padding:13px 15px;border:1px solid var(--red-line);background:var(--red-soft)}
+.cta.ok{border-color:var(--green-line);background:#F6FCF9}
+.cta.warn{border-color:var(--amber-line);background:var(--amber-soft)}
+.cta .ct{font-size:10.5px;font-weight:800;letter-spacing:.08em;margin-bottom:8px;color:var(--red-d)}
+.cta.ok .ct{color:var(--green-d)} .cta.warn .ct{color:var(--amber)}
+.cta .ci{padding:9px 0;border-top:1px solid rgba(0,0,0,.05)}
+.cta .ci:first-of-type{border-top:none;padding-top:0}
+.cta .ci b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px;line-height:1.4}
+.cta .ci span{font-size:12px;color:var(--ink2);line-height:1.58}
+.cta .ci .tg{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:99px;
+  background:rgba(0,0,0,.06);color:var(--ink3);margin-bottom:5px}
+.card.tight{padding:14px 16px}
+.card h3 .mut{font-weight:400;font-size:11.5px}
+/* 총평 */
+.hero{border-radius:18px;padding:20px 22px;background:var(--navy);color:#fff;margin-top:10px}
+.hero .hk{font-size:11px;font-weight:800;letter-spacing:.1em;opacity:.7}
+.hero h1{font-size:22px;margin:4px 0 8px;letter-spacing:-.01em;text-wrap:balance}
+.hero p{font-size:13.5px;line-height:1.7;opacity:.92;margin:0;max-width:72ch}
+.hero p b{color:#fff}
+.hero .kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+.hero .kp>div{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 12px}
+.hero .kp .l{font-size:10.5px;font-weight:700;opacity:.75}
+.hero .kp .v{font-size:22px;font-weight:800;font-family:'IBM Plex Mono',monospace;letter-spacing:-.02em;margin-top:2px}
+.hero .kp .v small{font-size:12px;opacity:.7;font-family:inherit}
+.hero .kp .f{font-size:10.5px;opacity:.7;margin-top:2px}
+.top3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px}
+.top3 .t{border-radius:14px;padding:14px 15px;border:1px solid var(--line);background:var(--card);
+  display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+.top3 .n{width:30px;height:30px;border-radius:9px;background:var(--red-bg);color:var(--red-d);
+  font-weight:800;font-family:'IBM Plex Mono',monospace;display:flex;align-items:center;justify-content:center}
+.top3 .t b{display:block;font-size:13px;color:var(--ink);line-height:1.4}
+.top3 .t span{font-size:11.5px;color:var(--ink3)}
+.top3 .t span.cat{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;color:#fff;margin-bottom:6px}
+.top3 .t .bd{display:block;font-size:12px;color:var(--ink2);line-height:1.6}
+.pbar{display:grid;grid-template-columns:110px 1fr 52px;gap:10px;align-items:center;font-size:12px;color:var(--ink2);padding:6px 0;border-top:1px solid var(--line2)}
+.pbar:first-of-type{border-top:none}
+.pbar u{display:block;height:9px;border-radius:99px;background:#EDF0F6;text-decoration:none;overflow:hidden}
+.pbar u b{display:block;height:100%;border-radius:99px}
+.pbar em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-weight:800;text-align:right}
+details.ref{border:1px solid var(--line);border-radius:13px;background:var(--card);padding:0 16px;margin-top:10px}
+details.ref summary{cursor:pointer;font-size:13px;font-weight:800;color:var(--navy);padding:13px 0;list-style:none;display:flex;justify-content:space-between}
+details.ref summary:after{content:'열기';font-size:11px;color:var(--ink4);font-weight:600}
+details.ref[open] summary:after{content:'접기'}
+details.ref .in{padding:0 0 16px}
+
 #login{min-height:82vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
 #login .box{max-width:430px;width:100%;background:var(--card);border:1px solid var(--line);
   border-radius:22px;padding:34px 30px;box-shadow:var(--shadow);text-align:center}
@@ -564,38 +640,34 @@ ul.vl li:before{position:absolute;left:0;top:0;font-size:12px;font-weight:800}
   <section id="gui" class="on">
     <div class="tagline">START HERE</div>
     <h2>이 리포트를 어떻게 봐야 하나요</h2>
-    <p class="lead">순서대로 5분이면 됩니다. 점수를 확인하는 게 목적이 아니라,
-      <b>10월에 무엇부터 할지</b>를 정하는 게 목적입니다.
-      이번 호부터 <b>9월 중앙·경희 기출 12회, 유기 4회, 일반화학·전과목 모의고사</b>가 들어갔고, 9월 합류 7명이 추가돼 46명입니다.</p>
+    <p class="lead">점수를 확인하는 게 목적이 아니라, <b>10월에 무엇부터 할지</b>를 정하는 게 목적입니다.
+      이번 호부터 '내 리포트'가 <b>총평 · 생물 · 화학 · 유기 · 생활관리 · 참고</b> 여섯 칸으로 나뉩니다.
+      9월 중앙·경희 기출 12회, 유기 4회, 일반화학·전과목 모의고사가 들어갔고, 9월 합류 7명이 추가돼 46명입니다.</p>
     <div class="steps">
       <div class="step"><span class="sn"></span><div>
-        <h4>먼저 '내 리포트'의 <b>지금 해야 할 것</b>을 읽으세요</h4>
-        <p>맨 위에 있습니다. 빨간 카드부터 보세요. 데이터에서 실제로 잡힌 것만 적혀 있고,
-          해당 없는 항목은 아예 나오지 않습니다. 빨간 것이 없으면 지금 방식이 맞다는 뜻입니다.</p>
+        <h4><b>총평</b>만 읽어도 됩니다 — 10월에 할 세 가지</h4>
+        <p>맨 위 남색 상자에 9월 종합 등수와 한 줄 진단, 그 아래에 <b>번호가 붙은 카드 세 장</b>이 있습니다.
+          과목별 섹션에서 가장 급한 것 하나씩을 골라 올린 것입니다. 바쁘면 이 세 장만 실행하세요.</p>
         <div class="chips"><span class="chip r">지금 손봐야 함</span>
-          <span class="chip a">확인 필요</span><span class="chip">유형별 주의</span>
-          <span class="chip g">잘 되고 있음</span></div></div></div>
+          <span class="chip a">확인 필요</span><span class="chip g">잘 되고 있음</span></div></div></div>
       <div class="step"><span class="sn"></span><div>
-        <h4>약점 레이더에서 <b>빨간 점</b>만 보세요</h4>
-        <p>6각형(생물)과 8각형(유기)에서 빨간 점은 <b>가장 약한 곳 최대 2개</b>만 찍힙니다.
-          전부 빨갛게 칠하면 무엇부터 할지 알 수 없기 때문입니다.
-          안쪽으로 들어간 축이 약한 단원이고, 오른쪽 목록이 약한 순서입니다.</p></div></div>
+        <h4>과목 섹션은 <b>왼쪽 그래프 → 오른쪽 '이렇게 보세요' → '지금 할 것'</b> 순서로</h4>
+        <p>생물·화학·유기 섹션마다 오른쪽에 읽는 법 세 줄과 '지금 할 것' 카드가 있습니다.
+          그래프에서 빨간 점은 <b>가장 약한 곳 최대 2개</b>만 찍힙니다. 전부 빨갛게 칠하면 무엇부터 할지 알 수 없기 때문입니다.</p></div></div>
       <div class="step"><span class="sn"></span><div>
         <h4>점수 자체보다 <b>반평균과의 거리</b>를 보세요</h4>
         <p>85%가 잘한 건지 못한 건지는 그 회차 난이도에 따라 다릅니다.
-          반평균이 86%면 85%는 평균 이하입니다. 그래서 모든 그래프에 <b>초록색 반평균 선</b>을 같이 그렸습니다.
-          내 선(파랑)이 초록 선 위에 있는지만 보면 됩니다.</p></div></div>
+          그래서 모든 그래프에 <b>초록색 반평균 선</b>을 같이 그렸습니다. 내 선(파랑)이 초록 선 위에 있는지만 보면 됩니다.
+          생물 레이더의 <b>회청색 점선</b>은 작년 합격생입니다.</p></div></div>
       <div class="step"><span class="sn"></span><div>
-        <h4><b>놓치면 안 됐던 문항</b>을 열어 한 줄씩 이유를 적으세요</h4>
-        <p>반의 85% 이상이 맞힌 문항인데 내가 틀린 것들입니다. 대부분 실력이 아니라
-          문제를 급하게 읽었거나 답을 잘못 고른 경우입니다.
-          "왜 틀렸는지"를 한 줄로 적어보면 같은 이유가 반복되는 게 보입니다. 그게 진짜 약점입니다.</p></div></div>
+        <h4>화학은 단원 레이더와 <b>'놓친 문항·주제'</b>를 같이 보세요</h4>
+        <p>일반화학은 시험마다 문항을 11단원으로 나눠 봤습니다. 단원당 문항이 적어 2문항 차이로도 20p가 움직이니,
+          레이더의 빨간 점을 본 뒤 그 아래 표에서 <b>실제로 어떤 주제를 틀렸는지</b> 확인하세요.</p></div></div>
       <div class="step"><span class="sn"></span><div>
-        <h4>10월 계획을 <b>숫자로</b> 바꾸세요</h4>
-        <p>"유기 열심히"가 아니라 "매일 아침 8–10시 유기, 스미스 예제 15문항"처럼 적으세요.
-          작년 합격생과 불합격생을 가른 가장 뚜렷한 차이가 이것이었습니다.
-          9월 기출부터는 <b>7–8월 OX 레이더와 9월 기출 레이더가 다른 모양</b>일 수 있습니다 —
-          그 차이가 "개념은 아는데 실전에서 무너지는 단원"입니다. 거기부터 하세요.</p></div></div>
+        <h4>생활관리의 <b>내 유형 카드</b>는 조언이 아니라 기록입니다</h4>
+        <p>나와 같은 애니어그램 유형의 작년 학생이 <b>작년 9월에</b> 실제로 한 것과, 불합격생 기록에 남은 것을 좌우로 나눠 놓았습니다.
+          작년 9월엔 '교재·과정 완료 마일스톤'이 합격생 34% vs 불합격생 15%로 가장 크게 갈렸습니다.
+          10월 계획은 "유기 열심히"가 아니라 "매일 아침 8–10시 유기, 스미스 예제 15문항"처럼 <b>숫자로</b> 적으세요.</p></div></div>
     </div>
 
     <div class="tagline">WHAT THIS IS NOT</div>
@@ -722,7 +794,7 @@ const fsdb = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 const TEACHER_EMAIL = 'vfmedicalschool@gmail.com';
-const NEED_SCHEMA = 3;
+const NEED_SCHEMA = 4;
 const normEmail = e => String(e||'').trim().toLowerCase();
 const sameEmail = (a,b) => normEmail(a)!=='' && normEmail(a)===normEmail(b);
 function isWebView(){
@@ -833,7 +905,7 @@ function radar(el, rows, series, opt={}){
     if(rows.every(r=>r[s.k]==null)) return;
     g+=`<polygon points="${rows.map((r,i)=>pt(i, r[s.k]==null?lo:r[s.k]).join(',')).join(' ')}"
         fill="${s.c}" fill-opacity="${s.f??.13}" stroke="${s.c}" stroke-width="${s.w||2}"
-        stroke-linejoin="round"/>`;
+        ${s.dash?`stroke-dasharray="${s.dash}"`:''} stroke-linejoin="round"/>`;
   });
   /* 빨간 점은 '지금 가장 약한 곳' 신호 — 최대 2개만 */
   const ranked = rows.map((r,i)=>({i, z:r.z})).filter(o=>o.z!=null).sort((a,b)=>a.z-b.z);
@@ -972,10 +1044,54 @@ function rankguide(el, myRank, total, RR){
   </div>`;
 }
 
+/* ── 9월 등수 안내 (작년 9월 중앙 기출 등수 기준) ── */
+function rankguideSep(el, myRank, total, R9, myRank78, total78, RR){
+  if(!el){ console.warn('그릴 자리가 없습니다:', (new Error()).stack.split('\n')[2]); return; }
+  if(!R9||myRank==null){ el.innerHTML=''; return; }
+  const seq=[...R9.seq].map(c=>c==='○'), N=seq.length;
+  const myPct=100*(myRank-0.5)/total, third=myPct<33.4?0:(myPct<66.7?1:2), T=R9.bands[third];
+  const allRate=Math.round(100*R9.pass_n/R9.n);
+  const pr=R9.pass_ranks, med=pr[Math.floor(pr.length/2)];
+  const old78 = (RR&&myRank78!=null) ? (()=>{const q=100*(myRank78-0.5)/total78; const k=q<33.4?0:(q<66.7?1:2); return RR.삼분할[k];})() : null;
+  el.innerHTML = `
+  <div class="rkcard">
+    <div class="rh">9월 등수를 어떻게 봐야 하나요</div>
+    <div class="rs">9월부터 등수 기준이 46명으로 바뀌었고, 시험도 기본기 OX에서 <b>중앙·경희 기출</b>로 바뀌었습니다.
+      그래서 7–8월이 아니라 <b>작년 9월 중앙 기출 등수</b>(${R9.n}명)로 다시 확인했습니다.</div>
+    <div class="rkme">
+      <div><div class="big">${myRank}<small>/${total}</small></div>
+        <div style="font-size:10.5px;color:#6E7B94;text-align:center">9월 종합 등수</div></div>
+      <div class="txt">${total}명 중 ${myRank}등이면 <b>${esc(T.band)}</b>입니다.
+        작년 9월 같은 구간 ${T.n}명 중 <b>${T.k}명이 합격</b>했습니다(${T.rate}%). 전체 합격률은 ${allRate}%였습니다.
+        ${old78?`<br><span class="mut">참고 — 7–8월 등수(${myRank78}/${total78})로 보면 ${esc(old78.구간)}이었고, 작년 그 구간 합격률은 ${Math.round(old78.률)}%였습니다.</span>`:''}</div>
+    </div>
+    <div class="rkstrip">
+      <div class="sl"><span>작년 9월 1등</span><span>작년 ${N}등</span></div>
+      <div class="rkdots">${seq.map((p,i)=>`<span class="rkdot ${p?'p':'f'}" title="작년 9월 ${i+1}등 — ${p?'합격':'불합격'}"></span>`).join('')}</div>
+      <div class="rkleg"><span><i style="background:#1D9E75"></i>합격 ${R9.pass_n}명</span>
+        <span><i style="background:#E3B7AE"></i>불합격 ${R9.n-R9.pass_n}명</span>
+        <span class="mut">칸 하나가 작년 학생 한 명입니다 (왼쪽이 1등)</span></div>
+    </div>
+    <div class="rk3">${R9.bands.map((b,i)=>`
+      <div class="b ${i===third?'on':''}"><div class="n">${esc(b.band)}</div>
+        <div class="v">${b.rate}<small style="font-size:13px">%</small></div>
+        <div class="s">${b.k}/${b.n}명 · ${esc(b.등수범위)}</div></div>`).join('')}</div>
+    <div class="note" style="margin-bottom:0">
+      <b>작년 9월 기출 등수와 합격의 상관계수는 ${R9.rho.toFixed(2)}(p=${R9.rho_p.toFixed(2)})</b> — 방향은 있지만 통계적으로 의미 있는 수준이 아닙니다.
+      합격생 ${R9.pass_n}명의 9월 등수는 <b>${pr[0]}등부터 ${pr[pr.length-1]}등까지</b> 흩어져 있었고 한가운데 값은 ${med}등이었습니다.
+      <b>1·2·3등은 셋 다 불합격</b>했고, 중위권(14–28등) 합격률이 ${R9.bands[1].rate}%로 세 구간 중 가장 높았습니다.<br><br>
+      다만 7–8월과 달라진 점이 하나 있습니다. <b>하위권(29–41등) 합격률이 ${R9.bands[2].rate}%</b>로 떨어졌습니다.
+      7–8월 OX에서는 하위권도 절반이 합격했지만, 9월 기출에서 반 하위 1/3에 머물면 합격이 드물어집니다.
+      그래서 홍쌤이 9월부터 등수를 모니터링하고 하위권 학생을 개별 지도하는 것입니다.<br><br>
+      정확한 뜻은 이겁니다 — <b>상위권이 아니어도 붙지만, 9월에 하위권에 머물면 위험하다.</b>
+      등수 숫자보다 <b>생물 레이더의 빨간 단원</b>과 <b>화학 약한 단원</b>을 10월에 메우는 것이 등수를 올리는 가장 빠른 길입니다.</div>
+  </div>`;
+}
+
 /* ── 유형별 합격생 프로파일 ── */
 function ennprofile(el, enn, EP){
   if(!el){ console.warn('그릴 자리가 없습니다:', (new Error()).stack.split('\n')[2]); return; }
-  const t=(enn||'?')[0], K2=(EP&&EP.feedback)||null;
+  const t=(enn||'?')[0], K2=(EP&&EP.feedback)||null, SEP=!!(EP&&EP.period==='sep');
   /* 구버전 data/cohort.json 으로도 최소한은 그려지도록 형식을 맞춰준다.
      (예전 형식: balance.body/rules · types[t].subj/life — 합격/불합격 구분이 없었다) */
   const KC=(EP&&EP.common)||{}, B0=KC.balance||{}, L0=KC.life||{};
@@ -1020,7 +1136,7 @@ function ennprofile(el, enn, EP){
     </div>
     <div class="rcap">작년 합격생이 실제로 지킨 시간 배분 —
       <b>유기를 2~3만큼은 반드시 남겨두는 것</b>이 핵심입니다.</div>
-    <div class="vlead">${K.balance.lead}</div>
+    <div class="vlead">${SEP?'<span class="mut">[7–8월 기록 기준]</span> ':''}${K.balance.lead}</div>
     ${vs(K.balance.passl, K.balance.faill, '합격생 16명', '불합격생 14명')}
     <div class="vrule"><div class="vrh">그래서 이렇게 하세요</div>
       <ul class="chk">${K.balance.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
@@ -1028,7 +1144,7 @@ function ennprofile(el, enn, EP){
 
   <div class="core life" style="margin-top:12px">
     <div class="chh"><span class="cic">◷</span><div class="ch">${esc(K.life.head)}</div></div>
-    <div class="vlead">${K.life.lead}</div>
+    <div class="vlead">${SEP?'<span class="mut">[7–8월 기록 기준]</span> ':''}${K.life.lead}</div>
     ${vs(K.life.passl, K.life.faill, '합격생 16명', '불합격생 14명')}
     <div class="vrule"><div class="vrh">그래서 이렇게 하세요</div>
       <ul class="chk">${K.life.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
@@ -1055,7 +1171,7 @@ function ennprofile(el, enn, EP){
     <div class="vrule" style="margin-top:12px"><div class="vrh">그래서 이렇게 하세요</div>
       <ul class="chk"><li>${K2.close}</li></ul></div>
     <div class="enote" style="margin:10px 0 0">※ ${K2.caveat}
-      각 숫자는 <b>8주 중 그 내용이 피드백에 등장한 주의 비율</b>입니다.</div>
+      각 숫자는 <b>${SEP?'9월 5주':'8주'} 중 그 내용이 피드백에 등장한 주의 비율</b>입니다.</div>
   </div>`:''}
 
   ${P?`<div class="ennp" style="margin-top:14px">
@@ -1070,10 +1186,13 @@ function ennprofile(el, enn, EP){
       <span>불합격 <b>${fail_n}</b>명</span>
       ${rate!=null?`<span>합격률 <b>${rate}</b>%</span>`:''}
     </div>
-    <div class="enote">주간 셀프피드백 239건을 유형별로 전수 정독해 <b>실제 기록만</b> 옮긴 것입니다.
+    ${SEP?`<div class="enote">작년 <b>9월 1주차 ~ 10월 1주차</b> 주간 셀프피드백 197건을 유형별로 전수 정독해
+      <b>실제 기록만</b> 옮긴 것입니다 (9월 합류생 포함 41명). 지금이 10월 초이므로, 7–8월이 아니라
+      <b>같은 유형의 작년 학생이 9월에 무엇을 했는지</b>를 보여드립니다.</div>`
+    :`<div class="enote">주간 셀프피드백 239건을 유형별로 전수 정독해 <b>실제 기록만</b> 옮긴 것입니다.
       ※ <b>7월부터 함께한 30명만 센 숫자입니다.</b>
       9월에 합류해 합격한 학생 5명은 7–8월 기록이 없어 이 집계에서 빠져 있습니다.
-      그래서 실제 유형별 합격 인원은 여기 적힌 것보다 많습니다.</div>
+      그래서 실제 유형별 합격 인원은 여기 적힌 것보다 많습니다.</div>`}
     ${vs([], P.fail, `합격 ${P.pass_n}명`, `불합격 ${fail_n}명`,
         [{label:'과목', items:P.pass_subj}, {label:'생활관리', items:P.pass_life}])}
     <div class="ebox warn"><div class="bth"><span class="bic">!</span>
@@ -1159,12 +1278,12 @@ function sepIndHTML(p, D){
       <div><div id="s-radar"></div>
         <div class="legend"><span><i style="background:#2B4795"></i>나</span>
           <span><i style="background:#0E7A5F"></i>반평균</span>
-          <span><i style="background:#1D9E75"></i>작년 합격생 (중앙 회차)</span>
+          <span><i style="background:#5B6B8C;border-top:2px dashed #5B6B8C;height:0"></i>작년 합격생 (중앙 회차·점선)</span>
           <span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
       <div><div class="tagline" style="margin-top:0">기출 6단원 · 약한 순</div><div id="s-bio"></div></div>
     </div></div>
 
-  ${p.band_sep?`<div class="card"><h3>작년 합격생·불합격생 사이에서 내 위치 <span class="mut" style="font-weight:400;font-size:11.5px">— 중앙대 기출 6회, 같은 문항 기준</span></h3>
+  ${(p.band_sep && D.band_sep)?`<div class="card"><h3>작년 합격생·불합격생 사이에서 내 위치 <span class="mut" style="font-weight:400;font-size:11.5px">— 중앙대 기출 6회, 같은 문항 기준</span></h3>
     <div class="bandbox"><div id="s-band"></div>
       <div style="font-size:11.5px;color:#6E7B94;margin-top:6px">
         작년 합격생 ${D.band_sep.작년합격생_n}명 중앙값 ${D.band_sep.작년합격생_중앙}% · 불합격생 ${D.band_sep.작년불합격생_n}명 중앙값 ${D.band_sep.작년불합격생_중앙}% · 올해 반평균 ${D.band_sep.올해반평균}%.
@@ -1193,7 +1312,7 @@ function sepIndDraw(p, D){
   if(rs.some(x=>x.pct!=null)){
     radar($('#s-radar'), rs, [
       {k:'반평균', c:C.green, w:1.8, f:.05},
-      {k:'작년합격생', c:C.teal, w:1.5, f:.04},
+      {k:'작년합격생', c:'#5B6B8C', w:1.6, f:.03, dash:'5 4'},
       {k:'pct', c:C.blue, w:2.4, f:.15},
     ], {lk:'unit', vk:'pct', size:380, pad:66, focus:p.sep_focus});
     const ORD = p.sep_order||null;
@@ -1323,6 +1442,219 @@ function unitcards(el, units, opt={}){
         <span>최고 ${u.최고.toFixed(0)}%</span></div>
     </div>`;
   }).join('')}</div>`;
+}
+
+
+function renderReport(host, p, D, NAMEX, opt={}){
+  if(!host) return;
+const s=p.summary, dz=s['Δz_8to9'];
+const byTag = tags => p.actions.filter(a=>tags.includes(a.tag));
+const BIO_T=['생물','우선순위','9월 기출'], ORG_T=['유기'], LIFE_T=['태도','안정성','참여','9월 합류'], TYPE_T=p.actions.filter(a=>a.pri==='type').map(a=>a.tag);
+const ctaCard=(items, opt={})=>{
+  if(!items.length) return `<div class="cta ok"><div class="ct">지금 할 것</div><div class="ci"><b>${opt.ok||'이 과목은 지금 방식을 유지하세요.'}</b><span>${opt.okSub||'데이터에서 손봐야 할 신호가 잡히지 않았습니다.'}</span></div></div>`;
+  const hi = items.some(a=>a.pri==='high');
+  return `<div class="cta ${hi?'':'warn'}"><div class="ct">지금 할 것</div>${items.slice(0,2).map(a=>`
+    <div class="ci"><span class="tg">${esc(a.tag)}</span><b>${esc(a.head)}</b><span>${esc(a.body)}</span></div>`).join('')}</div>`;
+};
+const how=(items)=>`<div class="how"><div class="ht">이렇게 보세요</div><ol>${items.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
+const sechead=(cls,ico,eyebrow,title,verdict)=>`<div class="sechead"><div class="sico">${ico}</div><div>
+  <div class="st">${eyebrow}</div><h2>${title}</h2><div class="verdict">${verdict}</div></div></div>`;
+
+/* ── 과목별 수치 ── */
+const sepT=p.timeline.filter(t=>t.series==='생물 9월');
+const chem=p.timeline.filter(t=>t.series==='일반화학');
+const orgT=p.timeline.filter(t=>t.series==='유기');
+const all={}; p.timeline.filter(t=>t.series==='전과목').forEach(t=>all[t.subject]=t);
+const rs=(p.radar_sep||[]).filter(x=>x.z!=null);
+const sepWeak=[...rs].sort((a,b)=>a.z-b.z);
+const chemLast=[...chem].reverse().find(t=>t.응시);
+const chemZ=chem.filter(t=>t.z!=null).map(t=>t.z);
+const org9=p.org.filter(x=>x.z!=null && ['방향족 화합물의 반응','알데하이드와 케톤','카복실산과 그 유도체','카보닐 알파치환, 축합반응, 아민'].includes(x.unit));
+const orgWeak=[...p.org.filter(x=>x.z!=null)].sort((a,b)=>a.z-b.z);
+const fz=v=>v==null?'—':(v>0?'+':'')+v.toFixed(2);
+const zword=z=>z==null?'자료 없음':z>=0.5?'반 상위권':z>=0?'반 평균 위':z>=-0.5?'반 평균 아래':'반 하위권';
+const bh=p.beh||{};
+
+const chemCTA=byTag(['일반화학']);
+const balance=byTag(['균형']);
+
+/* ── 총평 ── */
+/* 총평 3개: 카테고리마다 가장 급한 것 하나씩 먼저, 남으면 같은 카테고리에서 채운다 */
+const pools=[byTag(BIO_T), chemCTA, byTag(ORG_T), balance, byTag(LIFE_T)].map(l=>l.filter(a=>a.pri==='high'));
+const top3=[]; pools.forEach(l=>{ if(l[0] && top3.length<3) top3.push(l[0]); });
+pools.forEach(l=>l.slice(1).forEach(a=>{ if(top3.length<3) top3.push(a); }));
+const catOf=a=>BIO_T.includes(a.tag)?['생물','#0E7A5F']:a.tag==='일반화학'?['화학','#2B4795']:ORG_T.includes(a.tag)?['유기','#B8641A']:a.tag==='균형'?['총평','#1E3168']:['생활','#6B4FA0'];
+const verdictSum = (()=>{
+  const r9=s.sep_등수, n9=s.sep_인원, pos=r9==null?null:r9/n9;
+  const where = pos==null?'':pos<=0.33?'9월 종합 상위권':pos<=0.66?'9월 종합 중위권':'9월 종합 하위권';
+  const move = dz==null?'':dz<=-0.6?'8월 OX에서 9월 기출로 오며 상대 위치가 크게 내려갔습니다':dz>=0.6?'8월보다 9월 기출에서 상대 위치가 올랐습니다':'8월과 9월 상대 위치가 비슷합니다';
+  const subj=[['생물',s.생물9월z],['화학',all.화학?all.화학.z:null],['유기',all.유기?all.유기.z:null]].filter(x=>x[1]!=null);
+  const weakest = subj.length? subj.sort((a,b)=>a[1]-b[1])[0] : null;
+  return `${where ? `<b>${where}</b>(${r9}/${n9}등)입니다. ` : ''}${move}. ${weakest? `세 과목 중 지금 가장 처진 과목은 <b>${weakest[0]}</b>(반 상대 z ${fz(weakest[1])})이고, `:''}생활 신호(셀프피드백 행동점수)는 <b>${s.행동점수==null?'자료 없음':(s.행동점수>=1?'안정':s.행동점수>=-1?'보통':'불안정')}</b>입니다.`;
+})();
+
+const html = `
+<nav class="catnav" onclick="if(event.target.closest('a')){event.preventDefault();const t=document.getElementById(event.target.closest('a').getAttribute('href').slice(1));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}">
+  <a href="#sum"><span class="d sum"></span>총평</a><a href="#bio"><span class="d bio"></span>생물</a>
+  <a href="#che"><span class="d che"></span>화학</a><a href="#org"><span class="d org"></span>유기</a>
+  <a href="#life"><span class="d life"></span>생활관리</a><a href="#ref"><span class="d ref"></span>참고 자료</a></nav>
+
+<section class="sec sum" id="sum">
+  <div class="hero"><div class="hk">총평 · ${esc(NAMEX)} 학생 · 7–9월</div>
+    <h1>10월 한 달, 할 일은 아래 세 가지입니다</h1>
+    <p>${verdictSum}</p>
+    <div class="kp">
+      <div><div class="l">9월 종합 등수</div><div class="v">${s.sep_등수==null?'—':s.sep_등수}<small>/${s.sep_인원}</small></div><div class="f">9월 모든 시험 평균 z</div></div>
+      <div><div class="l">7–8월 종합 등수</div><div class="v">${s.종합등수==null?'—':s.종합등수}<small>/${s.전체인원}</small></div><div class="f">8월 30일 발행 기준</div></div>
+      <div><div class="l">8월 → 9월</div><div class="v">${dz==null?'—':(dz>0?'+':'')+dz}</div><div class="f">OX → 기출 상대위치</div></div>
+      <div><div class="l">생활 신호</div><div class="v">${s.행동점수==null?'—':(s.행동점수>0?'+':'')+s.행동점수}</div><div class="f">셀프피드백 행동점수 (7–9월)</div></div>
+    </div></div>
+  <div class="card tight" style="margin-top:12px"><h3>전과목 모의고사 9/27 <span class="mut">— 세 과목 균형 · 생물 35 / 일반화학 30 / 유기 5문항</span></h3><div id="s-all"></div></div>
+  <div class="top3">${top3.map((a,i)=>{const [c,col]=catOf(a);return `<div class="t"><div class="n">${i+1}</div><div>
+    <span class="cat" style="background:${col}">${c}</span><b>${esc(a.head)}</b><span class="bd">${esc(a.body)}</span></div></div>`;}).join('')}</div>
+</section>
+
+<section class="sec bio" id="bio">
+  ${sechead('bio','생물','BIOLOGY · 9월 기출 12회 + 7–8월 OX 24회','생물',
+    sepWeak.length? `9월 기출 상대위치 <b>${fz(s.생물9월z)}</b> (${zword(s.생물9월z)}). 가장 약한 단원은 <b>${esc(sepWeak[0].unit)}</b> ${sepWeak[0].pct}% (반평균 ${sepWeak[0].반평균.toFixed(1)}%).
+      ${dz!=null&&dz<=-0.6?'OX에서는 됐는데 기출에서 밀렸습니다 — 개념이 아니라 <b>실전 형식</b>의 문제입니다.':''}`:'9월 기출 자료가 없습니다.')}
+  <div class="blk"><div class="main">
+    <div class="card tight"><h3>기출 12회 정답률 <span class="mut">— 중앙(남색)·경희(갈색) · 작년 합격/불합격은 중앙 회차에만 점</span></h3><div id="s-line"></div>
+      <div class="legend"><span><i style="background:#2B4795"></i>나</span><span><i style="background:#0E7A5F"></i>반평균</span>
+        <span><i class="dot" style="background:#1D9E75"></i>작년 합격생</span><span><i class="dot" style="background:#C0442E"></i>작년 불합격생</span></div></div>
+    <div class="card tight"><h3>기출 단원별 강약 <span class="mut">— 빨간 점 = 먼저 잡을 단원</span></h3>
+      <div class="split"><div><div id="s-radar"></div>
+        <div class="legend"><span><i style="background:#2B4795"></i>나</span><span><i style="background:#0E7A5F"></i>반평균</span>
+          <span><i style="background:#5B6B8C;border-top:2px dashed #5B6B8C;height:0"></i>작년 합격생 (중앙 회차·점선)</span><span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
+        <div><div id="s-bio"></div></div></div></div>
+    ${p.joined_sep?'':`<div class="card tight"><h3>7–8월 OX와 비교 <span class="mut">— 모양이 다른 축이 "개념은 아는데 실전에서 무너지는 단원"</span></h3>
+      <div class="split"><div><div id="i-radar"></div>
+        <div class="legend"><span><i style="background:#2B4795"></i>나</span><span><i style="background:#0E7A5F"></i>반평균</span>
+          <span><i style="background:#5B6B8C;border-top:2px dashed #5B6B8C;height:0"></i>작년 합격생 (점선)</span></div></div>
+        <div><div id="i-bio"></div></div></div></div>`}
+  </div><div class="aside">
+    ${how([`<b>빨간 점</b>이 찍힌 단원부터. 레이더에 점은 최대 2개만 찍힙니다.`,
+           `위 그래프에서 <b>초록 점(작년 합격생)보다 내 파란 선이 아래</b>인 회차가 몇 번인지 세어보세요. 그 회차 해설을 다시 보는 게 가장 효율적입니다.`,
+           `${p.joined_sep?'9월 합류라 7–8월 비교는 다음 달부터 생깁니다.':'7–8월 레이더(아래)와 9월 레이더(위)의 모양이 다른 축 = 기출 형식 훈련이 필요한 단원입니다.'}`])}
+    ${ctaCard(byTag(BIO_T),{ok:'생물은 지금 방식을 유지하세요.'})}
+  </div></div>
+</section>
+
+<section class="sec che" id="che">
+  ${(()=>{
+    const cr=(p.chem_radar||[]).filter(x=>x.z!=null);
+    const cwk=[...cr].sort((a,b)=>a.z-b.z);
+    const tot=cr.reduce((a,x)=>a+x.문항수,0);
+    const v = !cr.length ? '화학 시험 자료가 없습니다.' :
+      `타임어택 3회 + 전과목 30문항 = <b>${tot}문항</b>을 11단원으로 나눠 봤습니다.
+       가장 약한 단원은 <b>${esc(cwk[0].unit)}</b> ${cwk[0].pct}% (반평균 ${cwk[0].반평균.toFixed(1)}%, ${cwk[0].문항수}문항)${cwk.length>1&&cwk[1].z<=-0.5?`, 그다음 <b>${esc(cwk[1].unit)}</b> ${cwk[1].pct}%`:''}.
+       가장 강한 단원은 ${esc(cwk[cwk.length-1].unit)} ${cwk[cwk.length-1].pct}%.
+       ${all.화학&&all.화학.응시?`전과목 모의고사 화학은 <b>${Math.round(all.화학.pct)}%</b> (${all.화학.rank}/${all.화학.n_stu}위).`:''}`;
+    return sechead('che','화학','CHEMISTRY · 타임어택 3회 + 전과목 30문항 → 11단원','일반화학', v);
+  })()}
+  <div class="blk"><div class="main">
+    <div class="card tight"><h3>11단원 강약 <span class="mut">— 빨간 점 = 먼저 잡을 단원 · 단원당 7~21문항이라 ±1문항에 흔들립니다</span></h3>
+      <div class="split"><div><div id="c-radar"></div>
+        <div class="legend"><span><i style="background:#2B4795"></i>나</span><span><i style="background:#0E7A5F"></i>반평균</span><span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
+      <div><div class="tagline" style="margin-top:0">11단원 · 약한 순</div><div id="c-list"></div></div></div></div>
+    <div class="card tight"><h3>놓친 문항 · 주제 <span class="mut">— 반 정답률 높은 순 · 위쪽일수록 아까운 문항</span></h3>
+      <div class="scroll"><table id="c-miss"></table></div></div>
+  </div><div class="aside">
+    ${how([`레이더에서 <b>빨간 점</b> 단원부터. 단, 단원당 문항이 적어 <b>2문항 차이로도 20p가 움직입니다</b> — 아래 '놓친 문항·주제'로 실제 어떤 주제를 틀렸는지 확인하세요.`,
+           `놓친 문항 목록의 <b>위쪽(반 정답률 높은 것)</b>은 개념보다 실수·시간 문제일 가능성이 큽니다. 아래쪽은 개념입니다.`,
+           `전과목 모의고사 화학이 반 하위권이면 단원 문제가 아니라 <b>70분 안에 생물 35문항을 지나 화학에 닿았을 때의 시간·체력</b> 문제일 수 있습니다. 총평의 과목 균형 카드를 함께 보세요.`])}
+    ${ctaCard([...chemCTA.filter(a=>a.pri!=='good'), ...balance],{ok: chemCTA.find(a=>a.pri==='good')?chemCTA.find(a=>a.pri==='good').head:'화학은 지금 방식을 유지하세요.', okSub: chemCTA.find(a=>a.pri==='good')?chemCTA.find(a=>a.pri==='good').body:''})}
+  </div></div>
+</section>
+
+<section class="sec org" id="org">
+  ${sechead('org','유기','ORGANIC · 단원별 12회 + 전과목 5문항','유기화학',
+    p.no_org? `${esc(p.no_org)}` : orgWeak.length? `12단원 중 가장 약한 곳은 <b>${esc(orgWeak[0].unit.split(',')[0])}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)${org9.length?` · 9월 4단원 평균 z <b>${fz(org9.reduce((a,b)=>a+b.z,0)/org9.length)}</b>`:''}.
+      ${s.유기공백율!=null&&s.유기공백율>=0.4?`셀프피드백에서 <b>유기 공백 주차가 ${Math.round(s.유기공백율*100)}%</b> — 작년 합격·불합격을 가장 잘 가른 지표입니다.`:''}`:'유기 자료가 없습니다.')}
+  ${p.no_org?'':`<div class="blk"><div class="main">
+    <div class="card tight"><h3>12단원 강약 <span class="mut">— 7–9월, 빨간 점 = 먼저 잡을 단원</span></h3>
+      <div class="split"><div><div id="i-oradar"></div></div><div><div id="i-org"></div></div></div></div>
+    <div class="card tight"><h3>회차별 정답률 <span class="mut">— 9~12회가 9월 단원</span></h3><div id="o-line"></div></div>
+  </div><div class="aside">
+    ${how([`유기는 <b>앞 단원이 비면 뒤가 전부 흔들립니다.</b> 빨간 점이 앞 단원(1~5)이면 9월 단원보다 그걸 먼저.`,
+           `9~12회(9월 단원) 정답률이 1~8회보다 내려가면 <b>반응 메커니즘 암기</b>가 아니라 <b>손으로 그리는 연습</b>이 부족한 것입니다.`,
+           `작년 합격생은 예외 없이 유기를 <b>하루 중 고정 시간대</b>에 했습니다. 분량보다 시간대를 먼저 정하세요.`])}
+    ${ctaCard(byTag(ORG_T),{ok:'유기는 지금 루틴을 유지하세요.'})}
+  </div></div>`}
+</section>
+
+<section class="sec life" id="life">
+  ${sechead('life','생활','LIFE · 주간 셀프피드백 코딩 + 애니어그램','생활관리와 내 유형',
+    s.행동점수==null?'셀프피드백 자료가 없습니다.':
+    `행동점수 <b>${s.행동점수>0?'+':''}${s.행동점수}</b> (${s.행동점수>=1?'안정':s.행동점수>=-1?'보통':'<b>불안정</b>'}).
+     ${bh.회피!=null?`미룬 단원 기록 <b>${Math.round(100*bh.회피)}%</b> 주 · 유기 공백 <b>${Math.round(100*bh.유기공백)}%</b> 주 · 약점 스스로 찾음 <b>${Math.round(100*bh.약점탐지)}%</b> 주.`:''}
+     작년 데이터에서 합격을 가른 것은 성적이 아니라 <b>이 생활 신호</b>였습니다.`)}
+  <div class="blk"><div class="main">
+    <div class="card tight"><h3>셀프피드백에서 잡힌 신호 <span class="mut">— 7–9월 ${bh.주차수||'?'}주 중 그 내용이 나온 주의 비율</span></h3>
+      <div id="l-bars"></div></div>
+    <div class="card tight"><h3>내 유형(${esc(p.enneagram||'?')})의 작년 9월 합격생·불합격생 <span class="mut">— 작년 9월 1주차~10월 1주차 셀프피드백 전수 정독</span></h3>
+      <details class="ref"><summary>세 과목 균형 · 생활관리 · 유형별 기록 — 펼쳐 보기</summary><div class="in" id="i-ennp"></div></details></div>
+  </div><div class="aside">
+    ${how([`빨간 막대(미룸·유기공백·수면)는 <b>낮을수록</b>, 초록 막대(루틴·약점탐지·마일스톤)는 <b>높을수록</b> 합격생 모양입니다.`,
+           `작년 합격생은 지적을 받으면 <b>다음 주 안에</b> 없앴습니다. 같은 지적이 2주 이상 이어지면 그게 가장 먼저 고칠 것입니다.`,
+           `유형 카드는 "나와 같은 유형의 작년 학생이 <b>9월에</b> 실제로 한 것"입니다. 조언이 아니라 기록입니다.`,
+           `작년 9월엔 <b>교재·과정 완료 마일스톤</b>(합격생 34% vs 불합격생 15%, p=0.005)이 가장 크게 갈렸습니다. 7–8월에 갈렸던 '미룬 단원'은 9월엔 차이가 없었습니다.`])}
+    ${ctaCard([...byTag(LIFE_T), ...byTag(TYPE_T)],{ok:'생활 신호가 안정적입니다. 지금 루틴을 지키세요.'})}
+  </div></div>
+</section>
+
+<section class="sec ref" id="ref">
+  ${sechead('ref','참고','REFERENCE · 숫자 확인용','참고 자료','위 다섯 섹션을 다 읽은 뒤, 숫자를 확인하고 싶을 때만 펼치세요. 여기엔 새 결론이 없습니다.')}
+  <details class="ref"><summary>등수 추이 · 참여 현황</summary><div class="in">
+    <div class="card tight"><h3>등수 추이 <span class="mut">— 9월 회차부터 ${s.sep_인원}명 기준</span></h3><div id="i-rank"></div></div>
+    <div class="card tight"><h3>참여 현황</h3><div id="i-part"></div></div></div></details>
+  <details class="ref"><summary>놓치면 안 됐던 문항 (반 85% 이상 맞혔는데 틀림) ${p.easy_miss.length}개</summary><div class="in">
+    <div class="card pad0"><div class="scroll"><table id="i-miss"></table></div></div></div></details>
+  ${p.baseline?`<details class="ref"><summary>등록 TEST 대비 변화</summary><div class="in"><div class="card pad0"><div class="scroll"><table id="i-base"></table></div></div></div></details>`:''}
+  ${s.sep_등수!=null?`<details class="ref"><summary>등수가 합격을 말해주나 — 작년 9월 실제 결과</summary><div class="in" id="i-rankguide"></div></details>`:''}
+</section>`;
+host.innerHTML = html;
+if(window.__AT){ setTimeout(()=>{const e=document.getElementById(window.__AT); if(e) e.scrollIntoView({block:'start'});}, 400); }
+/* 선생님 미리보기 바가 위에 있을 때 카테고리 내비를 그 아래에 붙인다 */
+if(opt.navTop && host.querySelector){ const nv=host.querySelector('.catnav'); if(nv) nv.style.top=opt.navTop; }
+
+/* ── 그리기 ── */
+const SUBJG=[{label:'생물 · 9월',keys:['생물 9월']},{label:'생물 · 7월 OX',keys:['생물 7월']},{label:'생물 · 8월 OX',keys:['생물 8월']},{label:'유기',keys:['유기']},{label:'일반화학',keys:['일반화학']}];
+sepIndDraw(p, D);
+if(!p.joined_sep){
+  const bio=p.radar.filter(x=>x.z!=null);
+  radar($('#i-radar'), p.radar, [{k:'반평균',c:C.green,w:1.8,f:.05},{k:'작년합격생',c:'#5B6B8C',w:1.6,f:.03,dash:'5 4'},{k:'pct',c:C.blue,w:2.4,f:.15}],{lk:'unit',vk:'pct',size:340,pad:62,focus:p.bio_focus});
+  const BO=p.bio_order||null; zlist($('#i-bio'), BO?BO.map(u=>bio.find(x=>x.unit===u)).filter(Boolean):[...bio].sort((a,b)=>a.z-b.z),{lk:'unit'});
+}
+{ const cr=(p.chem_radar||[]);
+  if(cr.some(x=>x.pct!=null)){
+    radar($('#c-radar'), cr, [{k:'반평균',c:C.green,w:1.8,f:.05},{k:'pct',c:C.blue,w:2.4,f:.15}],{lk:'unit',vk:'pct',size:420,pad:96,lo:30});
+    zlist($('#c-list'), [...cr.filter(x=>x.z!=null)].sort((a,b)=>a.z-b.z), {lk:'unit'});
+  }
+  table($('#c-miss'), [{h:'시험',k:'test'},{h:'문항',n:1,f:r=>r.qno+'번'},{h:'단원',f:r=>`<span class="mut">${esc(r.unit)}</span>`},{h:'주제',f:r=>`<b>${esc(r.topic||'')}</b>`},{h:'반 정답률',n:1,f:r=>`${r.반정답률}%`}], (p.chem_miss||[]).slice(0,25));
+}
+if(!p.no_org){
+  radar($('#i-oradar'), p.org, [{k:'반평균',c:C.green,w:1.8,f:.05},{k:'pct',c:C.blue,w:2.4,f:.15}],{lk:'unit',vk:'pct',size:420,pad:96});
+  if(orgWeak.length) zlist($('#i-org'), orgWeak, {lk:'unit'});
+  else if($('#i-org')) $('#i-org').innerHTML='<div class="note" style="margin:0">아직 응시한 유기 TEST가 없어 단원별 강약을 그릴 수 없습니다. 다음 회차부터 채워집니다.</div>';
+  lines($('#o-line'), orgT, [{k:'pct',c:C.blue,w:2.6,area:true},{k:'반평균',c:C.green,w:2,dot:false}],{h:220,xk:'label',xcol:r=>r.session>=9?'#B8641A':null});
+}
+/* 생활 신호 막대 */
+const LB=[['미룬 단원 기록','회피',true],['유기 공백','유기공백',true],['유기 고정 시간대','유기루틴',false],['약점 스스로 찾음','약점탐지',false],['진도 마일스톤','마일스톤',false]];
+$('#l-bars').innerHTML = LB.map(([l,k,bad])=>{const v=bh[k]==null?0:bh[k]; const q=Math.round(100*v);
+  const col=bad?(q>=40?'#C0442E':q>=20?'#C9922B':'#C3CCDA'):(q>=50?'#0E7A5F':q>=25?'#3F63C4':'#C3CCDA');
+  return `<div class="pbar"><span>${l}</span><u><b style="width:${Math.max(2,q)}%;background:${col}"></b></u><em>${bh[k]==null?'—':q+'%'}</em></div>`;}).join('')
+  + `<div class="mut" style="font-size:11px;margin-top:8px">작년 기준 — 미룬 단원 기록: 합격생 1% vs 불합격생 10% (p=0.012) · 유기 공백 9% vs 21% · 약점 스스로 찾음 42% vs 27%</div>`;
+ennprofile($('#i-ennp'), p.enneagram, D.ep);
+const rk=p.timeline.filter(t=>t.응시&&t.series!=='전과목').map(t=>({...t,등수:t.rank}));
+lines($('#i-rank'), rk, [{k:'등수',c:C.blue2,w:2.6}],{h:240,lo:0,hi:Math.max(s.전체인원||0,...rk.map(t=>t.n_stu||0))+1,rules:[{v:Math.ceil((s.전체인원||40)/2),label:'7–8월 반 중간',c:C.amber}]});
+partmapGrouped($('#i-part'), p.timeline, SUBJG);
+table($('#i-miss'), [{h:'TEST',k:'test'},{h:'단원',f:r=>`<span class="mut">${esc(r.unit||'')}</span>`},{h:'문항',n:1,f:r=>r.qno+'번'},{h:'반 정답률',n:1,f:r=>`${r.반정답률}%`},{h:'내 답 → 정답',f:r=>`<span class="mut">${esc(r.내답)}</span> → <b>${esc(r.정답)}</b>`}], p.easy_miss);
+if(p.baseline){const bl=p.baseline;
+  table($('#i-base'), [{h:'과목',f:r=>r.과목},{h:'등록 TEST',n:1,f:r=>r.만점==null?'—':`<b>${r.정답}/${r.만점}</b> <span class="mut">${r.pct}%</span>`},{h:'7–8월 평균',n:1,f:r=>r.now==null?'—':`<b>${r.now}%</b>`},{h:'반 대비',n:1,f:r=>(r.now==null||r.pct==null||r.sh==null)?'—':`<b class="${sgn(r.now-r.pct-r.sh)}">${(r.now-r.pct-r.sh)>0?'+':''}${(r.now-r.pct-r.sh).toFixed(1)}p</b>`}],
+    [{과목:'생물',정답:bl.생물_정답,만점:bl.생물_만점,pct:bl.생물_pct,now:p.now.생물,sh:D.shift.생물},{과목:'일반화학',정답:bl.화학_정답,만점:bl.화학_만점,pct:bl.화학_pct,now:p.now.화학,sh:D.shift.화학},{과목:'유기 (앞 2단원)',정답:bl.유기_정답,만점:bl.유기_만점,pct:bl.유기_pct,now:p.now.유기,sh:D.shift.유기}].filter(r=>!(p.no_org&&r.과목.startsWith('유기'))));}
+if(s.sep_등수!=null) rankguideSep($('#i-rankguide'), s.sep_등수, s.sep_인원, D.rr9, s.종합등수, s.전체인원, D.rr);
+
 }
 
 
@@ -1658,219 +1990,10 @@ function drawInd(){
         admin 페이지에서 <b>_업로드용_개인리포트.json</b>을 업로드하신 뒤 이 페이지를 새로고침하세요.</div>`
     : `<div class="note warn">개인 리포트를 찾지 못했습니다. 홍쌤에게 문의해 주세요.</div>`;
     return; }
-  const p=ME, s=p.summary, bl=p.baseline, dz=s['Δz'];
-  const bio=p.radar, org=p.org||[];
-  const NOORG = !!p.no_org;   // 유기화학이 입시 과목이 아닌 학생
-  /* 약한 순 = 기본은 z 오름차순. 단 학습 우선순위가 지정된 학생(GPA 낮음)은
-     핵심 5단원을 앞에 두고 식/생/분/진을 뒤로 보낸 순서를 그대로 따른다. */
-  const BORD = p.bio_order || null;
-  const bioSorted = BORD
-    ? BORD.map(u=>bio.find(x=>x.unit===u)).filter(Boolean)
-        .concat(bio.filter(x=>!BORD.includes(x.unit)))
-    : [...bio].sort((a,b)=>(a.z??9)-(b.z??9));
-  const orgSorted=[...org].sort((a,b)=>(a.z??9)-(b.z??9));
-  const miss=p.timeline.filter(t=>!t.응시);
-  const kpi=(l,v,f,cl)=>`<div class="kpi ${cl||''}"><div class="lab">${l}</div>
-    <div class="val">${v}</div><div class="foot">${f||''}</div></div>`;
-  const MID = Math.ceil(s.전체인원/2);
-
-  $('#ind-body').innerHTML = pickerHTML() + `
-  <div class="grid g4" style="margin:12px 0 4px">
-    ${kpi('7–8월 종합 등수', s.종합등수==null?'—':`${s.종합등수}<small>/${s.전체인원}</small>`, s.종합등수==null?'9월 합류 — 해당 없음':'8월 30일 기준 · 40명')}
-    ${kpi('9월 종합 등수', s.sep_등수==null?'—':`${s.sep_등수}<small>/${s.sep_인원}</small>`, '9월 시험 전체 · '+s.sep_인원+'명')}
-    ${kpi('평균 정답률',`${s.평균정답률}<small>%</small>`,`${s.전체시험}개 중 ${s.응시}개 응시`)}
-    ${kpi('8월 → 9월', s['Δz_8to9']==null?'—':`${s['Δz_8to9']>0?'+':''}${s['Δz_8to9']}`,'OX → 기출 상대위치 변화', s['Δz_8to9']>0.3?'up':(s['Δz_8to9']<-0.3?'down':''))}
-  </div>
-
-  <div class="tagline"><span class="blip"></span>지금 해야 할 것</div>
-  <h2>${esc(curStu)} 학생, 10월에 이것부터 하세요</h2>
-  <p class="lead">데이터에서 실제로 잡힌 것만 적었습니다. 위에서부터 순서대로 하시면 됩니다.
-    빨간 카드는 최대 4개까지만 둡니다 — 그 이상은 신호가 아니라 소음입니다.</p>
-  <div class="acts">${p.actions.map(a=>`
-    <div class="act ${a.pri}"><div class="ah"><span class="atag">${esc(a.tag)}</span>
-      <span class="at">${esc(a.head)}</span></div>
-      <div class="ab">${esc(a.body)}</div></div>`).join('')}</div>
-
-  ${sepIndHTML(p, D)}
-
-  <div class="tagline">RANK</div>
-  <div id="i-rankguide"></div>
-
-  <div class="tagline">합격을 만든 것</div>
-  <h2>세 과목 균형과 생활관리, 그리고 내 유형</h2>
-  <p class="lead">작년 풀케어반 30명의 주간 셀프피드백 239건을 전부 정독해서 뽑은 것입니다.
-    지어낸 조언이 아니라 <b>합격생이 실제로 기록에 남긴 행동</b>입니다.</p>
-  <div id="i-ennp"></div>
-
-  ${p.joined_sep ? `<div class="note" style="margin-top:14px"><b>7–8월 기본기 OX 분석은 9월 합류 학생에게는 없습니다.</b>
-    위 9월 기출 레이더가 단원별 강약의 근거입니다.</div>` : `
-  <div class="tagline">내 약점 분석 · 7–8월 OX</div>
-  <h2>기본기 OX에서의 단원별 강약 <span class="mut" style="font-weight:400;font-size:13px">— 9월 기출 레이더와 비교해 보세요</span></h2>
-  <p class="lead">${bioSorted[0]&&bioSorted[0].z!=null&&bioSorted[0].z<0
-    ? '레이더에서 <b style="color:#C0442E">빨간 점</b>이 지금 가장 부족한 단원입니다. 오른쪽은 약한 순서입니다.'
-    : '생물 6단원이 모두 반평균 이상입니다. 오른쪽은 그래도 상대적으로 약한 순서입니다.'}</p>
-  <div class="card"><div class="split">
-      <div><div id="i-radar"></div>
-        <div class="legend"><span><i style="background:#2B4795"></i>나</span>
-          <span><i style="background:#0E7A5F"></i>반평균</span>
-          <span><i style="background:#1D9E75"></i>작년 합격생</span>
-          <span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
-      <div><div class="tagline" style="margin-top:0">생물 6단원 · 약한 순</div>
-        <div id="i-bio"></div></div>
-  </div></div>`}
-
-  ${NOORG ? `<div class="note"><b>이 리포트에는 유기화학이 없습니다.</b>
-    ${esc(p.no_org)} 그래서 유기 관련 그래프·단원 분석·참여 현황을 모두 제외했고,
-    평균과 등수도 <b>생물·일반화학만</b>으로 계산했습니다.
-    아래 내용은 두 과목에 집중해서 읽으시면 됩니다.</div>`
-  : `<div class="tagline">유기화학</div>
-  <h2>단원별 강약</h2>
-  <div class="card"><div class="scroll" style="margin-bottom:12px"><table id="i-oscope"></table></div>
-    <div class="split">
-      <div><div id="i-oradar"></div>
-        <div class="legend"><span><i style="background:#2B4795"></i>나</span>
-          <span><i style="background:#0E7A5F"></i>반평균</span>
-          <span><i class="dot" style="background:#C0442E"></i>가장 약한 곳</span></div></div>
-      <div><div class="tagline" style="margin-top:0">유기 12단원 (7–9월) · 약한 순</div>
-        <div id="i-org"></div></div>
-  </div></div>`}
-
-  <div class="tagline">POSITION</div>
-  <h2>작년 합격생 성적 분포 안에서 내 위치</h2>
-  <p class="lead">작년 합격생 ${D.band.작년합격생_n}명의 생물 정답률 분포(동일 문항 기준)입니다.
-    <b>합격 확률이 아니라 참고 좌표</b>입니다.</p>
-  <div class="card"><div class="bandbox"><div id="i-band"></div>
-    <div style="font-size:11.5px;color:#6E7B94;margin-top:2px">
-      진한 초록 구간이 합격생 중간 50%(${D.band.작년합격생_Q1}–${D.band.작년합격생_Q3}%)입니다.
-      올해 반평균은 ${D.band.올해반평균}%입니다.</div></div></div>
-
-  ${bl?`<div class="tagline">START</div>
-  <h2>출발점 — 등록 TEST 대비</h2>
-  <p class="lead">7월 시작 시점과 지금을 비교합니다. 작년 합격생 등록TEST 생물 평균은 ${bl.작년합격생_생물평균pct}%였습니다.</p>
-  <div class="card pad0"><div class="scroll"><table id="i-base"></table></div></div>
-  <div class="note warn"><b>변화폭을 그대로 읽지 마세요.</b>
-    ${NOORG?'':'등록 TEST 범위는 생물·일반화학이 전범위, <b>유기는 앞 2단원까지</b>라 유기는 7–8월 1·2회차만 대응시켰습니다. '}
-    시험 난이도가 달라 반 전체가 생물 ${D.shift.생물>0?'+':''}${D.shift.생물}p ·
-    일반화학 ${D.shift.화학>0?'+':''}${D.shift.화학}p${NOORG?'':` · 유기 ${D.shift.유기>0?'+':''}${D.shift.유기}p`} 이동했습니다.
-    <b>'반 대비'</b> 열이 그 이동분을 뺀 순수 상대 변화입니다.</div>`
-  :`<div class="note warn">등록 TEST 결과가 기재되어 있지 않아 출발점 비교를 넣지 못했습니다.</div>`}
-
-  <div class="tagline">RECORD</div>
-  <h2>내 기록 보기</h2>
-  <p class="lead">과목마다 시험 형식과 난이도가 달라 <b>따로</b> 그렸습니다. 초록선이 반평균입니다.</p>
-  <div id="i-charts"></div>
-
-  <div class="card"><h3>등수 추이 <span class="mut" style="font-weight:400;font-size:11.5px">— 전 과목 통합</span></h3>
-    <p class="lead" style="margin-bottom:6px">회차별 등수입니다. 위로 갈수록 상위이고,
-      주황 점선이 <b>7–8월 반 중간(${MID}등)</b>입니다. <b>9월 회차부터는 ${s.sep_인원}명 기준</b>이라
-      같은 실력이어도 숫자가 2~3 커질 수 있습니다 — 선이 내려간 게 아니라 분모가 커진 것입니다.
-      선이 아래로 내려가도 불안해하지 마세요 — 위의 <b>내 등수를 어떻게 봐야 하나요</b>에서
-      작년 합격생 등수가 어떻게 흩어져 있었는지 확인하실 수 있습니다.</p>
-    <div id="i-rank"></div></div>
-
-  <div class="card"><h3>참여 현황</h3>
-    <p class="lead" style="margin-bottom:10px">숫자는 회차, 아래는 내 정답률입니다.
-      칸에 마우스를 올리면 응시일·출제 범위·등수가 나옵니다.
-      ${miss.length?`<b style="color:#C0442E">미응시 ${miss.length}회</b> — ${miss.map(t=>esc(t.label)).join(', ')}`
-        :'<b style="color:#0E7A5F">전 회차 응시</b>'}</p>
-    <div id="i-part"></div>
-    <div class="legend" style="justify-content:flex-start;margin-top:10px">
-      <span><i class="dot" style="background:#0B5544"></i>상위 25%</span>
-      <span><i class="dot" style="background:#1E3168"></i>상위 50%</span>
-      <span><i class="dot" style="background:#8A6410"></i>하위 50%</span>
-      <span><i class="dot" style="background:#8E3221"></i>하위 25%</span>
-      <span><i class="dot" style="background:#C0442E"></i>미응시</span></div></div>
-
-  <div class="tagline">CHECK</div>
-  <h2>놓치면 안 됐던 문항</h2>
-  <p class="lead">반 정답률 85% 이상인데 틀린 문항 ${p.easy_miss.length}개입니다.
-    각 문항 옆에 <b>왜 틀렸는지</b>를 한 줄씩 적어보세요.</p>
-  <div class="card pad0"><div class="scroll"><table id="i-miss"></table></div></div>`;
-
-  const tsel = document.getElementById('tsel');
-  if(tsel) tsel.onchange = e => pickStudent(e.target.value);
-
-  if(s.종합등수!=null) rankguide($('#i-rankguide'), s.종합등수, s.전체인원, D.rr);
-  else $('#i-rankguide').innerHTML = `<div class="note"><b>7–8월 등수 안내는 9월 합류 학생에게는 없습니다.</b>
-    아래 '등수가 합격을 말해주나'의 결론은 그대로 적용됩니다 — 작년 데이터에서 등수와 합격은 무상관(ρ=0.000)이었습니다.
-    등수보다 위의 빨간 카드와 9월 기출 레이더의 빨간 단원을 보세요.</div>`;
-  ennprofile($('#i-ennp'), p.enneagram, D.ep);
-
-  if(!p.joined_sep){
-    radar($('#i-radar'), bio, [
-      {k:'반평균', c:C.green, w:1.8, f:.05},
-      {k:'작년합격생', c:C.teal, w:1.5, f:.04},
-      {k:'pct', c:C.blue, w:2.4, f:.15},
-    ], {lk:'unit', vk:'pct', size:380, pad:66, focus:p.bio_focus});
-    zlist($('#i-bio'), bioSorted, {lk:'unit'});
-  }
-  if(!NOORG){
-    radar($('#i-oradar'), org, [
-      {k:'반평균', c:C.green, w:1.8, f:.05},
-      {k:'pct', c:C.blue, w:2.4, f:.15},
-    ], {lk:'unit', vk:'pct', size:440, pad:96});
-    zlist($('#i-org'), orgSorted, {lk:'unit'});
-    table($('#i-oscope'), [
-      {h:'회차', f:r=>`${r.session}회`},
-      {h:'응시일', f:r=>`<span class="mut">${esc(r.date||'')}</span>`},
-      {h:'단원 · 교재 범위', f:r=>esc(r.scope||'')},
-      {h:'내 정답률', n:1, f:r=>r.pct==null?'<span class="mut">미응시</span>':`<b>${r.pct}%</b>`},
-      {h:'반평균', n:1, f:r=>r.반평균+'%'},
-    ], p.timeline.filter(t=>t.series==='유기'));
-  }
-  bandbar($('#i-band'), p.band, D.band);
-
-  if(bl) table($('#i-base'), [
-    {h:'과목', f:r=>r.과목},
-    {h:'등록 TEST', n:1, f:r=>r.만점==null?'<span class="mut">—</span>':`<b>${r.정답}/${r.만점}</b> <span class="mut">${r.pct}%</span>`},
-    {h:'7–8월 평균', n:1, f:r=>r.now==null?'—':(r.note?`<span class="mut">${r.now}%</span>`:`<b>${r.now}%</b>`)},
-    {h:'단순 변화', n:1, f:r=>(r.now==null||r.pct==null)?'—':`<span class="mut">${(r.now-r.pct)>0?'+':''}${(r.now-r.pct).toFixed(1)}p</span>`},
-    {h:'반 이동분', n:1, f:r=>r.sh==null?'—':`<span class="mut">${r.sh>0?'+':''}${r.sh}p</span>`},
-    {h:'반 대비', n:1, f:r=>(r.now==null||r.pct==null||r.sh==null)?'—':`<b class="${sgn(r.now-r.pct-r.sh)}">${(r.now-r.pct-r.sh)>0?'+':''}${(r.now-r.pct-r.sh).toFixed(1)}p</b>`},
-    {h:'작년 합격생 출발점', n:1, f:r=>r.ref==null?'—':r.ref+'%'},
-  ], [
-    {과목:'생물', 정답:bl.생물_정답, 만점:bl.생물_만점, pct:bl.생물_pct, now:p.now.생물, sh:D.shift.생물, ref:bl.작년합격생_생물평균pct},
-    {과목:'일반화학', 정답:bl.화학_정답, 만점:bl.화학_만점, pct:bl.화학_pct, now:p.now.화학, sh:D.shift.화학, ref:null},
-    {과목:'유기화학 <span class="mut" style="font-weight:400">앞 2단원</span>', 정답:bl.유기_정답, 만점:bl.유기_만점, pct:bl.유기_pct, now:p.now.유기, sh:D.shift.유기, ref:null, org:1},
-    {과목:'<span class="mut">└ 참고 · 유기 8단원 전체</span>', 정답:'—', 만점:null, pct:null, now:p.now.유기전체, sh:null, ref:null, note:true, org:1},
-  ].filter(r=>!(NOORG && r.org)));
-
-  /* 과목별 정답률 그래프 — 시험 형식이 달라 이어 그리지 않는다 */
-  $('#i-charts').innerHTML = SUBJ.map((g,i)=>{
-    const sub=p.timeline.filter(t=>g.keys.includes(t.series));
-    if(!sub.length) return '';
-    const done=sub.filter(t=>t.응시);
-    const my=done.length? (done.reduce((a,b)=>a+b.pct,0)/done.length) : null;
-    const cl=sub.reduce((a,b)=>a+b.반평균,0)/sub.length;
-    return `<div class="card"><h3>${esc(g.label)}
-      <span class="mut" style="font-weight:400;font-size:11.5px">— ${sub.length}회
-      ${my!=null?` · 내 평균 ${my.toFixed(1)}% vs 반평균 ${cl.toFixed(1)}%`:''}</span></h3>
-      <div id="ic${i}"></div></div>`;
-  }).join('');
-  SUBJ.forEach((g,i)=>{
-    const sub=p.timeline.filter(t=>g.keys.includes(t.series));
-    if(!sub.length) return;
-    lines($(`#ic${i}`), sub, [
-      {k:'pct', c:C.blue, w:2.6, area:true},
-      {k:'반평균', c:C.green, w:2.0, dot:false},
-    ], {h: sub.length<=2?200:260, xk:'label'});
-  });
-
-  const rk=p.timeline.filter(t=>t.응시 && t.series!=='전과목').map(t=>({...t, 등수:t.rank}));
-  const NMAX = Math.max(s.전체인원||0, ...rk.map(t=>t.n_stu||0));
-  lines($('#i-rank'), rk, [{k:'등수', c:C.blue2, w:2.6}],
-    {h:260, lo:0, hi:NMAX+1, rules:[{v:MID, label:`반 중간 ${MID}등 (7–8월 40명 기준)`, c:C.amber}],
-     xcol:r=>r.series==='생물 9월'?(r.univ==='중앙'?'#1E3168':'#8A6410'):null});
-  sepIndDraw(p, D);
-  partmapGrouped($('#i-part'), p.timeline, SUBJ);
-
-  table($('#i-miss'), [
-    {h:'TEST', k:'test'},
-    {h:'단원', f:r=>`<span class="mut">${esc(r.unit||'')}</span>`},
-    {h:'문항', n:1, f:r=>r.qno+'번'},
-    {h:'반 정답률', n:1, f:r=>`${r.반정답률}%`},
-    {h:'내 답 → 정답', f:r=>`<span class="mut">${esc(r.내답)}</span> → <b>${esc(r.정답)}</b>`},
-  ], p.easy_miss);
+  const pk = pickerHTML();
+  $('#ind-body').innerHTML = pk + `<div id="ind-rep"></div>`;
+  /* 총평 / 생물 / 화학 / 유기 / 생활관리 / 참고 — 샘플에서 확정한 구조 그대로 */
+  renderReport($('#ind-rep'), ME, D, curStu, {navTop: pk ? '64px' : null});
 }
 </script>
 </body>
