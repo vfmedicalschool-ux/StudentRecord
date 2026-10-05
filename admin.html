@@ -531,6 +531,13 @@ button.pri:disabled{opacity:.5;cursor:default}
       <div class="mut" style="font-size:11.5px;margin-top:8px">저장하면 <code>studentInfo.이름.email</code>과 <code>allowedEmails</code>가 함께 갱신됩니다.
         같은 이름의 기존 항목은 이메일만 바뀌고 나머지 정보는 유지됩니다.</div>
     </div>
+    <div class="card" style="padding:14px 16px;margin-top:10px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="font-size:12px;font-weight:800;color:var(--ink3)">현재 명단 · 이름을 잘못 넣었으면 여기서 삭제</div>
+        <button id="rl" style="font:inherit;font-size:11.5px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer">새로고침</button>
+      </div>
+      <div id="rlist" class="mut" style="font-size:12px">아직 불러오지 않았습니다 — 로그인하면 자동으로 나옵니다.</div>
+    </div>
   </div>
 </div></div></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -591,6 +598,7 @@ auth.onAuthStateChanged(async u=>{
   ROSTER = d.exists ? (d.data().studentInfo||{}) : {};
   const withMail = Object.entries(ROSTER).filter(([,v])=>v&&v.email).length;
   log(`명단 로드: ${Object.keys(ROSTER).length}명 (이메일 등록 ${withMail}명)`);
+  showRoster();
 });
 
 $('#file').onchange = e => {
@@ -611,7 +619,7 @@ $('#file').onchange = e => {
         <span style="font-size:11.5px">파일 선택 칸이 '선택된 파일 없음'으로 보이는 건 정상입니다.
         같은 파일을 다시 고를 수 있게 비워둔 것이고, 내용은 이미 읽어뒀습니다.</span>`;
       $('#go').disabled=false;
-      showMissing();
+      showMissing(); showRoster();
     }catch(err){ log('JSON 파싱 실패: '+err.message); }
   };
   r.readAsText(f);
@@ -636,6 +644,43 @@ async function saveEmail(name, email){
   log(`✔ 명단 저장 — ${name} ← ${email}${old&&old!==email?` (이전 ${old} 교체)`:''}`);
   return true;
 }
+async function removeName(name){
+  const ref = fsdb.collection('config').doc('roster');
+  const cur = await ref.get();
+  const info = cur.exists ? (cur.data().studentInfo||{}) : {};
+  const em = info[name] && info[name].email ? String(info[name].email).trim().toLowerCase() : '';
+  const upd = { studentInfo: { [name]: firebase.firestore.FieldValue.delete() } };
+  if(em) upd.allowedEmails = firebase.firestore.FieldValue.arrayRemove(em);
+  await ref.set(upd, { merge: true });
+  ROSTER = (await ref.get()).data().studentInfo || {};
+  log(`✔ 명단에서 삭제 — ${name}${em?` (${em} 허용 목록에서도 제거)`:''}`);
+}
+async function showRoster(){
+  const box = $('#rlist'); if(!box) return;
+  try{
+    const cur = await fsdb.collection('config').doc('roster').get();
+    ROSTER = cur.exists ? (cur.data().studentInfo||{}) : {};
+  }catch(e){ box.textContent = '명단을 읽지 못했습니다: '+e.message; return; }
+  const names = Object.keys(ROSTER).sort((a,b)=>a.localeCompare(b,'ko'));
+  if(!names.length){ box.textContent='명단이 비어 있습니다.'; return; }
+  const inRep = n => !REPORTS || (n in REPORTS);
+  box.innerHTML = `<div class="mut" style="margin-bottom:6px">${names.length}명 · 리포트에 없는 이름은 <span style="color:var(--red);font-weight:800">빨간색</span>으로 표시됩니다 (파일을 고른 뒤 기준).</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 14px">${names.map(n=>`
+      <div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--line2)">
+        <b style="width:64px;color:${inRep(n)?'var(--ink)':'var(--red)'}">${esc(n)}</b>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc((ROSTER[n]&&ROSTER[n].email)||'(이메일 없음)')}</span>
+        <button data-d="${esc(n)}" style="font:inherit;font-size:11px;padding:3px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--red);cursor:pointer">삭제</button>
+      </div>`).join('')}</div>`;
+  box.querySelectorAll('button[data-d]').forEach(b=>b.onclick=async()=>{
+    const n=b.dataset.d;
+    if(!confirm(`'${n}' 을(를) 명단에서 삭제할까요?
+이 이름으로 올라간 리포트가 있어도 그 학생은 더 이상 로그인할 수 없습니다.`)) return;
+    b.disabled=true;
+    try{ await removeName(n); }catch(e){ log('✖ 삭제 실패: '+e.message); }
+    showRoster(); showMissing();
+  });
+}
+$('#rl').onclick = showRoster;
 function showMissing(){
   if(!REPORTS || !ROSTER) return;
   const miss = Object.keys(REPORTS).filter(n => !(ROSTER[n] && ROSTER[n].email));
