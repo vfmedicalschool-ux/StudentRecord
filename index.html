@@ -658,7 +658,7 @@ details.ref .in{padding:0 0 16px}
     <h2>이 리포트를 어떻게 봐야 하나요</h2>
     <p class="lead">점수를 확인하는 게 목적이 아니라, <b>10월에 무엇부터 할지</b>를 정하는 게 목적입니다.
       이번 호부터 '내 리포트'가 <b>총평 · 생물 · 화학 · 유기 · 생활관리 · 참고</b> 여섯 칸으로 나뉩니다.
-      9월 중앙·경희 기출 12회, 유기 4회, 일반화학·전과목 모의고사가 들어갔고, 9월 합류 7명이 추가돼 46명입니다.</p>
+      9월 중앙·경희 기출 12회, 유기 4회, 일반화학·전과목 모의고사가 들어갔고, 9월 합류 8명이 추가돼 47명입니다.</p>
     <div class="steps">
       <div class="step"><span class="sn"></span><div>
         <h4><b>총평</b>만 읽어도 됩니다 — 10월에 할 세 가지</h4>
@@ -710,7 +710,7 @@ details.ref .in{padding:0 0 16px}
     <div class="tagline">SEPTEMBER</div>
     <h2>9월 — 중앙·경희 기출 모의고사 12회</h2>
     <p class="lead">월·수·금 중앙대와 경희대 기출을 번갈아 풀었습니다. 중앙대 회차는 작년 풀케어반도 같은 문제를 풀어
-      <b>작년 합격생·불합격생과 같은 문항으로 비교</b>됩니다. 9월부터 7명이 합류해 <b>46명</b>입니다.</p>
+      <b>작년 합격생·불합격생과 같은 문항으로 비교</b>됩니다. 9월부터 8명이 합류해 <b>47명</b>입니다.</p>
     <div id="c9-concl"></div>
 
     <h3 style="margin-top:18px">회차별 반평균 — 올해 vs 작년 합격생·불합격생</h3>
@@ -786,7 +786,7 @@ details.ref .in{padding:0 0 16px}
 </div>
 <footer>
   원본 · 7–8월 결과통계 66개 + 9월 생물 기출 12회(작년 중앙 6회 포함)·유기 4회·일반화학 1회·전과목 1회 · 등록 TEST 43명<br>
-  9월 합류 7명 포함 46명 · 9월 등수는 46명 기준, 7–8월 등수는 8월 30일 발행본(40명) 그대로<br>
+  9월 합류 8명 포함 47명 · 9월 등수는 응시자 기준, 7–8월 등수는 8월 30일 발행본(40명) 그대로<br>
   등록 TEST 범위 — 생물·일반화학 전범위 / 유기 앞 2단원(구조와 결합, 산과 염기)
 </footer>
 </div>
@@ -1514,6 +1514,10 @@ const orgWeak=[...p.org.filter(x=>x.z!=null)].sort((a,b)=>a.z-b.z);
 const fz=v=>v==null?'—':(v>0?'+':'')+v.toFixed(2);
 const zword=z=>z==null?'자료 없음':z>=0.5?'반 상위권':z>=0?'반 평균 위':z>=-0.5?'반 평균 아래':'반 하위권';
 const bh=p.beh||{};
+const NS=!!p.no_score;   // 시험 응시 기록이 아직 하나도 없는 학생 — 과목 섹션은 안내문만
+const nsCard=(subj)=>`<div class="blk"><div class="main"><div class="card tight"><div class="note" style="margin:0"><b>아직 ${subj} 시험 응시 기록이 없습니다.</b>
+  10월 첫 TEST부터 응시하면 이 자리에 단원별 강약 레이더·회차별 정답률·놓친 문항이 채워집니다. 지금은 홍쌤 피드백에서 정한 진도(통합이론·캠벨 복습)를 우선하세요.</div></div></div>
+  <div class="aside">${ctaCard(byTag(['참여']).filter(a=>a.pri==='high'),{ok:'응시 기록이 생기면 여기에 할 일이 뜹니다.',okSub:''})}</div></div>`;
 
 const chemCTA=byTag(['일반화학']);
 const balance=byTag(['균형']);
@@ -1541,7 +1545,7 @@ const html = `
 
 <section class="sec sum" id="sum">
   <div class="hero"><div class="hk">총평 · ${esc(NAMEX)} 학생 · 7–9월</div>
-    <h1>10월 한 달, 할 일은 아래 세 가지입니다</h1>
+    <h1>${NS?'10월에는 먼저 시험에 들어오세요':'10월 한 달, 할 일은 아래 세 가지입니다'}</h1>
     <p>${verdictSum}</p>
     <div id="sum-trend"></div>
     <div class="kp">
@@ -1559,7 +1563,7 @@ const html = `
   ${sechead('bio','생물','BIOLOGY · 9월 기출 12회 + 7–8월 OX 24회','생물',
     sepWeak.length? `9월 기출 상대위치 <b>${fz(s.생물9월z)}</b> (${zword(s.생물9월z)}). 가장 약한 단원은 <b>${esc(sepWeak[0].unit)}</b> ${sepWeak[0].pct}% (반평균 ${sepWeak[0].반평균.toFixed(1)}%).
       ${dz!=null&&dz<=-0.6?'OX에서는 됐는데 기출에서 밀렸습니다 — 개념이 아니라 <b>실전 형식</b>의 문제입니다.':''}`:'9월 기출 자료가 없습니다.')}
-  <div class="blk"><div class="main">
+  ${NS?nsCard('생물'):''}<div ${NS?'hidden':''}>  <div class="blk"><div class="main">
     <div class="card tight"><h3>기출 12회 정답률 <span class="mut">— 중앙(남색)·경희(갈색) · 작년 합격/불합격은 중앙 회차에만 점</span></h3><div id="s-line"></div>
       <div class="legend"><span><i style="background:#2B4795"></i>나</span><span><i style="background:#0E7A5F"></i>반평균</span>
         <span><i class="dot" style="background:#1D9E75"></i>작년 합격생</span><span><i class="dot" style="background:#C0442E"></i>작년 불합격생</span></div></div>
@@ -1580,6 +1584,7 @@ const html = `
            `${p.joined_sep?'9월 합류라 7–8월 비교는 다음 달부터 생깁니다.':'7–8월 레이더(아래)와 9월 레이더(위)의 모양이 다른 축 = 기출 형식 훈련이 필요한 단원입니다.'}`])}
     ${ctaCard(byTag(BIO_T),{ok:'생물은 지금 방식을 유지하세요.'})}
   </div></div>
+</div>
 </section>
 
 <section class="sec che" id="che">
@@ -1594,6 +1599,7 @@ const html = `
        ${all.화학&&all.화학.응시?`전과목 모의고사 화학은 <b>${Math.round(all.화학.pct)}%</b> (${all.화학.rank}/${all.화학.n_stu}위).`:''}`;
     return sechead('che','화학','CHEMISTRY · 타임어택 3회 + 전과목 30문항 → 11단원','일반화학', v);
   })()}
+  ${NS?nsCard('일반화학'):''}<div ${NS?'hidden':''}>
   <div class="blk"><div class="main">
     <div class="card tight"><h3>11단원 강약 <span class="mut">— 빨간 점 = 먼저 잡을 단원 · 단원당 7~21문항이라 ±1문항에 흔들립니다</span></h3>
       <div class="split"><div><div id="c-radar"></div>
@@ -1608,12 +1614,14 @@ const html = `
            `전과목 모의고사 화학이 반 하위권이면 단원 문제가 아니라 <b>70분 안에 생물 35문항을 지나 화학에 닿았을 때의 시간·체력</b> 문제일 수 있습니다.`])}
     ${ctaCard([...chemCTA.filter(a=>a.pri!=='good'), ...balance],{ok: chemCTA.find(a=>a.pri==='good')?chemCTA.find(a=>a.pri==='good').head:'화학은 지금 방식을 유지하세요.', okSub: chemCTA.find(a=>a.pri==='good')?chemCTA.find(a=>a.pri==='good').body:''})}
   </div></div>
+</div>
 </section>
 
 <section class="sec org" id="org">
   ${sechead('org','유기', p.org_scope?`ORGANIC · 1~${p.org_scope}단원 한정`:'ORGANIC · 단원별 12회 + 전과목 5문항','유기화학',
     p.no_org? `${esc(p.no_org)}` : p.org_scope? `<b>${esc(p.org_scope_note||'')}</b>. ${orgWeak.length?`범위 안에서 가장 약한 곳은 <b>${esc(orgWeak[0].unit)}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)입니다.`:'아직 응시한 유기 TEST가 없어 단원별 수치는 없습니다. 아래 카드는 홍쌤 피드백 기준입니다.'}` : orgWeak.length? `12단원 중 가장 약한 곳은 <b>${esc(orgWeak[0].unit.split(',')[0])}</b> ${orgWeak[0].pct}% (반평균 ${orgWeak[0].반평균.toFixed(1)}%)${org9.length?` · 9월 4단원 평균 z <b>${fz(org9.reduce((a,b)=>a+b.z,0)/org9.length)}</b>`:''}.
       ${s.유기공백율!=null&&s.유기공백율>=0.4?`셀프피드백에서 <b>유기 공백 주차가 ${Math.round(s.유기공백율*100)}%</b> — 작년 합격·불합격을 가장 잘 가른 지표입니다.`:''}`:'유기 자료가 없습니다.')}
+  ${NS&&!p.no_org?nsCard('유기'):''}<div ${NS?'hidden':''}>
   ${p.no_org?'':`<div class="blk"><div class="main">
     <div class="card tight"><h3>${p.org_scope?`1~${p.org_scope}단원 강약`:'12단원 강약'} <span class="mut">— ${p.org_scope?'홍쌤과 정한 범위만':'7–9월'}, 빨간 점 = 먼저 잡을 단원</span></h3>
       <div class="split"><div><div id="i-oradar"></div></div><div><div id="i-org"></div></div></div></div>
@@ -1628,6 +1636,7 @@ const html = `
            `작년 합격생은 예외 없이 유기를 <b>하루 중 고정 시간대</b>에 했습니다. 분량보다 시간대를 먼저 정하세요.`])}
     ${ctaCard(byTag(ORG_T),{ok:'유기는 지금 루틴을 유지하세요.'})}
   </div></div>`}
+</div>
 </section>
 
 <section class="sec life" id="life">
